@@ -407,6 +407,170 @@ sequenceDiagram
 
 ---
 
+## 13A. C Runtime Startup: How `main()` Is Actually Invoked
+
+For C programs on UNIX-like systems, `main()` is not the entry point recorded in the executable as the first instruction to execute.
+
+The rough path is:
+
+```text
+shell / parent process
+  -> fork()
+  -> child process
+  -> execve(path, argv, envp)
+  -> kernel validates ELF
+  -> kernel maps program segments
+  -> kernel maps dynamic loader if needed
+  -> kernel builds initial user stack
+  -> CPU enters user mode at ELF interpreter or program entry
+  -> dynamic loader runs
+  -> C runtime startup runs
+  -> main(argc, argv, envp)
+  -> return from main
+  -> exit()
+  -> kernel tears down process
+```
+
+For a dynamically linked C program, a useful mental model is:
+
+```mermaid
+sequenceDiagram
+  participant K as Kernel
+  participant DL as Dynamic loader
+  participant CRT as C runtime startup
+  participant APP as main()
+  participant LIBC as libc exit path
+  K->>DL: enter user mode at loader entry
+  DL->>DL: relocate program and libraries
+  DL->>DL: initialize TLS and loader state
+  DL->>CRT: jump to program startup code
+  CRT->>CRT: prepare argc, argv, envp
+  CRT->>CRT: run pre-main initialization
+  CRT->>APP: call main(argc, argv, envp)
+  APP->>CRT: return int status
+  CRT->>LIBC: call exit(status)
+  LIBC->>K: exit_group/_exit syscall
+```
+
+Common names you may see:
+
+- `_start`: low-level entry symbol linked into the program by C runtime startup files.
+- `crt1.o`, `crti.o`, `crtn.o`: startup/termination object files commonly involved in C runtime setup.
+- `__libc_start_main`: glibc-style helper that arranges initialization and calls `main`.
+- `.init_array`: functions to run before `main`, such as C++ constructors or constructor-attributed functions.
+- `.fini_array`: functions to run during normal process termination.
+
+Important distinction:
+
+```text
+ELF entry point != main()
+```
+
+The ELF entry point usually targets startup code, not your application function.
+
+What startup code prepares before `main()`:
+
+- `argc`
+- `argv`
+- environment pointer
+- stack alignment
+- thread-local storage setup
+- libc internal state
+- constructors and pre-main hooks
+- dynamic loader state for shared libraries
+
+What happens after `main()` returns:
+
+```c
+int main(int argc, char **argv) {
+    return 42;
+}
+```
+
+Returning from `main` is effectively turned into process termination:
+
+```text
+status = main(argc, argv, envp)
+exit(status)
+```
+
+Then the runtime/kernel path:
+
+- flushes standard I/O where appropriate
+- runs registered `atexit` handlers
+- runs destructors/finalizers for normal termination paths
+- closes process resources as the kernel destroys the process
+- wakes parent waiting in `wait()` / `waitpid()`
+
+Concurrency relevance:
+
+- Loader and runtime initialization happen before user threads are created by the program.
+- Dynamic loader uses locks internally once multiple threads exist.
+- `fork()` from a multithreaded process is delicate because only the calling thread survives in the child before `exec`.
+- Constructors that start threads or take locks can create surprising startup ordering bugs.
+- `exit()` in a multithreaded process terminates the process, not just the calling thread.
+
+> **Speaker side-note:** If someone says "the OS calls main", refine it: the kernel enters the ELF-defined entry path; the loader and C runtime arrange the call to `main`.
+
+---
+
+## 13B. Static Vs Dynamic Linking: What Changes Before `main()`
+
+The `main()` story differs slightly depending on whether the program is dynamically or statically linked.
+
+Dynamically linked program:
+
+- ELF includes `PT_INTERP`.
+- Kernel maps the dynamic loader.
+- Kernel enters the dynamic loader first.
+- Dynamic loader maps shared libraries.
+- Dynamic loader performs relocations.
+- Dynamic loader transfers to program startup code.
+- C runtime startup calls `main`.
+
+Statically linked program:
+
+- No separate dynamic loader is needed for normal startup.
+- Kernel maps the program's loadable segments.
+- Kernel jumps to the program's ELF entry point.
+- Startup code linked into the binary runs.
+- C runtime startup calls `main`.
+
+Simplified comparison:
+
+```text
+Dynamic:
+  kernel -> dynamic loader -> runtime startup -> main
+
+Static:
+  kernel -> runtime startup -> main
+```
+
+Why dynamic linking exists:
+
+- shared libraries reduce disk/memory duplication
+- security updates can patch shared libraries
+- plugins and late binding become possible
+- many processes can share read-only library code pages
+
+Why static linking is still useful:
+
+- simpler deployment in some environments
+- fewer runtime library dependencies
+- useful in constrained or recovery environments
+- sometimes preferred for containers or minimal systems, depending on tradeoff
+
+Concurrency relevance:
+
+- Shared library code pages may be mapped into many processes.
+- Dynamic loader work adds startup complexity.
+- Lazy symbol binding can cause first-call latency and loader locking.
+- Static binaries avoid some loader work but lose some sharing/flexibility.
+
+> **Speaker side-note:** This ties loader mechanics back to concurrency: process startup, memory sharing, first-call latency, and loader locks all affect real systems.
+
+---
+
 ## 14. Summary So Far
 
 > **Flow:** From **Binary Loading In Run Time At Deeper Details**, move into **Summary So Far**. This page should answer the natural follow-up and prepare the room for **What Was QComm REX Operating System, Say On ARM7**.
@@ -421,6 +585,8 @@ We have built the base mental model:
 - Executable code is mapped into memory and executed by CPU fetch/decode/execute.
 - ELF is a structured file format with runtime segment metadata.
 - Loading a binary means mapping segments, building the initial stack, and transferring control to runtime startup or the dynamic loader.
+- In a C program, `main()` is called by runtime startup code, not directly by the kernel.
+- The loader/runtime path matters because initialization, constructors, TLS, shared libraries, and exit handling all shape process behavior before and after application code.
 
 Concurrency connection:
 

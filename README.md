@@ -30,11 +30,13 @@ By the end, you should be able to explain:
 - Concurrency vs parallelism.
 - Process vs thread vs coroutine vs goroutine.
 - Stack, heap, executable image, ELF, and binary loading.
+- How `main()` is invoked in a C program through ELF entry, dynamic loader, and C runtime startup.
 - Virtual memory, page faults, copy-on-write, `fork`, and `exec`.
 - File descriptors and why they matter during process launch.
 - Kernel space vs user space.
 - Scheduling, interrupts, priority, and context switches.
 - REX-style RTOS scheduling, preemption, and watchdog/kickdog mechanics.
+- Why REX-style real-time non-VM design and UNIX/Linux VM-backed design solve different problems.
 - Bach-style UNIX ideas that still matter: process state, fd/file/inode separation, syscall trap, sleep/wakeup, scheduler queues, and buffering.
 - How embedded systems instincts translate into web backend systems.
 - Race conditions, mutexes, semaphores, critical sections, atomics, and deadlocks.

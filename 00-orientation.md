@@ -48,6 +48,48 @@ The goal is not to memorize trivia. The goal is to build a mental model strong e
 
 ---
 
+## The Comparative Lens: REX, UNIX, And Linux
+
+This material uses REX-style real-time operating-system ideas and UNIX/Linux ideas side by side on purpose.
+
+REX is used here as a practical example of a real-time, task-oriented, generally non-VM or limited-protection embedded operating-system model. UNIX and Linux are used as examples of VM-backed, process-oriented systems with stronger isolation, richer file/process abstractions, and a different scheduling/resource-management contract.
+
+The comparison is not meant to say one model is inherently superior.
+
+It is meant to answer:
+
+- What problem was this design solving?
+- What did it optimize for?
+- What did it deliberately not optimize for?
+- What failure modes did it accept?
+- What complexity did it avoid?
+- What complexity did it push onto the programmer, runtime, or kernel?
+
+In a real-time embedded system, it can be reasonable to prefer:
+
+- bounded interrupt latency
+- direct hardware control
+- predictable task wakeup
+- small memory footprint
+- static ownership
+- reset-on-failure watchdog discipline
+
+In a UNIX/Linux system, it can be reasonable to prefer:
+
+- process isolation
+- virtual memory
+- file descriptor abstraction
+- fork/exec process creation
+- memory-mapped files
+- rich IPC
+- protection between independently authored programs
+
+This course draws from practical understanding across REX-style embedded work, UNIX fundamentals, and Linux/web systems. The goal is not to preserve nostalgia for any one environment. The goal is to understand why each environment made different tradeoffs, so the engineer can recognize those tradeoffs in modern backend systems.
+
+> **Speaker side-note:** Say this politely but clearly: "We are not comparing REX and UNIX as a contest. We are using them as two clean design poles: real-time shared-system discipline versus VM-backed multi-program isolation."
+
+---
+
 ## The Most Important Whys This Material Answers
 
 This material answers these whys:
