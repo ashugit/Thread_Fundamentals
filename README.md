@@ -1,0 +1,142 @@
+# Concurrency Deep Dive
+
+A self-study course for engineers who want to understand concurrency from the operating-system level up to language runtimes and backend architecture.
+
+This is not a short tutorial on `async`, threads, or locks. It is a layered mental model:
+
+```text
+CPU and interrupts
+  -> operating-system scheduler
+  -> processes and virtual memory
+  -> threads and synchronization
+  -> language runtimes
+  -> backend architecture and production debugging
+```
+
+If you have ever wondered why a service hangs with low CPU, why a mutex fixes corruption but hurts latency, why Python threads behave differently from Java threads, why Node.js stalls under CPU work, or why an RTOS watchdog resets a target, this material is for you.
+
+## Start Here
+
+1. Read [What This Material Is About](00-orientation.md).
+2. Follow the [Modular Reading Index](index.md).
+3. Use [Self Study Guide](SELF_STUDY_GUIDE.md) to pace the material.
+4. Use [Exercises And Checkpoints](EXERCISES_AND_CHECKPOINTS.md) to test understanding.
+5. Use [Deep Expansion Pack](14-deep-expansion-pack.md) when a topic needs more depth.
+
+## What You Will Learn
+
+By the end, you should be able to explain:
+
+- Concurrency vs parallelism.
+- Process vs thread vs coroutine vs goroutine.
+- Stack, heap, executable image, ELF, and binary loading.
+- Virtual memory, page faults, copy-on-write, `fork`, and `exec`.
+- File descriptors and why they matter during process launch.
+- Kernel space vs user space.
+- Scheduling, interrupts, priority, and context switches.
+- REX-style RTOS scheduling, preemption, and watchdog/kickdog mechanics.
+- Bach-style UNIX ideas that still matter: process state, fd/file/inode separation, syscall trap, sleep/wakeup, scheduler queues, and buffering.
+- How embedded systems instincts translate into web backend systems.
+- Race conditions, mutexes, semaphores, critical sections, atomics, and deadlocks.
+- C, C++, Java, Python, Ruby, JavaScript, and Go runtime concurrency models.
+- Coroutines and event loops.
+- Backend concurrency architecture tradeoffs.
+- Production debugging signals: queue age, lock wait, event-loop lag, thread-pool saturation, GC pauses, and more.
+
+## Course Structure
+
+| Module | Topic | Purpose |
+|---|---|---|
+| 00 | [Orientation](00-orientation.md) | Why this course exists and what it does not cover |
+| 01 | [Concurrency Intuition](01-concurrency-intuition.md) | Build the vocabulary |
+| 02 | [Process, Memory, And Executable Image](02-process-memory-and-executable-image.md) | Understand process anatomy and loading |
+| 03 | [REX, UNIX, And Virtual Memory](03-rex-unix-and-virtual-memory.md) | Compare RTOS and UNIX memory models |
+| 04 | [Fork, Exec, COW, And FDs](04-fork-exec-copy-on-write-and-fds.md) | Understand UNIX process launch deeply |
+| 05 | [Kernel Space And User Space](05-kernel-space-user-space.md) | Understand protection boundaries |
+| 06 | [Scheduling, Priority, And Interrupts](06-scheduling-priority-and-interrupts.md) | Understand who runs and why |
+| 07 | [Threads And Process Comparison](07-threads-and-process-comparison.md) | Understand threads as execution inside a process |
+| 08 | [Races, Locks, Semaphores, And Atomics](08-races-locks-semaphores-and-atomics.md) | Understand shared-state correctness |
+| 09 | [Language Runtimes](09-language-runtimes-c-cpp-java-python-ruby-js.md) | Compare runtime choices |
+| 10 | [Coroutines And Go](10-coroutines-and-golang.md) | Understand lightweight runtime scheduling |
+| 11 | [Backend Architecture](11-backend-concurrency-architecture.md) | Map concurrency models to backend systems |
+| 12 | [Production Glue](12-production-glue-and-closing.md) | Memory models, backpressure, debugging, final model |
+| 13 | [Appendices](13-appendices.md) | Snippets, tables, and pacing |
+| 14 | [Deep Expansion Pack](14-deep-expansion-pack.md) | Extra depth for hard follow-up questions |
+
+The course also includes:
+
+- [Self Study Guide](SELF_STUDY_GUIDE.md)
+- [Exercises And Checkpoints](EXERCISES_AND_CHECKPOINTS.md)
+
+## Recommended Study Modes
+
+### Fast Pass
+
+Use this if you want a conceptual overview.
+
+- Read modules 00-12.
+- Skip most speaker notes.
+- Do the checkpoint questions in [Exercises And Checkpoints](EXERCISES_AND_CHECKPOINTS.md).
+- Estimated time: 4-6 hours.
+
+### Deep Pass
+
+Use this if you want to teach or mentor from the material.
+
+- Read modules 00-14.
+- Pause at every diagram and redraw it from memory.
+- Run through all exercises.
+- Add your own production stories after each section.
+- Estimated time: multiple sessions over 1-2 weeks.
+
+### Team Reading Group
+
+Use this for a weekly engineering learning series.
+
+- One or two modules per session.
+- One person explains the module.
+- Another person challenges the failure modes.
+- End each session with one real production example from your own systems.
+
+## Rendering Diagrams
+
+Diagrams are written in Mermaid.
+
+Good ways to view them:
+
+- GitHub markdown rendering.
+- VS Code with Mermaid preview support.
+- Cursor with Mermaid preview support.
+
+If your editor shows Mermaid as code, install a Markdown Mermaid extension or open the files on GitHub.
+
+## What This Is Not
+
+This is not a complete OS textbook, Linux kernel source tour, real-time certification guide, C++ atomics specification, JVM tuning manual, or distributed consensus course.
+
+It is a practical systems-thinking course about concurrency: mechanisms, tradeoffs, failure modes, and architecture judgment.
+
+## Suggested Repository Layout
+
+If publishing to GitHub, this folder can be the repository root:
+
+```text
+README.md
+index.md
+SELF_STUDY_GUIDE.md
+EXERCISES_AND_CHECKPOINTS.md
+00-orientation.md
+01-concurrency-intuition.md
+...
+14-deep-expansion-pack.md
+```
+
+## License Placeholder
+
+Before publishing, choose a license that matches your intent.
+
+Common choices:
+
+- MIT: permissive reuse.
+- CC BY 4.0: good for educational written material with attribution.
+- CC BY-NC 4.0: attribution required, non-commercial use only.
