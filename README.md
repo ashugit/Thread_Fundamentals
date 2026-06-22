@@ -131,12 +131,8 @@ This is not a complete OS textbook, Linux kernel source tour, real-time certific
 
 It is a practical systems-thinking course about concurrency: mechanisms, tradeoffs, failure modes, and architecture judgment.
 
-## License Placeholder
+## License
 
-Before publishing, choose a license that matches your intent.
+This material is open for anyone to use, copy, share, adapt, teach from, or build on in any way. Attribution is appreciated but not required.
 
-Common choices:
-
-- MIT: permissive reuse.
-- CC BY 4.0: good for educational written material with attribution.
-- CC BY-NC 4.0: attribution required, non-commercial use only.
+Use it freely.
