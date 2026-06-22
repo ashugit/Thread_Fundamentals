@@ -2,13 +2,13 @@
 
 Previous: [Appendices](13-appendices.md) | [Index](index.md) | Next: none
 
-**Section purpose:** Fill in topics that were easy to skim in the main deck: deeper OS internals, synchronization internals, runtime behavior, async I/O, observability, and architecture review heuristics.
+**Focus:** Fill in topics that were easy to skim in the main deck: deeper OS internals, synchronization internals, runtime behavior, async I/O, observability, and architecture review heuristics.
 
-## Section Bridge
+## Bridge
 
-**Arriving from:** [Appendices](13-appendices.md). The main deck has already given the learning path.
+**Coming from:** [Appendices](13-appendices.md). The main deck has already given the learning path.
 
-**This section answers:** what a senior engineer usually adds when readers or the team start asking "but how exactly does that work?"
+**Read this for:** what a senior engineer usually adds when readers or the team start asking "but how exactly does that work?"
 
 **How to use it:** do not teach this file end-to-end unless you have a very long session. Pull individual modules into the main sequence when readers need more depth.
 

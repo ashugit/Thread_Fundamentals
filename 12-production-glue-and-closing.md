@@ -2,17 +2,15 @@
 
 Previous: [Backend Concurrency Architecture](11-backend-concurrency-architecture.md) | [Index](index.md) | Next: [Appendices](13-appendices.md)
 
-**Section purpose:** Add memory model, false sharing, backpressure, structured concurrency, debugging, and final advice.
+**Focus:** Add memory model, false sharing, backpressure, structured concurrency, debugging, and final advice.
 
-## Section Bridge
+## Bridge
 
-**Arriving from:** [Backend Concurrency Architecture](11-backend-concurrency-architecture.md). The previous section covered: Discuss when Node, Python, Java, and C++ fit backend systems based on concurrency model.
+**Coming from:** [Backend Concurrency Architecture](11-backend-concurrency-architecture.md).
 
-**This section answers:** Add memory model, false sharing, backpressure, structured concurrency, debugging, and final advice.
+**Read this for:** Add memory model, false sharing, backpressure, structured concurrency, debugging, and final advice.
 
-**Watch for the next question:** once this section lands, the next natural question is why we need **Appendices** next.
-
-> **Reading note:** Read this as one continuous block. The slide-level `Flow` notes explain local transitions; the section-level transition at the end connects this topic to the next one.
+**Then:** move into **Appendices**.
 
 ---
 

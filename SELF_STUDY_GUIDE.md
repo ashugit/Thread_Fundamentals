@@ -150,6 +150,7 @@ Read:
 
 - [09 Language Runtimes](09-language-runtimes-c-cpp-java-python-ruby-js.md)
 - [10 Coroutines And Golang](10-coroutines-and-golang.md)
+- [10A Embedded-To-Cloud Concurrency Dictionary](10A-embedded-to-cloud-dictionary.md)
 - [11 Backend Concurrency Architecture](11-backend-concurrency-architecture.md)
 - [12 Production Glue And Closing Mental Model](12-production-glue-and-closing.md)
 

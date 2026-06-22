@@ -2,17 +2,15 @@
 
 Previous: [Production Glue And Closing Mental Model](12-production-glue-and-closing.md) | [Index](index.md) | Next: none
 
-**Section purpose:** Keep optional snippets, decision tables, and delivery rhythm separate from the main flow.
+**Focus:** Keep optional snippets, decision tables, and delivery rhythm separate from the main flow.
 
-## Section Bridge
+## Bridge
 
-**Arriving from:** [Production Glue And Closing Mental Model](12-production-glue-and-closing.md). The previous section covered: Add memory model, false sharing, backpressure, structured concurrency, debugging, and final advice.
+**Coming from:** [Production Glue And Closing Mental Model](12-production-glue-and-closing.md).
 
-**This section answers:** Keep optional snippets, decision tables, and delivery rhythm separate from the main flow.
+**Read this for:** Keep optional snippets, decision tables, and delivery rhythm separate from the main flow.
 
-**Watch for the next question:** after this section, you should be ready for exercises and discussion.
-
-> **Reading note:** Read this as one continuous block. The slide-level `Flow` notes explain local transitions; the section-level transition at the end connects this topic to the next one.
+**Then:** use these notes for exercises, discussion, or a second pass.
 
 ---
 

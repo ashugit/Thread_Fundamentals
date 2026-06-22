@@ -2,17 +2,15 @@
 
 Previous: [What This Material Is About](00-orientation.md) | [Index](index.md) | Next: [Process, Memory, And Executable Image](02-process-memory-and-executable-image.md)
 
-**Section purpose:** Build the vocabulary before introducing OS objects.
+**Focus:** Build the vocabulary before introducing OS objects.
 
-## Section Bridge
+## Bridge
 
-**Arriving from:** [What This Material Is About](00-orientation.md). The previous section explained why this material exists, what questions it answers, and what it deliberately does not cover.
+**Coming from:** [What This Material Is About](00-orientation.md). The previous section explained why this material exists, what questions it answers, and what it deliberately does not cover.
 
-**This section answers:** Build the vocabulary before introducing OS objects.
+**Read this for:** Build the vocabulary before introducing OS objects.
 
-**Watch for the next question:** once this section lands, the next natural question is why we need **Process, Memory, And Executable Image** next.
-
-> **Reading note:** Read this as one continuous block. The slide-level `Flow` notes explain local transitions; the section-level transition at the end connects this topic to the next one.
+**Then:** move into **Process, Memory, And Executable Image**.
 
 ---
 

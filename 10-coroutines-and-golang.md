@@ -1,18 +1,16 @@
 # Coroutines And Golang
 
-Previous: [Language Runtimes: C, C++, Java, Python, Ruby, JavaScript](09-language-runtimes-c-cpp-java-python-ruby-js.md) | [Index](index.md) | Next: [Backend Concurrency Architecture](11-backend-concurrency-architecture.md)
+Previous: [Language Runtimes: C, C++, Java, Python, Ruby, JavaScript](09-language-runtimes-c-cpp-java-python-ruby-js.md) | [Index](index.md) | Next: [Embedded-To-Cloud Concurrency Dictionary](10A-embedded-to-cloud-dictionary.md)
 
-**Section purpose:** Explain coroutine context switches, coroutine tradeoffs, Go's goroutine model, and language summary.
+**Focus:** Explain coroutine context switches, coroutine tradeoffs, Go's goroutine model, and language summary.
 
-## Section Bridge
+## Bridge
 
-**Arriving from:** [Language Runtimes: C, C++, Java, Python, Ruby, JavaScript](09-language-runtimes-c-cpp-java-python-ruby-js.md). The previous section covered: Compare runtime models, threading models, GC, GIL/GVL, and event-loop choices.
+**Coming from:** [Language Runtimes: C, C++, Java, Python, Ruby, JavaScript](09-language-runtimes-c-cpp-java-python-ruby-js.md).
 
-**This section answers:** Explain coroutine context switches, coroutine tradeoffs, Go's goroutine model, and language summary.
+**Read this for:** Explain coroutine context switches, coroutine tradeoffs, Go's goroutine model, and language summary.
 
-**Watch for the next question:** once this section lands, the next natural question is why we need **Backend Concurrency Architecture** next.
-
-> **Reading note:** Read this as one continuous block. The slide-level `Flow` notes explain local transitions; the section-level transition at the end connects this topic to the next one.
+**Then:** move into **Embedded-To-Cloud Concurrency Dictionary**.
 
 ---
 
@@ -699,10 +697,10 @@ Use these when checking coroutine terminology, async/await behavior, goroutine l
 
 **Core takeaway to close with:** Explain coroutine context switches, coroutine tradeoffs, Go's goroutine model, and language summary.
 
-**Transition to next section:** With OS processes, threads, coroutines, and goroutines compared, move from mechanisms into backend architecture choices.
+**Transition to next section:** With OS processes, threads, coroutines, and goroutines compared, pause before backend architecture and translate the embedded/RTOS vocabulary into cloud and web vocabulary.
 
-**Continue reading:** Continue with [Backend Concurrency Architecture](11-backend-concurrency-architecture.md) to follow the next layer of the model.
+**Continue reading:** Continue with [Embedded-To-Cloud Concurrency Dictionary](10A-embedded-to-cloud-dictionary.md) to follow the next layer of the model.
 
 **Pause check before moving on:** pause and summarize the section in one sentence and name the resource or boundary that became clearer.
 
-Previous: [Language Runtimes: C, C++, Java, Python, Ruby, JavaScript](09-language-runtimes-c-cpp-java-python-ruby-js.md) | [Index](index.md) | Next: [Backend Concurrency Architecture](11-backend-concurrency-architecture.md)
+Previous: [Language Runtimes: C, C++, Java, Python, Ruby, JavaScript](09-language-runtimes-c-cpp-java-python-ruby-js.md) | [Index](index.md) | Next: [Embedded-To-Cloud Concurrency Dictionary](10A-embedded-to-cloud-dictionary.md)

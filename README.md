@@ -8,8 +8,6 @@ This is practitioner-written material, not an official specification. The point 
 
 That background is the reason for the shape of the course. It starts with the simpler discipline of shared-image embedded tasking, then uses UNIX/Linux to explain why richer systems add processes, virtual memory, file descriptors, user/kernel boundaries, runtime schedulers, and backend process architecture.
 
-The material has also been substantially shaped and co-authored with AI assistance. The author provided the topic sequence, teaching flow, required depth, and practical lens. The goal is to transfer the author's concurrency mental model with as little unnecessary reading as possible, without flattening the details engineers need.
-
 There may be gaps, oversimplifications, or implementation-specific details that need correction. If you find one, please file an issue. If you want to co-edit or contribute larger changes, reach out to the author first so the flow and intent stay coherent.
 
 This is not a short tutorial on `async`, threads, or locks. It is a layered mental model:
@@ -54,6 +52,7 @@ By the end, you should be able to explain:
 - Race conditions, mutexes, semaphores, critical sections, atomics, and deadlocks.
 - C, C++, Java, Python, Ruby, JavaScript, and Go runtime concurrency models.
 - Coroutines and event loops.
+- How embedded/RTOS instincts translate into cloud/backend concepts such as probes, deadlines, event loops, shared caches, and restart policy.
 - Backend concurrency architecture tradeoffs.
 - Production debugging signals: queue age, lock wait, event-loop lag, thread-pool saturation, GC pauses, and more.
 
@@ -72,6 +71,7 @@ By the end, you should be able to explain:
 | 08 | [Races, Locks, Semaphores, And Atomics](08-races-locks-semaphores-and-atomics.md) | Understand shared-state correctness |
 | 09 | [Language Runtimes](09-language-runtimes-c-cpp-java-python-ruby-js.md) | Compare runtime choices |
 | 10 | [Coroutines And Go](10-coroutines-and-golang.md) | Understand lightweight runtime scheduling |
+| 10A | [Embedded-To-Cloud Dictionary](10A-embedded-to-cloud-dictionary.md) | Translate RTOS instincts into backend/cloud concurrency terms |
 | 11 | [Backend Architecture](11-backend-concurrency-architecture.md) | Map concurrency models to backend systems |
 | 12 | [Production Glue](12-production-glue-and-closing.md) | Memory models, backpressure, debugging, final model |
 | 13 | [Appendices](13-appendices.md) | Snippets, tables, and pacing |

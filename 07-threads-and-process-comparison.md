@@ -2,17 +2,15 @@
 
 Previous: [Scheduling, Priority, And Interrupts](06-scheduling-priority-and-interrupts.md) | [Index](index.md) | Next: [Races, Locks, Semaphores, And Atomics](08-races-locks-semaphores-and-atomics.md)
 
-**Section purpose:** Define threads, TCBs, process-vs-thread context, and why UNIX/RTOS models differ.
+**Focus:** Define threads, TCBs, process-vs-thread context, and why UNIX/RTOS models differ.
 
-## Section Bridge
+## Bridge
 
-**Arriving from:** [Scheduling, Priority, And Interrupts](06-scheduling-priority-and-interrupts.md). The previous section covered: Cover scheduling policy, priority, system-call scheduling points, interrupts, and context switches.
+**Coming from:** [Scheduling, Priority, And Interrupts](06-scheduling-priority-and-interrupts.md).
 
-**This section answers:** Define threads, TCBs, process-vs-thread context, and why UNIX/RTOS models differ.
+**Read this for:** Define threads, TCBs, process-vs-thread context, and why UNIX/RTOS models differ.
 
-**Watch for the next question:** once this section lands, the next natural question is why we need **Races, Locks, Semaphores, And Atomics** next.
-
-> **Reading note:** Read this as one continuous block. The slide-level `Flow` notes explain local transitions; the section-level transition at the end connects this topic to the next one.
+**Then:** move into **Races, Locks, Semaphores, And Atomics**.
 
 ---
 

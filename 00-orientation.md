@@ -2,7 +2,7 @@
 
 Previous: none | [Index](index.md) | Next: [Concurrency Intuition](01-concurrency-intuition.md)
 
-**Section purpose:** Explain why this material exists, what it will help engineers understand, and what it intentionally does not try to cover.
+**Focus:** Explain why this material exists, what it will help engineers understand, and what it intentionally does not try to cover.
 
 ## Point Of View And Authorship
 
@@ -16,8 +16,6 @@ The point of view comes from:
 - many subsequent years building and architecting full-stack web systems
 
 That background shapes the course. REX-style systems provide the simpler baseline: task scheduling, shared memory, interrupt pressure, and watchdog discipline. UNIX/Linux then shows why richer systems add process containers, virtual memory, user/kernel separation, file descriptors, `fork`, `exec`, signals, and broader resource management.
-
-The material has also been substantially shaped and co-authored with AI assistance. The author provided the topic sequence, teaching flow, required depth, and practical lens. The goal is to transfer the author's concurrency mental model with as little unnecessary reading as possible, without flattening the details engineers need.
 
 There may be gaps, oversimplifications, or implementation-specific details that need correction. If you find one, please file an issue. If you want to co-edit or contribute larger changes, reach out to the author first so the flow and intent stay coherent.
 
@@ -69,7 +67,7 @@ The goal is not to memorize trivia. The goal is to build a mental model strong e
 
 ## Where Many Engineers First Meet Concurrency
 
-Many engineers first meet concurrency through Java-like thread APIs:
+Many engineers first meet concurrency through Java-like thread APIs. The first example is usually simple enough:
 
 ```java
 Thread t = new Thread(() -> doWork());
@@ -77,24 +75,24 @@ t.start();
 t.join();
 ```
 
-Then they meet the next layer:
+Then the codebase grows, and somebody introduces a pool:
 
 ```java
 ExecutorService pool = Executors.newFixedThreadPool(16);
 pool.submit(() -> doWork());
 ```
 
-That is a reasonable starting point. A `Thread` feels concrete: create it, start it, let it run. An `ExecutorService` feels like an improvement: reuse threads, limit concurrency, submit tasks instead of manually owning every thread.
+That is a reasonable starting point. A `Thread` feels concrete: create it, start it, let it run. An `ExecutorService` feels like maturity: reuse threads, limit concurrency, submit work instead of manually owning every thread.
 
 But this is already the middle of the story.
 
-Below Java threads are OS threads, scheduler queues, CPU cores, stacks, locks, memory visibility, syscalls, interrupts, and blocking. Above Java threads are futures, callbacks, reactive streams, actors, coroutines, virtual threads, goroutines, queues, and service-level concurrency patterns.
+Below that Java API are OS threads, scheduler queues, CPU cores, stacks, locks, memory visibility, syscalls, interrupts, and blocking. Above it are futures, callbacks, reactive streams, actors, coroutines, virtual threads, goroutines, queues, and service-level concurrency patterns.
 
 This material keeps returning to that middle point:
 
 > A thread is often where engineers first touch concurrency, but not where concurrency begins or ends.
 
-The course goes downward first so the mechanics are honest. It then comes back upward into language runtimes and backend architecture so the abstractions make sense.
+So this course goes downward first. Not because OS detail is more noble, but because the abstractions become less mysterious once the mechanics are visible. After that, it climbs back into runtimes and backend architecture.
 
 ```mermaid
 flowchart TB
@@ -114,7 +112,7 @@ flowchart TB
 
 ## Concurrency Abstraction Ladder
 
-The biggest mistake in concurrency discussions is comparing tools from different layers as if they were peers.
+One common mistake in concurrency discussions is comparing tools from different layers as if they were peers.
 
 A process, a thread, an executor, a callback, a future, a coroutine, an actor, and a goroutine do not all solve the same problem at the same layer.
 
@@ -154,7 +152,7 @@ flowchart TB
   K --> CPU["CPU cores"]
 ```
 
-This is why later sections are careful about wording. The question is not only "which API is nicer?" The question is:
+This is why later sections are careful about wording. The question is not just "which API is nicer?" Ask:
 
 - Which layer owns scheduling?
 - Which layer owns waiting?

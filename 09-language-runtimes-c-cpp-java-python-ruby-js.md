@@ -2,17 +2,15 @@
 
 Previous: [Races, Locks, Semaphores, And Atomics](08-races-locks-semaphores-and-atomics.md) | [Index](index.md) | Next: [Coroutines And Golang](10-coroutines-and-golang.md)
 
-**Section purpose:** Compare runtime models, threading models, GC, GIL/GVL, and event-loop choices.
+**Focus:** Compare runtime models, threading models, GC, GIL/GVL, and event-loop choices.
 
-## Section Bridge
+## Bridge
 
-**Arriving from:** [Races, Locks, Semaphores, And Atomics](08-races-locks-semaphores-and-atomics.md). The previous section covered: Explain races, mutexes, semaphores, critical sections, interrupt locking, multicore requirements, and atomics.
+**Coming from:** [Races, Locks, Semaphores, And Atomics](08-races-locks-semaphores-and-atomics.md).
 
-**This section answers:** Compare runtime models, threading models, GC, GIL/GVL, and event-loop choices.
+**Read this for:** Compare runtime models, threading models, GC, GIL/GVL, and event-loop choices.
 
-**Watch for the next question:** once this section lands, the next natural question is why we need **Coroutines And Golang** next.
-
-> **Reading note:** Read this as one continuous block. The slide-level `Flow` notes explain local transitions; the section-level transition at the end connects this topic to the next one.
+**Then:** move into **Coroutines And Golang**.
 
 ---
 

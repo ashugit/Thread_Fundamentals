@@ -2,17 +2,15 @@
 
 Previous: [Fork, Exec, Copy-On-Write, And File Descriptors](04-fork-exec-copy-on-write-and-fds.md) | [Index](index.md) | Next: [Scheduling, Priority, And Interrupts](06-scheduling-priority-and-interrupts.md)
 
-**Section purpose:** Explain privilege, memory protection, system calls, and why UNIX needs a kernel boundary.
+**Focus:** Explain privilege, memory protection, system calls, and why UNIX needs a kernel boundary.
 
-## Section Bridge
+## Bridge
 
-**Arriving from:** [Fork, Exec, Copy-On-Write, And File Descriptors](04-fork-exec-copy-on-write-and-fds.md). The previous section covered: Remove ambiguity around fork, exec, COW, page faults, context, and FD inheritance.
+**Coming from:** [Fork, Exec, Copy-On-Write, And File Descriptors](04-fork-exec-copy-on-write-and-fds.md).
 
-**This section answers:** Explain privilege, memory protection, system calls, and why UNIX needs a kernel boundary.
+**Read this for:** Explain privilege, memory protection, system calls, and why UNIX needs a kernel boundary.
 
-**Watch for the next question:** once this section lands, the next natural question is why we need **Scheduling, Priority, And Interrupts** next.
-
-> **Reading note:** Read this as one continuous block. The slide-level `Flow` notes explain local transitions; the section-level transition at the end connects this topic to the next one.
+**Then:** move into **Scheduling, Priority, And Interrupts**.
 
 ---
 

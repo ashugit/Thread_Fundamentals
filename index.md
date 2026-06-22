@@ -44,6 +44,9 @@ Use this page as the reading map. The sections are ordered so each layer gives v
 10. [Coroutines And Golang](10-coroutines-and-golang.md)
    - Slides 97-106
    - Explain coroutine context switches, coroutine tradeoffs, Go's goroutine model, and language summary.
+10A. [Embedded-To-Cloud Concurrency Dictionary](10A-embedded-to-cloud-dictionary.md)
+   - Bridge
+   - Translate REX/RTOS concepts into backend/cloud concepts before architecture choices.
 11. [Backend Concurrency Architecture](11-backend-concurrency-architecture.md)
    - Slides 107-114
    - Discuss when Node, Python, Java, and C++ fit backend systems based on concurrency model.
@@ -82,8 +85,10 @@ flowchart TD
   S08 --> S09
   S10["10. Coroutines And Golang"]
   S09 --> S10
+  S10A["10A. Embedded-To-Cloud Concurrency Dictionary"]
+  S10 --> S10A
   S11["11. Backend Concurrency Architecture"]
-  S10 --> S11
+  S10A --> S11
   S12["12. Production Glue And Closing Mental Model"]
   S11 --> S12
   S13["13. Appendices"]

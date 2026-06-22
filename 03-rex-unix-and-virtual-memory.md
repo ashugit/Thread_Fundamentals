@@ -2,17 +2,15 @@
 
 Previous: [Process, Memory, And Executable Image](02-process-memory-and-executable-image.md) | [Index](index.md) | Next: [Fork, Exec, Copy-On-Write, And File Descriptors](04-fork-exec-copy-on-write-and-fds.md)
 
-**Section purpose:** Contrast RTOS-style tasks with UNIX processes and introduce VM as the isolation mechanism.
+**Focus:** Contrast RTOS-style tasks with UNIX processes and introduce VM as the isolation mechanism.
 
-## Section Bridge
+## Bridge
 
-**Arriving from:** [Process, Memory, And Executable Image](02-process-memory-and-executable-image.md). The previous section covered: Explain process anatomy: PCB, stack, heap, executable bytes, ELF, and loading.
+**Coming from:** [Process, Memory, And Executable Image](02-process-memory-and-executable-image.md).
 
-**This section answers:** Contrast RTOS-style tasks with UNIX processes and introduce VM as the isolation mechanism.
+**Read this for:** Contrast RTOS-style tasks with UNIX processes and introduce VM as the isolation mechanism.
 
-**Watch for the next question:** once this section lands, the next natural question is why we need **Fork, Exec, Copy-On-Write, And File Descriptors** next.
-
-> **Reading note:** Read this as one continuous block. The slide-level `Flow` notes explain local transitions; the section-level transition at the end connects this topic to the next one.
+**Then:** move into **Fork, Exec, Copy-On-Write, And File Descriptors**.
 
 ---
 

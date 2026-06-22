@@ -2,17 +2,15 @@
 
 Previous: [Concurrency Intuition](01-concurrency-intuition.md) | [Index](index.md) | Next: [REX, UNIX, And Virtual Memory](03-rex-unix-and-virtual-memory.md)
 
-**Section purpose:** Explain process anatomy: PCB, stack, heap, executable bytes, ELF, and loading.
+**Focus:** Explain process anatomy: PCB, stack, heap, executable bytes, ELF, and loading.
 
-## Section Bridge
+## Bridge
 
-**Arriving from:** [Concurrency Intuition](01-concurrency-intuition.md). The previous section covered: Build the vocabulary before introducing OS objects.
+**Coming from:** [Concurrency Intuition](01-concurrency-intuition.md).
 
-**This section answers:** Explain process anatomy: PCB, stack, heap, executable bytes, ELF, and loading.
+**Read this for:** Explain process anatomy: PCB, stack, heap, executable bytes, ELF, and loading.
 
-**Watch for the next question:** once this section lands, the next natural question is why we need **REX, UNIX, And Virtual Memory** next.
-
-> **Reading note:** Read this as one continuous block. The slide-level `Flow` notes explain local transitions; the section-level transition at the end connects this topic to the next one.
+**Then:** move into **REX, UNIX, And Virtual Memory**.
 
 ---
 

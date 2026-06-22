@@ -79,10 +79,17 @@ Prefer primary or near-primary sources when checking details:
 - [MDN: `async function`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)
   - Use for JavaScript `async`/`await` as syntax over promise-based asynchronous control flow.
 
+## Kubernetes And Cloud Liveness
+
+- [Kubernetes docs: Liveness, Readiness, and Startup Probes](https://kubernetes.io/docs/concepts/workloads/pods/probes/)
+  - Use for Kubernetes probe vocabulary and the distinction between liveness, readiness, and startup checks.
+
 ## Go
 
 - [Effective Go: Goroutines](https://go.dev/doc/effective_go#goroutines)
   - Use for Go's public explanation of goroutines as lightweight concurrent execution.
+- [Go `context` package](https://pkg.go.dev/context)
+  - Use for deadline, cancellation, and request-scoped values across API boundaries.
 - [Go blog: Go Concurrency Patterns: Pipelines and cancellation](https://go.dev/blog/pipelines)
   - Use for pipeline, cancellation, and goroutine lifecycle discussion.
 - [Go memory model](https://go.dev/ref/mem)

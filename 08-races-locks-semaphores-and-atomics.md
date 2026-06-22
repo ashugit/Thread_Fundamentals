@@ -2,17 +2,15 @@
 
 Previous: [Threads And Process Comparison](07-threads-and-process-comparison.md) | [Index](index.md) | Next: [Language Runtimes: C, C++, Java, Python, Ruby, JavaScript](09-language-runtimes-c-cpp-java-python-ruby-js.md)
 
-**Section purpose:** Explain races, mutexes, semaphores, critical sections, interrupt locking, multicore requirements, and atomics.
+**Focus:** Explain races, mutexes, semaphores, critical sections, interrupt locking, multicore requirements, and atomics.
 
-## Section Bridge
+## Bridge
 
-**Arriving from:** [Threads And Process Comparison](07-threads-and-process-comparison.md). The previous section covered: Define threads, TCBs, process-vs-thread context, and why UNIX/RTOS models differ.
+**Coming from:** [Threads And Process Comparison](07-threads-and-process-comparison.md).
 
-**This section answers:** Explain races, mutexes, semaphores, critical sections, interrupt locking, multicore requirements, and atomics.
+**Read this for:** Explain races, mutexes, semaphores, critical sections, interrupt locking, multicore requirements, and atomics.
 
-**Watch for the next question:** once this section lands, the next natural question is why we need **Language Runtimes: C, C++, Java, Python, Ruby, JavaScript** next.
-
-> **Reading note:** Read this as one continuous block. The slide-level `Flow` notes explain local transitions; the section-level transition at the end connects this topic to the next one.
+**Then:** move into **Language Runtimes: C, C++, Java, Python, Ruby, JavaScript**.
 
 ---
 
@@ -853,6 +851,70 @@ atomic_store(&lock, 0);
 ```
 
 Atomic means no other core observes the operation halfway.
+
+Closer to the metal, a compare-and-swap lock says:
+
+```c
+#include <stdatomic.h>
+
+typedef struct {
+    atomic_int word;
+} spinlock_t;
+
+void lock(spinlock_t *l) {
+    for (;;) {
+        int expected = 0;
+        if (atomic_compare_exchange_weak_explicit(
+                &l->word,
+                &expected,
+                1,
+                memory_order_acquire,
+                memory_order_relaxed)) {
+            return;
+        }
+
+        // expected now contains the observed value.
+        // Real code should pause/yield/back off; hot spinning burns the interconnect.
+    }
+}
+
+void unlock(spinlock_t *l) {
+    atomic_store_explicit(&l->word, 0, memory_order_release);
+}
+```
+
+On x86, the shape underneath is often a locked compare-exchange. This is illustrative, not a portable ABI promise:
+
+```asm
+; eax = expected old value, edx = new value, rdi = &lock_word
+mov     eax, 0
+mov     edx, 1
+lock cmpxchg dword ptr [rdi], edx
+; ZF=1 means memory was 0 and is now 1
+; ZF=0 means another core already owned it
+```
+
+On ARM-style architectures, the shape is commonly load-linked/store-conditional:
+
+```asm
+; conceptual shape only
+retry:
+    ldrex   r1, [r0]      ; load lock word and mark exclusive monitor
+    cmp     r1, #0
+    bne     retry
+    mov     r2, #1
+    strex   r3, r2, [r0]  ; store succeeds only if monitor is still valid
+    cmp     r3, #0
+    bne     retry
+```
+
+The hard part is not the instruction name. The hard part is the contract around it:
+
+- `acquire` prevents later critical-section loads/stores from moving before the lock.
+- `release` makes critical-section writes visible before another thread acquires the lock.
+- Cache coherence lets cores converge on one value.
+- Backoff prevents every losing core from hammering the same cache line.
+- Blocking mutexes add a second path: spin briefly, then sleep through the kernel if the lock is not becoming available.
 
 Modern CPUs may offer:
 

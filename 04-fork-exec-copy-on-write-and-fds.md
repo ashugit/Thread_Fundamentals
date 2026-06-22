@@ -2,17 +2,15 @@
 
 Previous: [REX, UNIX, And Virtual Memory](03-rex-unix-and-virtual-memory.md) | [Index](index.md) | Next: [Kernel Space And User Space](05-kernel-space-user-space.md)
 
-**Section purpose:** Remove ambiguity around fork, exec, COW, page faults, context, and FD inheritance.
+**Focus:** Remove ambiguity around fork, exec, COW, page faults, context, and FD inheritance.
 
-## Section Bridge
+## Bridge
 
-**Arriving from:** [REX, UNIX, And Virtual Memory](03-rex-unix-and-virtual-memory.md). The previous section covered: Contrast RTOS-style tasks with UNIX processes and introduce VM as the isolation mechanism.
+**Coming from:** [REX, UNIX, And Virtual Memory](03-rex-unix-and-virtual-memory.md).
 
-**This section answers:** Remove ambiguity around fork, exec, COW, page faults, context, and FD inheritance.
+**Read this for:** Remove ambiguity around fork, exec, COW, page faults, context, and FD inheritance.
 
-**Watch for the next question:** once this section lands, the next natural question is why we need **Kernel Space And User Space** next.
-
-> **Reading note:** Read this as one continuous block. The slide-level `Flow` notes explain local transitions; the section-level transition at the end connects this topic to the next one.
+**Then:** move into **Kernel Space And User Space**.
 
 ---
 

@@ -2,17 +2,15 @@
 
 Previous: [Kernel Space And User Space](05-kernel-space-user-space.md) | [Index](index.md) | Next: [Threads And Process Comparison](07-threads-and-process-comparison.md)
 
-**Section purpose:** Cover scheduling policy, priority, system-call scheduling points, interrupts, and context switches.
+**Focus:** Cover scheduling policy, priority, system-call scheduling points, interrupts, and context switches.
 
-## Section Bridge
+## Bridge
 
-**Arriving from:** [Kernel Space And User Space](05-kernel-space-user-space.md). The previous section covered: Explain privilege, memory protection, system calls, and why UNIX needs a kernel boundary.
+**Coming from:** [Kernel Space And User Space](05-kernel-space-user-space.md).
 
-**This section answers:** Cover scheduling policy, priority, system-call scheduling points, interrupts, and context switches.
+**Read this for:** Cover scheduling policy, priority, system-call scheduling points, interrupts, and context switches.
 
-**Watch for the next question:** once this section lands, the next natural question is why we need **Threads And Process Comparison** next.
-
-> **Reading note:** Read this as one continuous block. The slide-level `Flow` notes explain local transitions; the section-level transition at the end connects this topic to the next one.
+**Then:** move into **Threads And Process Comparison**.
 
 ---
 

@@ -290,6 +290,20 @@ Explain what happens when an async function awaits network I/O. Include:
 
 ---
 
+## 10A. Embedded-To-Cloud Concurrency Dictionary
+
+Checkpoint questions:
+
+- Map watchdog/kickdog discipline to Kubernetes liveness probes and Go context deadlines. Where does the analogy break?
+- Map a hardware interrupt to Node.js event-loop work. What is similar, and what is dangerously different?
+- Give one example where backend shared state intentionally recreates the risk profile of a shared-memory RTOS design.
+
+Exercise:
+
+Pick one production incident pattern: stuck worker, blocked event loop, shared cache corruption, retry storm, or queue growth. Explain it once using embedded vocabulary and once using backend vocabulary.
+
+---
+
 ## 11. Backend Concurrency Architecture
 
 Checkpoint questions:
