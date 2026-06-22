@@ -18,7 +18,6 @@ Previous: [Concurrency Intuition](01-concurrency-intuition.md) | [Index](index.m
 
 > **Flow:** From **What All Are Common Ways Of Concurrency**, move into **What Is A Process**. This page should answer the natural follow-up and prepare for **What Is Process Control Block, Taking UNIX As Case**.
 
-
 A process is an executing program plus the operating-system state required to manage it.
 
 A process normally includes:
@@ -51,7 +50,6 @@ You can run the same program ten times and get ten processes.
 ## 6. What Is Process Control Block, Taking UNIX As Case
 
 > **Flow:** From **What Is A Process**, move into **What Is Process Control Block, Taking UNIX As Case**. This page should answer the natural follow-up and prepare for **What Is The Stack**.
-
 
 The Process Control Block, or PCB, is the kernel's record for a process.
 
@@ -136,7 +134,6 @@ This is the bridge from Bach-style UNIX to modern concurrency:
 
 > **Flow:** From **What Is Process Control Block, Taking UNIX As Case**, move into **What Is The Stack**. This page should answer the natural follow-up and prepare for **What Is Heap**.
 
-
 The stack is memory used for function calls and automatic local state.
 
 It commonly stores:
@@ -177,7 +174,6 @@ Important properties:
 ## 8. What Is Heap
 
 > **Flow:** From **What Is The Stack**, move into **What Is Heap**. This page should answer the natural follow-up and prepare for **What Is Executable Code In Execution**.
-
 
 The heap is memory used for dynamic allocation.
 
@@ -220,7 +216,6 @@ Heap bugs:
 
 > **Flow:** From **What Is Heap**, move into **What Is Executable Code In Execution**. This page should answer the natural follow-up and prepare for **What Is The Executable Format, Say ELF**.
 
-
 Executable code in execution means CPU instruction bytes loaded into memory and being fetched, decoded, and executed by a processor.
 
 At runtime:
@@ -251,7 +246,6 @@ flowchart LR
 ## 10. What Is The Executable Format, Say ELF
 
 > **Flow:** From **What Is Executable Code In Execution**, move into **What Is The Executable Format, Say ELF**. This page should answer the natural follow-up and prepare for **ELF In Deeper Details**.
-
 
 ELF means Executable and Linkable Format.
 
@@ -314,7 +308,6 @@ ELF is the bridge between "a file on disk" and "a process the scheduler can run"
 
 > **Flow:** From **What Is The Executable Format, Say ELF**, move into **ELF In Deeper Details**. This page should answer the natural follow-up and prepare for **What The Binary Loading At Run Time**.
 
-
 ELF has three major structural ideas:
 
 1. **ELF header**
@@ -356,7 +349,6 @@ flowchart TB
 ## 12. What The Binary Loading At Run Time
 
 > **Flow:** From **ELF In Deeper Details**, move into **What The Binary Loading At Run Time**. This page should answer the natural follow-up and prepare for **Binary Loading In Run Time At Deeper Details**.
-
 
 When a UNIX-like system executes a binary, roughly:
 
@@ -412,7 +404,6 @@ waitpid(pid, NULL, 0);
 ## 13. Binary Loading In Run Time At Deeper Details
 
 > **Flow:** From **What The Binary Loading At Run Time**, move into **Binary Loading In Run Time At Deeper Details**. This page should answer the natural follow-up and prepare for **Summary So Far**.
-
 
 A dynamically linked ELF load involves cooperation between kernel and user-space dynamic loader.
 
@@ -639,7 +630,6 @@ Concurrency relevance:
 ## 14. Summary So Far
 
 > **Flow:** From **Binary Loading In Run Time At Deeper Details**, move into **Summary So Far**. This page should answer the natural follow-up and prepare for **What Was QComm REX Operating System, Say On ARM7**.
-
 
 We have built the base mental model:
 

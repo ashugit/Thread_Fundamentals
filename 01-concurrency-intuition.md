@@ -18,7 +18,6 @@ Previous: [What This Material Is About](00-orientation.md) | [Index](index.md) |
 
 > **Flow:** Start by defining **What Is Concurrency**. Once the vocabulary is stable, move into **How A Grandma Understands Concurrency** so the idea becomes intuitive before it becomes technical.
 
-
 Concurrency is the ability of a system to make progress on more than one task over an overlapping time interval.
 
 Concurrency is not the same as parallelism:
@@ -51,7 +50,6 @@ flowchart LR
 
 > **Flow:** From **What Is Concurrency**, move into **How A Grandma Understands Concurrency**. This page should answer the natural follow-up and prepare for **How An Engineer With 5 Years Of Working Understands Concurrency**.
 
-
 Imagine making tea, toast, and taking a phone call.
 
 - Put water on the stove.
@@ -78,7 +76,6 @@ Parallelism would be different:
 ## 3. How An Engineer With 5 Years Of Working Understands Concurrency
 
 > **Flow:** From **How A Grandma Understands Concurrency**, move into **How An Engineer With 5 Years Of Working Understands Concurrency**. This page should answer the natural follow-up and prepare for **What All Are Common Ways Of Concurrency**.
-
 
 An engineer with experience usually sees concurrency through production symptoms:
 
@@ -112,7 +109,6 @@ Key engineering questions:
 ## 4. What All Are Common Ways Of Concurrency
 
 > **Flow:** From **How An Engineer With 5 Years Of Working Understands Concurrency**, move into **What All Are Common Ways Of Concurrency**. This page should answer the natural follow-up and prepare for **What Is A Process**.
-
 
 Common concurrency mechanisms:
 

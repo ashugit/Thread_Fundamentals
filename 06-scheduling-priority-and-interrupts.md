@@ -18,7 +18,6 @@ Previous: [Kernel Space And User Space](05-kernel-space-user-space.md) | [Index]
 
 > **Flow:** From **Summary So Far**, move into **OS Scheduling: REX Vs UNIX**. This page should answer the natural follow-up and prepare for **Types Of Scheduling In UNIX**.
 
-
 Scheduling answers:
 
 > Which execution unit gets the CPU now?
@@ -223,7 +222,6 @@ What a seasoned engineer asks:
 
 > **Flow:** From **OS Scheduling: REX Vs UNIX**, move into **Types Of Scheduling In UNIX**. This page should answer the natural follow-up and prepare for **What Is Process Priority**.
 
-
 UNIX-like systems may support:
 
 - **Time-sharing scheduling:** normal user processes, dynamic fairness.
@@ -249,7 +247,6 @@ Linux example names:
 ## 43. What Is Process Priority
 
 > **Flow:** From **Types Of Scheduling In UNIX**, move into **What Is Process Priority**. This page should answer the natural follow-up and prepare for **How Priority Plays With Scheduling**.
-
 
 Process priority is scheduler metadata used to influence CPU selection.
 
@@ -280,7 +277,6 @@ But priority is not the same as performance:
 ## 44. How Priority Plays With Scheduling
 
 > **Flow:** From **What Is Process Priority**, move into **How Priority Plays With Scheduling**. This page should answer the natural follow-up and prepare for **Summary So Far**.
-
 
 Scheduling combines:
 
@@ -320,7 +316,6 @@ Mitigation:
 ## 45. Summary So Far
 
 > **Flow:** From **How Priority Plays With Scheduling**, move into **Summary So Far**. This page should answer the natural follow-up and prepare for **In UNIX, Points At Which Scheduling May Happen**.
-
 
 Scheduling basics:
 
@@ -439,7 +434,6 @@ Questions to ask:
 
 > **Flow:** From **Summary So Far**, move into **In UNIX, Points At Which Scheduling May Happen**. This page should answer the natural follow-up and prepare for **What Is An Interrupt**.
 
-
 Scheduling may happen when:
 
 - A process blocks in a system call.
@@ -467,7 +461,6 @@ System calls matter because many can block:
 ## 47. What Is An Interrupt
 
 > **Flow:** From **In UNIX, Points At Which Scheduling May Happen**, move into **What Is An Interrupt**. This page should answer the natural follow-up and prepare for **How Interrupt Can Cause Context Switch**.
-
 
 An interrupt is an asynchronous signal to the CPU that an event needs attention.
 
@@ -498,7 +491,6 @@ Interrupt handling:
 ## 48. How Interrupt Can Cause Context Switch
 
 > **Flow:** From **What Is An Interrupt**, move into **How Interrupt Can Cause Context Switch**. This page should answer the natural follow-up and prepare for **What Happens When Process A Is Scheduled Out And Process B Is Scheduled In**.
-
 
 Timer interrupt example:
 
@@ -533,7 +525,6 @@ sequenceDiagram
 ## 49. What Happens When Process A Is Scheduled Out And Process B Is Scheduled In
 
 > **Flow:** From **How Interrupt Can Cause Context Switch**, move into **What Happens When Process A Is Scheduled Out And Process B Is Scheduled In**. This page should answer the natural follow-up and prepare for **How Context Is Switched: Minutest Details In REX Model**.
-
 
 Conceptually:
 
@@ -577,7 +568,6 @@ stateDiagram-v2
 
 > **Flow:** From **What Happens When Process A Is Scheduled Out And Process B Is Scheduled In**, move into **How Context Is Switched: Minutest Details In REX Model**. This page should answer the natural follow-up and prepare for **How Context Is Switched: Minutest Details In UNIX Model**.
 
-
 Typical REX/RTOS-style task switch:
 
 - Task A runs with its own stack.
@@ -607,7 +597,6 @@ Task B stack: [saved r0-r12, lr, pc, cpsr, ...]
 ## 51. How Context Is Switched: Minutest Details In UNIX Model
 
 > **Flow:** From **How Context Is Switched: Minutest Details In REX Model**, move into **How Context Is Switched: Minutest Details In UNIX Model**. This page should answer the natural follow-up and prepare for **Introducing Single Core ARM7 Vs Multicore Say ARM9**.
-
 
 UNIX process/thread switch includes:
 
@@ -654,7 +643,6 @@ flowchart TB
 
 > **Flow:** From **How Context Is Switched: Minutest Details In UNIX Model**, move into **Introducing Single Core ARM7 Vs Multicore Say ARM9**. This page should answer the natural follow-up and prepare for **How Process Execution Works From Single Core Vs Multi Core**.
 
-
 ARM7-era embedded systems are often discussed as:
 
 - Single-core.
@@ -684,7 +672,6 @@ Key conceptual split:
 ## 53. How Process Execution Works From Single Core Vs Multi Core
 
 > **Flow:** From **Introducing Single Core ARM7 Vs Multicore Say ARM9**, move into **How Process Execution Works From Single Core Vs Multi Core**. This page should answer the natural follow-up and prepare for **How Scheduling Works Between Single Core Vs Multi Core**.
-
 
 Single core:
 
@@ -731,7 +718,6 @@ gantt
 
 > **Flow:** From **How Process Execution Works From Single Core Vs Multi Core**, move into **How Scheduling Works Between Single Core Vs Multi Core**. This page should answer the natural follow-up and prepare for **Summary So Far**.
 
-
 Single-core scheduling:
 
 - One run queue may be enough conceptually.
@@ -760,7 +746,6 @@ Tradeoff:
 ## 55. Summary So Far
 
 > **Flow:** From **How Scheduling Works Between Single Core Vs Multi Core**, move into **Summary So Far**. This page should answer the natural follow-up and prepare for **What Is A Thread**.
-
 
 We covered scheduling mechanics:
 

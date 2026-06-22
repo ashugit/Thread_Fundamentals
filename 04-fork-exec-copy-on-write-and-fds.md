@@ -18,7 +18,6 @@ Previous: [REX, UNIX, And Virtual Memory](03-rex-unix-and-virtual-memory.md) | [
 
 > **Flow:** From **How VM Plays With Process: Address Space**, move into **How VM Plays With Process: Fork Vs Exec**. This page should answer the natural follow-up and prepare for **How VM Plays With Process: What Fork Copies Immediately**.
 
-
 `fork()` and `exec()` are different operations.
 
 Why the learner needs this part:
@@ -87,7 +86,6 @@ flowchart LR
 
 > **Flow:** From **How VM Plays With Process: Fork Vs Exec**, move into **How VM Plays With Process: What Fork Copies Immediately**. This page should answer the natural follow-up and prepare for **How VM Plays With Process: What Remains Common After Fork**.
 
-
 When a process calls `fork()`, the kernel must create a child process that behaves as if it got a copy of the parent.
 
 But "copy" does not mean "copy every byte of RAM immediately."
@@ -121,7 +119,6 @@ Those are initially shared and protected by copy-on-write.
 ## 25. How VM Plays With Process: What Remains Common After Fork
 
 > **Flow:** From **How VM Plays With Process: What Fork Copies Immediately**, move into **How VM Plays With Process: What Remains Common After Fork**. This page should answer the natural follow-up and prepare for **How VM Plays With Process: Why Copy-On-Write Exists**.
-
 
 After `fork()`, parent and child are separate processes, but some things remain shared or refer to the same kernel objects.
 
@@ -160,7 +157,6 @@ pid_t pid = fork();
 ## 26. How VM Plays With Process: Why Copy-On-Write Exists
 
 > **Flow:** From **How VM Plays With Process: What Remains Common After Fork**, move into **How VM Plays With Process: Why Copy-On-Write Exists**. This page should answer the natural follow-up and prepare for **How VM Plays With Process: Copy-On-Write Mechanics**.
-
 
 Copy-on-write exists because eager copying would be wasteful.
 
@@ -213,7 +209,6 @@ flowchart LR
 
 > **Flow:** From **How VM Plays With Process: Why Copy-On-Write Exists**, move into **How VM Plays With Process: Copy-On-Write Mechanics**. This page should answer the natural follow-up and prepare for **How VM Plays With Process: What Exec Replaces And What Survives**.
 
-
 `fork()` creates a child process with a nearly identical virtual address space.
 
 Modern COW approach:
@@ -250,7 +245,6 @@ sequenceDiagram
 ## 28. How VM Plays With Process: What Exec Replaces And What Survives
 
 > **Flow:** From **How VM Plays With Process: Copy-On-Write Mechanics**, move into **How VM Plays With Process: What Exec Replaces And What Survives**. This page should answer the natural follow-up and prepare for **How Process Loads Revisited With Fork, Exec, File Descriptors, Memory, VM**.
-
 
 `execve()` keeps the process identity but replaces the program image.
 
@@ -322,7 +316,6 @@ Why this matters:
 
 > **Flow:** From **How VM Plays With Process: What Exec Replaces And What Survives**, move into **How Process Loads Revisited With Fork, Exec, File Descriptors, Memory, VM**. This page should answer the natural follow-up and prepare for **How VM Plays With Process: Page Faults**.
 
-
 A shell running a command demonstrates process, FD, memory, and VM together.
 
 Example:
@@ -377,7 +370,6 @@ Conceptual steps:
 
 > **Flow:** From **How Process Loads Revisited With Fork, Exec, File Descriptors, Memory, VM**, move into **How VM Plays With Process: Page Faults**. This page should answer the natural follow-up and prepare for **What Is Context**.
 
-
 A page fault is not always a bug.
 
 For the main concurrency path, keep this narrow: page faults matter here because copy-on-write, demand loading, stack growth, and invalid memory access all meet at the same kernel mechanism. You do not need a full virtual-memory implementation tour before understanding threads.
@@ -406,7 +398,6 @@ Fault handling:
 ## 31. What Is Context
 
 > **Flow:** From **How VM Plays With Process: Page Faults**, move into **What Is Context**. This page should answer the natural follow-up and prepare for **File Descriptors, Memory, VM, Etc.**.
-
 
 Context is the state required to pause an execution unit and later resume it correctly.
 
@@ -438,7 +429,6 @@ For a coroutine, context may include:
 ## 32. File Descriptors, Memory, VM, Etc.
 
 > **Flow:** From **What Is Context**, move into **File Descriptors, Memory, VM, Etc.**. This page should answer the natural follow-up and prepare for **How Process Loads Revisited After File Descriptors**.
-
 
 A UNIX process context includes more than registers.
 
@@ -560,7 +550,6 @@ The UNIX lesson:
 
 > **Flow:** From **File Descriptors, Memory, VM, Etc.**, move into **How Process Loads Revisited After File Descriptors**. This page should answer the natural follow-up and prepare for **Summary So Far**.
 
-
 After understanding file descriptors, revisit process launch one more time.
 
 What the shell wants:
@@ -605,7 +594,6 @@ What does not survive:
 ## 34. Summary So Far
 
 > **Flow:** From **How Process Loads Revisited After File Descriptors**, move into **Summary So Far**. This page should answer the natural follow-up and prepare for **Kernel Space Vs User Space**.
-
 
 We added VM and UNIX resource context:
 

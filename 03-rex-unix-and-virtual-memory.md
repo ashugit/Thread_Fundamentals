@@ -65,7 +65,6 @@ flowchart LR
 
 > **Flow:** From **Summary So Far**, move into **What Was QComm REX Operating System, Say On ARM7**. This page should answer the natural follow-up and prepare for **What Is UNIX OS In Comparison To REX, Feature By Feature**.
 
-
 Qualcomm REX, commonly understood as a real-time executive used historically in Qualcomm modem/software environments, was an RTOS-style kernel.
 
 Public details are limited compared with UNIX/Linux, so treat this as the classic REX/embedded RTOS model rather than a claim about every internal implementation:
@@ -103,7 +102,6 @@ Typical RTOS priorities:
 ## 16. What Is UNIX OS In Comparison To REX, Feature By Feature
 
 > **Flow:** From **What Was QComm REX Operating System, Say On ARM7**, move into **What Is UNIX OS In Comparison To REX, Feature By Feature**. This page should answer the natural follow-up and prepare for **Virtual Memory: First Focus**.
-
 
 | Dimension | REX-style RTOS | UNIX-style OS |
 |---|---|---|
@@ -165,7 +163,6 @@ flowchart TB
 
 > **Flow:** From **What Is UNIX OS In Comparison To REX, Feature By Feature**, move into **Virtual Memory: First Focus**. This page should answer the natural follow-up and prepare for **Virtual Memory: Why It Matters To Concurrency**.
 
-
 Virtual memory means each process sees a virtual address space that the CPU and OS map to physical memory.
 
 Without virtual memory, addresses used by code are close to physical memory addresses.
@@ -194,7 +191,6 @@ flowchart LR
 
 > **Flow:** From **Virtual Memory: First Focus**, move into **Virtual Memory: Why It Matters To Concurrency**. This page should answer the natural follow-up and prepare for **What Is VM And Why We Have VM**.
 
-
 VM helps concurrency because it lets multiple programs coexist safely.
 
 Benefits:
@@ -220,7 +216,6 @@ Concurrency with VM gets hardware-backed isolation.
 ## 19. What Is VM And Why We Have VM
 
 > **Flow:** From **Virtual Memory: Why It Matters To Concurrency**, move into **What Is VM And Why We Have VM**. This page should answer the natural follow-up and prepare for **Tasks In A Non-VM System Like REX**.
-
 
 Virtual memory exists for four main reasons:
 
@@ -269,7 +264,6 @@ flowchart LR
 ## 20. Tasks In A Non-VM System Like REX
 
 > **Flow:** From **What Is VM And Why We Have VM**, move into **Tasks In A Non-VM System Like REX**. This page should answer the natural follow-up and prepare for **VM System Like UNIX**.
-
 
 In a non-VM or limited-VM RTOS-style system:
 
@@ -332,7 +326,6 @@ flowchart TB
 
 > **Flow:** From **Tasks In A Non-VM System Like REX**, move into **VM System Like UNIX**. This page should answer the natural follow-up and prepare for **How VM Plays With Process: Address Space**.
 
-
 In UNIX-like systems:
 
 - Each process has its own virtual address space.
@@ -376,7 +369,6 @@ flowchart TB
 ## 22. How VM Plays With Process: Address Space
 
 > **Flow:** From **VM System Like UNIX**, move into **How VM Plays With Process: Address Space**. This page should answer the natural follow-up and prepare for **How VM Plays With Process: Fork Vs Exec**.
-
 
 A process is not just CPU execution. A process owns an address-space map.
 

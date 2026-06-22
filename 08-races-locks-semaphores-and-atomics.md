@@ -18,7 +18,6 @@ Previous: [Threads And Process Comparison](07-threads-and-process-comparison.md)
 
 > **Flow:** From **What Are Wins With Threads**, move into **What Is A Race Condition In Thread**. This page should answer the natural follow-up and prepare for **What Are The Ways To Mitigate Race**.
 
-
 A race condition occurs when program correctness depends on timing or interleaving of concurrent operations.
 
 Classic data race example:
@@ -46,8 +45,8 @@ T1 store 1
 T2 store 1
 ```
 
-Expected result: 2  
-Actual result: 1
+- Expected result: 2
+- Actual result: 1
 
 > **Side note:** A race is not always a crash. Often it is silent wrongness, which is worse.
 
@@ -157,7 +156,6 @@ How to expose races:
 
 > **Flow:** From **What Is A Race Condition In Thread**, move into **What Are The Ways To Mitigate Race**. This page should answer the natural follow-up and prepare for **Deep Dive Into Mutex**.
 
-
 Race mitigation strategies:
 
 - Avoid shared mutable state.
@@ -221,7 +219,6 @@ Examples:
 ## 68. Deep Dive Into Mutex
 
 > **Flow:** From **What Are The Ways To Mitigate Race**, move into **Deep Dive Into Mutex**. This page should answer the natural follow-up and prepare for **Deep Dive Into Semaphores**.
-
 
 A mutex provides mutual exclusion: only one thread enters the protected critical region at a time.
 
@@ -447,7 +444,6 @@ Other fixes:
 
 > **Flow:** From **Deep Dive Into Mutex**, move into **Deep Dive Into Semaphores**. This page should answer the natural follow-up and prepare for **Deep Dive Into Critical Section**.
 
-
 A semaphore is a counter with atomic wait/decrement and signal/increment behavior.
 
 Types:
@@ -549,7 +545,6 @@ flowchart LR
 ## 70. Deep Dive Into Critical Section
 
 > **Flow:** From **Deep Dive Into Semaphores**, move into **Deep Dive Into Critical Section**. This page should answer the natural follow-up and prepare for **What Single Core Needs To Offer For Threads To Work Successfully**.
-
 
 A critical section is code that must not execute concurrently with conflicting code.
 
@@ -735,7 +730,6 @@ for each callback in snapshot:
 
 > **Flow:** From **Deep Dive Into Critical Section**, move into **What Single Core Needs To Offer For Threads To Work Successfully**. This page should answer the natural follow-up and prepare for **What Is Interrupt Locking**.
 
-
 Single-core thread support needs:
 
 - Timer interrupt for preemption or cooperative yield points.
@@ -766,7 +760,6 @@ But user-level correctness still needs:
 ## 72. What Is Interrupt Locking
 
 > **Flow:** From **What Single Core Needs To Offer For Threads To Work Successfully**, move into **What Is Interrupt Locking**. This page should answer the natural follow-up and prepare for **What Multi Core Needs To Offer For Threads To Work Successfully**.
-
 
 Interrupt locking means temporarily preventing interrupts from interrupting the current CPU.
 
@@ -801,7 +794,6 @@ Costs:
 
 > **Flow:** From **What Is Interrupt Locking**, move into **What Multi Core Needs To Offer For Threads To Work Successfully**. This page should answer the natural follow-up and prepare for **What Is Atomic Swap Instruction**.
 
-
 Multicore thread support needs:
 
 - Cache coherence.
@@ -829,7 +821,6 @@ Challenges:
 ## 74. What Is Atomic Swap Instruction
 
 > **Flow:** From **What Multi Core Needs To Offer For Threads To Work Successfully**, move into **What Is Atomic Swap Instruction**. This page should answer the natural follow-up and prepare for **Summary So Far**.
-
 
 An atomic swap instruction exchanges a register value with memory as one indivisible operation.
 
@@ -937,7 +928,6 @@ Memory ordering matters:
 ## 75. Summary So Far
 
 > **Flow:** From **What Is Atomic Swap Instruction**, move into **Summary So Far**. This page should answer the natural follow-up and prepare for **What Kind Of Language Is C In Runtime**.
-
 
 Threads:
 

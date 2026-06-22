@@ -18,7 +18,6 @@ Previous: [Fork, Exec, Copy-On-Write, And File Descriptors](04-fork-exec-copy-on
 
 > **Flow:** From **Summary So Far**, move into **Kernel Space Vs User Space**. This page should answer the natural follow-up and prepare for **Kernel Space Vs User Space In Deeper Details**.
 
-
 User space:
 
 - Runs application code.
@@ -55,7 +54,6 @@ flowchart TB
 ## 36. Kernel Space Vs User Space In Deeper Details
 
 > **Flow:** From **Kernel Space Vs User Space**, move into **Kernel Space Vs User Space In Deeper Details**. This page should answer the natural follow-up and prepare for **Memory Details In Terms Of Kernel And User Space**.
-
 
 Modern CPUs support privilege levels.
 
@@ -198,7 +196,6 @@ Web parallel:
 
 > **Flow:** From **Kernel Space Vs User Space In Deeper Details**, move into **Memory Details In Terms Of Kernel And User Space**. This page should answer the natural follow-up and prepare for **Why We Need Kernel Space, Compare REX Vs UNIX**.
 
-
 In a UNIX-like VM system:
 
 - User pages are accessible in user mode.
@@ -228,7 +225,6 @@ Kernel must ask:
 ## 38. Why We Need Kernel Space, Compare REX Vs UNIX
 
 > **Flow:** From **Memory Details In Terms Of Kernel And User Space**, move into **Why We Need Kernel Space, Compare REX Vs UNIX**. This page should answer the natural follow-up and prepare for **Multiple Processes Simultaneously: What It Throws Into Action**.
-
 
 REX-style RTOS:
 
@@ -268,7 +264,6 @@ Kernel space is needed in UNIX to:
 
 > **Flow:** From **Why We Need Kernel Space, Compare REX Vs UNIX**, move into **Multiple Processes Simultaneously: What It Throws Into Action**. This page should answer the natural follow-up and prepare for **Summary So Far**.
 
-
 When multiple processes run:
 
 - Scheduler chooses who runs.
@@ -300,7 +295,6 @@ Problems introduced:
 ## 40. Summary So Far
 
 > **Flow:** From **Multiple Processes Simultaneously: What It Throws Into Action**, move into **Summary So Far**. This page should answer the natural follow-up and prepare for **OS Scheduling: REX Vs UNIX**.
-
 
 We added protection:
 

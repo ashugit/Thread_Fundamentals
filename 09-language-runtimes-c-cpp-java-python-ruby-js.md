@@ -65,7 +65,6 @@ The important point is not whether a language is "fast" or "slow". The important
 
 > **Flow:** From **Summary So Far**, move into **What Kind Of Language Is C In Runtime**. This page should answer the natural follow-up and prepare for **Threading Model In C**.
 
-
 C is a compiled, native, manual-memory language with a small runtime model.
 
 Runtime characteristics:
@@ -123,7 +122,6 @@ Why this matters for concurrency:
 ## 77. Threading Model In C
 
 > **Flow:** From **What Kind Of Language Is C In Runtime**, move into **Threading Model In C**. This page should answer the natural follow-up and prepare for **What Kind Of Language Is C++ In Runtime**.
-
 
 C threading options:
 
@@ -199,7 +197,6 @@ The hardest C threading bugs are often not the lock calls themselves. They are o
 
 > **Flow:** From **Threading Model In C**, move into **What Kind Of Language Is C++ In Runtime**. This page should answer the natural follow-up and prepare for **Threading Model In C++**.
 
-
 C++ is a compiled, native, deterministic-lifetime language with a richer runtime than C but still close to OS/hardware.
 
 Runtime characteristics:
@@ -249,7 +246,6 @@ flowchart TB
 ## 79. Threading Model In C++
 
 > **Flow:** From **What Kind Of Language Is C++ In Runtime**, move into **Threading Model In C++**. This page should answer the natural follow-up and prepare for **What Is GC**.
-
 
 C++ standard threading includes:
 
@@ -322,7 +318,6 @@ Better question: what state is being published, who owns it, and what ordering m
 
 > **Flow:** From **Threading Model In C++**, move into **What Is GC**. This page should answer the natural follow-up and prepare for **Why Do We Need GC**.
 
-
 Garbage Collection, or GC, is automatic memory reclamation.
 
 The runtime detects objects that are no longer reachable and frees them.
@@ -361,7 +356,6 @@ GC does not solve:
 ## 81. Why Do We Need GC
 
 > **Flow:** From **What Is GC**, move into **Why Do We Need GC**. This page should answer the natural follow-up and prepare for **What C++ Does With GC In The New Release**.
-
 
 GC exists because manual memory management is hard at scale.
 
@@ -413,7 +407,6 @@ The collector must coordinate with application threads because application threa
 
 > **Flow:** From **Why Do We Need GC**, move into **What C++ Does With GC In The New Release**. This page should answer the natural follow-up and prepare for **What Kind Of Language Is Java In Runtime**.
 
-
 C++ does not have a standard mandatory garbage collector.
 
 Important status:
@@ -447,7 +440,6 @@ C++ can still use GC-like systems:
 ## 83. What Kind Of Language Is Java In Runtime
 
 > **Flow:** From **What C++ Does With GC In The New Release**, move into **What Kind Of Language Is Java In Runtime**. This page should answer the natural follow-up and prepare for **Threading Model In Java**.
-
 
 Java is a managed, bytecode-based language running on the JVM.
 
@@ -510,7 +502,6 @@ Connect to prior sections:
 ## 84. Threading Model In Java
 
 > **Flow:** From **What Kind Of Language Is Java In Runtime**, move into **Threading Model In Java**. This page should answer the natural follow-up and prepare for **What Is GC In Java**.
-
 
 Java threads historically map to OS threads in mainstream JVMs.
 
@@ -584,7 +575,6 @@ Seasoned Java concurrency is mostly about choosing the right boundary:
 
 > **Flow:** From **Threading Model In Java**, move into **What Is GC In Java**. This page should answer the natural follow-up and prepare for **What Kind Of Language Is Python In Runtime**.
 
-
 Java GC automatically reclaims unreachable heap objects.
 
 Modern JVM collectors may optimize for different goals:
@@ -620,7 +610,6 @@ Concurrency interaction:
 ## 86. What Kind Of Language Is Python In Runtime
 
 > **Flow:** From **What Is GC In Java**, move into **What Kind Of Language Is Python In Runtime**. This page should answer the natural follow-up and prepare for **Threading Model In Python**.
-
 
 Python, specifically CPython in common production use, is an interpreted bytecode language with a managed object runtime.
 
@@ -686,7 +675,6 @@ Connect to prior sections:
 
 > **Flow:** From **What Kind Of Language Is Python In Runtime**, move into **Threading Model In Python**. This page should answer the natural follow-up and prepare for **What Python Threads Included New That Other Languages Discussed Did Not Have**.
 
-
 Python supports OS threads through `threading`.
 
 In classic CPython:
@@ -731,7 +719,6 @@ shared mutable objects    -> still need locks or ownership
 
 > **Flow:** From **Threading Model In Python**, move into **What Python Threads Included New That Other Languages Discussed Did Not Have**. This page should answer the natural follow-up and prepare for **Why Python Chose A Different Way**.
 
-
 Python's distinct historical feature is the GIL in CPython:
 
 - A global interpreter lock protecting interpreter internals.
@@ -758,7 +745,6 @@ What this means:
 ## 89. Why Python Chose A Different Way
 
 > **Flow:** From **What Python Threads Included New That Other Languages Discussed Did Not Have**, move into **Why Python Chose A Different Way**. This page should answer the natural follow-up and prepare for **What Is GIL In Python**.
-
 
 CPython's GIL was a pragmatic design tradeoff.
 
@@ -791,7 +777,6 @@ Why this connects to C:
 ## 90. What Is GIL In Python
 
 > **Flow:** From **Why Python Chose A Different Way**, move into **What Is GIL In Python**. This page should answer the natural follow-up and prepare for **What Kind Of Language Is Ruby In Runtime**.
-
 
 The Global Interpreter Lock is a mutex around execution of CPython interpreter bytecode and internal object machinery.
 
@@ -859,7 +844,6 @@ flowchart TB
 
 > **Flow:** From **What Is GIL In Python**, move into **What Kind Of Language Is Ruby In Runtime**. This page should answer the natural follow-up and prepare for **Threading Model Of Ruby**.
 
-
 Ruby is a dynamic, object-oriented language with a managed runtime.
 
 Common production runtime:
@@ -915,7 +899,6 @@ flowchart TB
 
 > **Flow:** From **What Kind Of Language Is Ruby In Runtime**, move into **Threading Model Of Ruby**. This page should answer the natural follow-up and prepare for **What Ruby Did With Event-Synchrony**.
 
-
 Ruby supports:
 
 - Threads.
@@ -968,7 +951,6 @@ threads.each(&:join)
 
 > **Flow:** From **Threading Model Of Ruby**, move into **What Ruby Did With Event-Synchrony**. This page should answer the natural follow-up and prepare for **What Kind Of Language Is Javascript In Runtime**.
 
-
 Ruby has a strong ecosystem around evented and fiber-based concurrency.
 
 Key ideas:
@@ -1010,7 +992,6 @@ How this connects to earlier sections:
 ## 94. What Kind Of Language Is Javascript In Runtime
 
 > **Flow:** From **What Ruby Did With Event-Synchrony**, move into **What Kind Of Language Is Javascript In Runtime**. This page should answer the natural follow-up and prepare for **Threading Model In Javascript**.
-
 
 JavaScript is a dynamic language standardized as ECMAScript.
 
@@ -1062,7 +1043,6 @@ flowchart TB
 ## 95. Threading Model In Javascript
 
 > **Flow:** From **What Kind Of Language Is Javascript In Runtime**, move into **Threading Model In Javascript**. This page should answer the natural follow-up and prepare for **Why Javascript Picked This Kind Of Threading Model**.
-
 
 JavaScript's mainstream model:
 
@@ -1129,7 +1109,6 @@ Node's "single-threaded" phrase is incomplete:
 ## 96. Why Javascript Picked This Kind Of Threading Model
 
 > **Flow:** From **Threading Model In Javascript**, move into **Why Javascript Picked This Kind Of Threading Model**. This page should answer the natural follow-up and prepare for **Deep Dive Into Coroutines**.
-
 
 JavaScript began in browsers.
 

@@ -82,7 +82,6 @@ Goroutines are runtime-scheduled execution units that can run in parallel on OS 
 
 > **Flow:** From **Why Javascript Picked This Kind Of Threading Model**, move into **Deep Dive Into Coroutines**. This page should answer the natural follow-up and prepare for **How Is Context Switch Going To Happen In Coroutine**.
 
-
 A coroutine is an execution unit that can suspend and resume without relying on kernel preemption.
 
 Coroutine characteristics:
@@ -153,7 +152,6 @@ stateDiagram-v2
 
 > **Flow:** From **Deep Dive Into Coroutines**, move into **How Is Context Switch Going To Happen In Coroutine**. This page should answer the natural follow-up and prepare for **Languages Which Offer Coroutines**.
 
-
 Coroutine switch:
 
 1. Coroutine reaches `await` or `yield`.
@@ -222,7 +220,6 @@ sequenceDiagram
 
 > **Flow:** From **How Is Context Switch Going To Happen In Coroutine**, move into **Languages Which Offer Coroutines**. This page should answer the natural follow-up and prepare for **Why Is Coroutine Better Than Threads**.
 
-
 Languages/runtimes with coroutine-like features:
 
 - Python: `asyncio`, `async def`, `await`.
@@ -275,7 +272,6 @@ and what happens if they call a blocking function?
 ## 100. Why Is Coroutine Better Than Threads
 
 > **Flow:** From **Languages Which Offer Coroutines**, move into **Why Is Coroutine Better Than Threads**. This page should answer the natural follow-up and prepare for **Why Is Coroutine Worse Than Thread**.
-
 
 Coroutines can be better when:
 
@@ -337,7 +333,6 @@ sequenceDiagram
 
 > **Flow:** From **Why Is Coroutine Better Than Threads**, move into **Why Is Coroutine Worse Than Thread**. This page should answer the natural follow-up and prepare for **Summary Of Context Switch Between Process, Thread, Coroutine**.
 
-
 Coroutines can be worse when:
 
 - Libraries block OS threads and do not yield.
@@ -381,7 +376,6 @@ coroutine failure: blocked loop, leaked tasks, missing backpressure, hidden sync
 ## 102. Summary Of Context Switch Between Process, Thread, Coroutine
 
 > **Flow:** From **Why Is Coroutine Worse Than Thread**, move into **Summary Of Context Switch Between Process, Thread, Coroutine**. This page should answer the natural follow-up and prepare for **What Kind Of Language Is Golang In Runtime**.
-
 
 | Unit | Scheduler | Isolation | Switch cost | Shared memory | Parallelism |
 |---|---|---:|---:|---:|---:|
@@ -438,7 +432,6 @@ flowchart TB
 
 > **Flow:** From **Summary Of Context Switch Between Process, Thread, Coroutine**, move into **What Kind Of Language Is Golang In Runtime**. This page should answer the natural follow-up and prepare for **What Is The Threading Model In Golang**.
 
-
 Go is a compiled language with a managed runtime designed around concurrency.
 
 Runtime characteristics:
@@ -491,7 +484,6 @@ Go connects prior sections in one place:
 ## 104. What Is The Threading Model In Golang
 
 > **Flow:** From **What Kind Of Language Is Golang In Runtime**, move into **What Is The Threading Model In Golang**. This page should answer the natural follow-up and prepare for **How Golang Goroutines Are Different From Python Coroutines**.
-
 
 Go uses an M:N scheduler:
 
@@ -573,7 +565,6 @@ This is why Go code can look blocking but still scale well for many network serv
 
 > **Flow:** From **What Is The Threading Model In Golang**, move into **How Golang Goroutines Are Different From Python Coroutines**. This page should answer the natural follow-up and prepare for **Summary Of All Languages In Terms Of Process, Threads, Goroutines So Far**.
 
-
 Go goroutines:
 
 - Can run in parallel on multiple OS threads.
@@ -643,7 +634,6 @@ But this does not make Go race-free:
 ## 106. Summary Of All Languages In Terms Of Process, Threads, Goroutines So Far
 
 > **Flow:** From **How Golang Goroutines Are Different From Python Coroutines**, move into **Summary Of All Languages In Terms Of Process, Threads, Goroutines So Far**. This page should answer the natural follow-up and prepare for **Backend Systems As Case: Better Written In Javascript With NodeJS For Threading Model**.
-
 
 | Language | Runtime style | Main concurrency tools | CPU parallelism caveat |
 |---|---|---|---|

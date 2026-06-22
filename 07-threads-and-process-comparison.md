@@ -18,7 +18,6 @@ Previous: [Scheduling, Priority, And Interrupts](06-scheduling-priority-and-inte
 
 > **Flow:** From **Summary So Far**, move into **What Is A Thread**. This page should answer the natural follow-up and prepare for **Why Do We Need A Thread**.
 
-
 A thread is a schedulable execution stream within a process.
 
 Threads in the same process generally share:
@@ -57,7 +56,6 @@ flowchart TB
 ## 57. Why Do We Need A Thread
 
 > **Flow:** From **What Is A Thread**, move into **Why Do We Need A Thread**. This page should answer the natural follow-up and prepare for **What Is A Thread Control Block**.
-
 
 The short answer:
 
@@ -324,7 +322,6 @@ Threads increase correctness cost because shared state now needs discipline.
 
 > **Flow:** From **Why Do We Need A Thread**, move into **What Is A Thread Control Block**. This page should answer the natural follow-up and prepare for **Context Of Thread Vs Context Of Process**.
 
-
 A Thread Control Block, or TCB, is kernel/runtime metadata for a thread.
 
 It typically contains:
@@ -375,7 +372,6 @@ flowchart TB
 ## 59. Context Of Thread Vs Context Of Process
 
 > **Flow:** From **What Is A Thread Control Block**, move into **Context Of Thread Vs Context Of Process**. This page should answer the natural follow-up and prepare for **Does QComm REX Need A Thread, Why?**.
-
 
 Thread context:
 
@@ -442,7 +438,6 @@ flowchart TB
 
 > **Flow:** From **Context Of Thread Vs Context Of Process**, move into **Does QComm REX Need A Thread, Why?**. This page should answer the natural follow-up and prepare for **Does UNIX Need A Thread, Why?**.
 
-
 In a REX-style RTOS, the word "thread" may not be necessary if the system already has "tasks".
 
 This is an important learning shortcut. In a non-VM task-oriented system, the schedulable unit is already visible and concrete. A task has its own stack and saved CPU context, but it may share the broader memory image with other tasks. That lets the learner understand "thread-like execution" before introducing the UNIX split between a process as a resource container and a thread as an execution stream inside that container.
@@ -474,7 +469,6 @@ UNIX needs the distinction because a process owns a protected address space, fil
 
 > **Flow:** From **Does QComm REX Need A Thread, Why?**, move into **Does UNIX Need A Thread, Why?**. This page should answer the natural follow-up and prepare for **When Thread In UNIX Makes Sense**.
 
-
 UNIX can run concurrent work with processes alone, but threads solve different problems.
 
 Without threads:
@@ -502,7 +496,6 @@ UNIX does not strictly need threads, but modern workloads benefit from them.
 
 > **Flow:** From **Does UNIX Need A Thread, Why?**, move into **When Thread In UNIX Makes Sense**. This page should answer the natural follow-up and prepare for **How Context Switch Between UNIX Thread And Process Differ**.
 
-
 Threads make sense when:
 
 - Shared in-memory state is central and high-volume.
@@ -527,7 +520,6 @@ Threads are less attractive when:
 ## 63. How Context Switch Between UNIX Thread And Process Differ
 
 > **Flow:** From **When Thread In UNIX Makes Sense**, move into **How Context Switch Between UNIX Thread And Process Differ**. This page should answer the natural follow-up and prepare for **UNIX Thread Vs Process Context Switch: Deeper Details**.
-
 
 Thread switch in same process:
 
@@ -558,7 +550,6 @@ Commonality:
 ## 64. UNIX Thread Vs Process Context Switch: Deeper Details
 
 > **Flow:** From **How Context Switch Between UNIX Thread And Process Differ**, move into **UNIX Thread Vs Process Context Switch: Deeper Details**. This page should answer the natural follow-up and prepare for **What Are Wins With Threads**.
-
 
 Extra costs in process switch may include:
 
@@ -591,7 +582,6 @@ Optimization details:
 ## 65. What Are Wins With Threads
 
 > **Flow:** From **UNIX Thread Vs Process Context Switch: Deeper Details**, move into **What Are Wins With Threads**. This page should answer the natural follow-up and prepare for **What Is A Race Condition In Thread**.
-
 
 Thread wins:
 

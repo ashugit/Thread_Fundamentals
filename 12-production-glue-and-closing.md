@@ -18,7 +18,6 @@ Previous: [Backend Concurrency Architecture](11-backend-concurrency-architecture
 
 > **Flow:** From **Why Backend Systems Are Better Written With CPP For Its Threading Model**, move into **Missing Glue: Memory Model And Happens-Before**. This page should answer the natural follow-up and prepare for **Missing Glue: Cache Coherence, False Sharing, And Why Atomics Hurt**.
 
-
 A memory model defines what reads and writes can be observed by concurrent execution units.
 
 The dangerous misconception:
@@ -49,7 +48,6 @@ Examples of synchronization that commonly create happens-before relationships:
 ## 116. Missing Glue: Cache Coherence, False Sharing, And Why Atomics Hurt
 
 > **Flow:** From **Missing Glue: Memory Model And Happens-Before**, move into **Missing Glue: Cache Coherence, False Sharing, And Why Atomics Hurt**. This page should answer the natural follow-up and prepare for **Missing Glue: Backpressure Is Part Of Concurrency**.
-
 
 On multicore machines, each core has caches.
 
@@ -89,7 +87,6 @@ Mitigations:
 ## 117. Missing Glue: Backpressure Is Part Of Concurrency
 
 > **Flow:** From **Missing Glue: Cache Coherence, False Sharing, And Why Atomics Hurt**, move into **Missing Glue: Backpressure Is Part Of Concurrency**. This page should answer the natural follow-up and prepare for **Missing Glue: Structured Concurrency And Cancellation**.
-
 
 Backpressure means a system can tell upstream producers to slow down.
 
@@ -140,7 +137,6 @@ recover without backlog explosion
 
 > **Flow:** From **Missing Glue: Backpressure Is Part Of Concurrency**, move into **Missing Glue: Structured Concurrency And Cancellation**. This page should answer the natural follow-up and prepare for **Missing Glue: Debugging Production Concurrency**.
 
-
 Structured concurrency says concurrent work should have clear lifetimes and ownership.
 
 Instead of launching background work casually, structure it so:
@@ -186,7 +182,6 @@ Where it appears:
 ## 119. Missing Glue: Debugging Production Concurrency
 
 > **Flow:** From **Missing Glue: Structured Concurrency And Cancellation**, move into **Missing Glue: Debugging Production Concurrency**. This page should answer the natural follow-up and prepare for **Summary Overall**.
-
 
 Concurrency debugging needs symptoms mapped to layers.
 
@@ -234,7 +229,6 @@ Useful tools and habits:
 
 > **Flow:** From **Missing Glue: Debugging Production Concurrency**, move into **Summary Overall**. This page should answer the natural follow-up and prepare for **Final Mental Model: The Concurrency Stack**.
 
-
 Concurrency is not a feature. It is a system property that emerges from:
 
 - Hardware execution resources.
@@ -270,7 +264,6 @@ The senior-engineer lens:
 
 > **Flow:** From **Summary Overall**, move into **Final Mental Model: The Concurrency Stack**. This page should answer the natural follow-up and prepare for **Closing Slide: Advice To Younger Engineers**.
 
-
 ```mermaid
 flowchart TB
   APP["Application architecture<br/>queues, request flow, ownership"]
@@ -300,7 +293,6 @@ If something goes wrong, debug down the stack:
 ## 122. Closing Slide: Advice To Younger Engineers
 
 > **Flow:** After **Final Mental Model: The Concurrency Stack**, close with **Closing Slide: Advice To Younger Engineers** so the reader leaves with practical rules, not only mechanisms.
-
 
 Rules worth carrying:
 
