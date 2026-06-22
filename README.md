@@ -2,17 +2,15 @@
 
 A self-study course for engineers who want to understand concurrency from the operating-system level up to language runtimes and backend architecture.
 
-## Author's Vantage Point
+## Point Of View And Authorship
 
-This material is written from a practitioner's point of view, not as an official specification or a claim of complete authority. The perspective comes from early hands-on work with Qualcomm REX-style real-time software on non-VM, single-core embedded systems; later work with Linux in embedded environments; study of UNIX operating-system fundamentals through Maurice J. Bach's *The Design of the UNIX Operating System*; and many subsequent years building and architecting full-stack web systems.
+This is practitioner-written material, not an official specification. The point of view comes from early work with Qualcomm REX-style real-time software on non-VM, single-core embedded systems; later Linux work in embedded environments; UNIX grounding through Maurice J. Bach's *The Design of the UNIX Operating System*; and many years after that building and architecting full-stack web systems.
 
-That mix is intentional: it lets the material compare the simpler discipline of shared-image embedded tasking with the richer machinery of UNIX/Linux process, virtual-memory, file-descriptor, and runtime management. There may still be gaps, oversimplifications, or places where a detail depends on a specific kernel, processor, runtime, or historical implementation. If you find one, please point it out. Corrections that sharpen the mental model are part of the value of this repository.
+That background is the reason for the shape of the course. It starts with the simpler discipline of shared-image embedded tasking, then uses UNIX/Linux to explain why richer systems add processes, virtual memory, file descriptors, user/kernel boundaries, runtime schedulers, and backend process architecture.
 
-## Authorship And Contributions
+The material has also been substantially shaped and co-authored with AI assistance. The author provided the topic sequence, teaching flow, required depth, and practical lens. The goal is to transfer the author's concurrency mental model with as little unnecessary reading as possible, without flattening the details engineers need.
 
-This material is not presented as purely hand-authored prose. It has been substantially shaped and co-authored with AI assistance. The author provided the topic sequence, the intended teaching flow, the minimum depth expected for each area, and the practical lens through which the material should be useful to engineers.
-
-The goal is to help engineers absorb as much of the author's concurrency mental model as possible with the least unnecessary reading overhead, while still preserving the depth needed to reason from OS fundamentals to web architecture. If you find an error, ambiguity, missing caveat, or better explanation, please file an issue. If you would like to co-edit or contribute larger changes, please reach out to the author first so the flow and intent of the material remain coherent.
+There may be gaps, oversimplifications, or implementation-specific details that need correction. If you find one, please file an issue. If you want to co-edit or contribute larger changes, reach out to the author first so the flow and intent stay coherent.
 
 This is not a short tutorial on `async`, threads, or locks. It is a layered mental model:
 

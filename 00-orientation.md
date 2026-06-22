@@ -4,36 +4,22 @@ Previous: none | [Index](index.md) | Next: [Concurrency Intuition](01-concurrenc
 
 **Section purpose:** Explain why this material exists, what it will help engineers understand, and what it intentionally does not try to cover.
 
-## Author's Vantage Point
+## Point Of View And Authorship
 
-This material is written from a practitioner's point of view, not as an official specification or a claim of complete authority.
+This is practitioner-written material, not an official specification.
 
-The perspective comes from:
+The point of view comes from:
 
 - early hands-on work with Qualcomm REX-style real-time software on non-VM, single-core embedded systems
 - later work with Linux in embedded environments
 - UNIX operating-system grounding built through Maurice J. Bach's *The Design of the UNIX Operating System*
 - many subsequent years building and architecting full-stack web systems
 
-That background shapes the course. It uses REX-style systems as a clean, simpler baseline for task scheduling, shared memory, interrupt pressure, and watchdog discipline. It then uses UNIX/Linux to show why richer systems add process containers, virtual memory, user/kernel separation, file descriptors, `fork`, `exec`, signals, and broader resource management.
+That background shapes the course. REX-style systems provide the simpler baseline: task scheduling, shared memory, interrupt pressure, and watchdog discipline. UNIX/Linux then shows why richer systems add process containers, virtual memory, user/kernel separation, file descriptors, `fork`, `exec`, signals, and broader resource management.
 
-There may be gaps, oversimplifications, or places where a detail depends on a specific kernel, processor, runtime, or historical implementation. Please point them out. Corrections that make the model more accurate are welcome, especially when they clarify the tradeoff being taught.
+The material has also been substantially shaped and co-authored with AI assistance. The author provided the topic sequence, teaching flow, required depth, and practical lens. The goal is to transfer the author's concurrency mental model with as little unnecessary reading as possible, without flattening the details engineers need.
 
----
-
-## Authorship And Contributions
-
-This material is not presented as purely hand-authored prose. It has been substantially shaped and co-authored with AI assistance.
-
-The author provided:
-
-- the topic sequence
-- the intended teaching flow
-- the minimum depth expected for each area
-- the practical lens from embedded REX-style systems through UNIX/Linux and web architecture
-- the goal that engineers should be able to absorb the core mental model with the least unnecessary reading overhead
-
-If you find an error, ambiguity, missing caveat, or better explanation, please file an issue. If you would like to co-edit or contribute larger changes, please reach out to the author first so the flow and intent of the material remain coherent.
+There may be gaps, oversimplifications, or implementation-specific details that need correction. If you find one, please file an issue. If you want to co-edit or contribute larger changes, reach out to the author first so the flow and intent stay coherent.
 
 ---
 
