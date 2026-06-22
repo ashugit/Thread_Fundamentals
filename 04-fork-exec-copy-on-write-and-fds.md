@@ -23,6 +23,27 @@ Previous: [REX, UNIX, And Virtual Memory](03-rex-unix-and-virtual-memory.md) | [
 
 `fork()` and `exec()` are different operations.
 
+Why the learner needs this part:
+
+- It is the center of the UNIX process model.
+- It explains how shells launch programs while applying redirection, pipes, environment, and working directory changes.
+- It explains why process identity and program image are separate ideas.
+- It explains why file descriptors survive into a new program unless marked close-on-exec.
+- It explains why `fork()` in a multithreaded process is dangerous before `exec()`.
+- It explains why copy-on-write exists and why process creation can be fast.
+- It explains common production bugs: fd leaks, zombie processes, double-executed code after `fork`, and unsafe child initialization.
+
+```mermaid
+flowchart TD
+  P["Parent process<br/>shell or supervisor"] --> F["fork()"]
+  F --> Parent["Parent continues<br/>waits or manages child"]
+  F --> Child["Child process<br/>same image initially"]
+  Child --> Setup["child changes process container<br/>dup2 pipes, close fds, set env, cwd"]
+  Setup --> E["execve(new_program)"]
+  E --> New["Same PID as child<br/>new program image"]
+  Parent --> W["waitpid / monitor / continue"]
+```
+
 `fork()`:
 
 - Creates a new child process.
@@ -47,6 +68,17 @@ Short version:
 ```text
 fork = create another process running the same program image
 exec = replace this process with a different program image
+```
+
+Mental split:
+
+```mermaid
+flowchart LR
+  A["Process identity<br/>PID, parent, credentials,<br/>fd table, cwd"] --> B["execve keeps selected identity"]
+  C["Program image<br/>code, heap, stack,<br/>libraries, runtime state"] --> D["execve replaces image"]
+  E["fork"] --> F["duplicates process container"]
+  F --> G["child initially runs same image"]
+  G --> D
 ```
 
 > **Side note:** This is where many people get UNIX wrong. `exec` is not "start a new process." `fork` starts a new process; `exec` changes what that process is running.

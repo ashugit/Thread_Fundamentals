@@ -16,6 +16,43 @@ Previous: [Process, Memory, And Executable Image](02-process-memory-and-executab
 
 ---
 
+## Why Compare REX And UNIX At All?
+
+This comparison is not nostalgia and it is not a contest between operating systems.
+
+The purpose is to show that concurrency mechanisms are not arbitrary. They are answers to different operating constraints.
+
+REX-style embedded systems and UNIX-style systems make different promises:
+
+- REX-style systems emphasize bounded latency, direct hardware control, and disciplined shared-system design.
+- UNIX-style systems emphasize isolation, multiprogramming, user/kernel separation, and process lifecycle management.
+- REX-style systems often trust one integrated firmware image.
+- UNIX-style systems assume many independently built programs sharing a machine.
+- REX-style systems often make sharing cheap and fault containment expensive.
+- UNIX-style systems often make isolation strong and crossing boundaries more expensive.
+
+That contrast is useful because it forces the learner to ask:
+
+- What does the system need to protect?
+- What does the system need to schedule?
+- What does the system need to recover from?
+- What does the system need to share?
+- What does the system need to make cheap?
+- What failure blast radius is acceptable?
+
+```mermaid
+flowchart LR
+  A["Concurrency requirement"] --> B{"What is the dominant constraint?"}
+  B -->|hard latency and hardware events| R["REX-style answer<br/>tasks, priorities, interrupts,<br/>shared image discipline"]
+  B -->|many programs and isolation| U["UNIX-style answer<br/>processes, VM, syscalls,<br/>user/kernel boundary"]
+  R --> C["Cheap handoff<br/>low overhead<br/>weak containment"]
+  U --> D["Strong containment<br/>rich lifecycle<br/>higher boundary cost"]
+```
+
+> **Side note:** The comparison is valuable because it explains why the architecture is the way it is. If you only learn UNIX, REX looks unsafe. If you only learn REX, UNIX looks heavy. If you understand both, you can reason about tradeoffs.
+
+---
+
 ## 15. What Was QComm REX Operating System, Say On ARM7
 
 > **Flow:** From **Summary So Far**, move into **What Was QComm REX Operating System, Say On ARM7**. This page should answer the natural follow-up and prepare for **What Is UNIX OS In Comparison To REX, Feature By Feature**.
@@ -69,6 +106,34 @@ Typical RTOS priorities:
 UNIX gives you stronger isolation and generality.
 
 REX-style RTOS gives you tighter control and often lower overhead.
+
+Feature comparison as concurrency pressure:
+
+```mermaid
+flowchart TB
+  subgraph R["REX-style RTOS pressure"]
+    R1["interrupt response"]
+    R2["priority task scheduling"]
+    R3["shared memory image"]
+    R4["hardware-driven events"]
+    R5["bounded footprint"]
+  end
+
+  subgraph U["UNIX-style OS pressure"]
+    U1["multiple processes"]
+    U2["virtual memory isolation"]
+    U3["syscall boundary"]
+    U4["file descriptors and exec"]
+    U5["fairness and policy mix"]
+  end
+
+  R1 --> RT["Design tends toward direct control"]
+  R2 --> RT
+  R3 --> RT
+  U1 --> UX["Design tends toward protected resource containers"]
+  U2 --> UX
+  U3 --> UX
+```
 
 > **Side note:** Neither architecture is "better" absolutely. UNIX is great for untrusted/multiprogrammed environments. RTOS is great when you own the whole image and deadlines matter more than user/process isolation.
 

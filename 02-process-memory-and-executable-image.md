@@ -257,6 +257,26 @@ flowchart LR
 
 ELF means Executable and Linkable Format.
 
+Why this matters for a concurrency learner:
+
+- A process is not born from source code. It is born from an executable image loaded into memory.
+- Threads, stacks, heap, shared libraries, TLS, constructors, and `main()` all depend on the loader-created runtime image.
+- Shared text pages, dynamic libraries, and copy-on-write are possible because executable mappings are structured.
+- Startup latency can come from dynamic loading, relocation, lazy binding, constructors, and page faults.
+- Security and concurrency both depend on page permissions: readable, writable, executable, shared, private.
+- When debugging production, stack traces, symbols, core dumps, ASLR, and shared library versions all lead back to executable format and loading.
+
+```mermaid
+flowchart TD
+  SRC["source code"] --> OBJ["object files"]
+  OBJ --> LINK["linker"]
+  LINK --> ELF["ELF executable or shared library"]
+  ELF --> LOAD["kernel + dynamic loader map segments"]
+  LOAD --> PROC["process image"]
+  PROC --> RUN["threads execute code<br/>using stack heap TLS libraries"]
+  RUN --> OBS["debugging: symbols, maps, core dumps,<br/>stack traces, perf profiles"]
+```
+
 ELF is common on UNIX-like systems including Linux. It can represent:
 
 - Executable files.
@@ -281,6 +301,12 @@ Two views matter:
 
 - **Link-time view:** sections help linkers and debuggers.
 - **Run-time view:** segments tell the loader what to map.
+
+The learning point:
+
+```text
+ELF is the bridge between "a file on disk" and "a process the scheduler can run".
+```
 
 > **Side note:** Engineers often memorize `.text`, `.data`, `.bss`, but miss the key distinction: sections are mostly for tooling; program headers are what the kernel loader cares about when creating a process image.
 
@@ -348,6 +374,27 @@ When a UNIX-like system executes a binary, roughly:
 10. Control returns to user mode at the new program image.
 
 `execve` does not create a new process by itself. It replaces the current process image.
+
+Why the loader story is necessary:
+
+- It explains why `main()` is not the first instruction.
+- It explains why a process can fault on first touch of a page even after `execve()` succeeds.
+- It explains why two processes can share read-only code pages.
+- It explains why dynamic libraries can affect startup time and runtime locking.
+- It explains why `fork()` plus `exec()` is cheap enough to be a core UNIX pattern.
+- It explains why environment, arguments, auxiliary vectors, and file descriptors shape program startup.
+
+```mermaid
+flowchart LR
+  D["Disk file<br/>ELF"] --> K["Kernel loader"]
+  K --> VM["Virtual memory mappings"]
+  VM --> S["Initial user stack<br/>argc argv envp auxv"]
+  VM --> L{"Dynamic loader needed?"}
+  L -->|yes| DL["ld.so maps libraries<br/>relocates symbols"]
+  L -->|no| CRT["C runtime startup"]
+  DL --> CRT
+  CRT --> M["main()"]
+```
 
 Classic UNIX program launch:
 
