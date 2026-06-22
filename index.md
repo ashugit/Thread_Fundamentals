@@ -1,8 +1,6 @@
 # Concurrency Deep Dive: Modular Reading Index
 
-This folder breaks the original long deck into smaller markdown files. Read the sections in order for the intended learning flow, or jump directly to a topic.
-
-The original single-file deck remains available at [../concurrency-deep-dive-slide-book.md](../concurrency-deep-dive-slide-book.md).
+Use this page as the reading map. The sections are ordered so each layer gives vocabulary for the next one, but each file can still be opened directly when you want to revisit a topic.
 
 ## GitHub Self-Study Entry Points
 
@@ -58,7 +56,7 @@ The original single-file deck remains available at [../concurrency-deep-dive-sli
    - Extra modules
    - Fill in topics that were easy to skim: syscalls, page tables, futexes, condition variables, event loops, allocators, NUMA, watchdog/kickdog design, database races, distributed concurrency, and observability.
 
-## Teaching Flow
+## Learning Flow
 
 ```mermaid
 flowchart TD
