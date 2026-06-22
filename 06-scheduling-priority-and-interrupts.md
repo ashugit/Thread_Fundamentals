@@ -779,6 +779,15 @@ We covered scheduling mechanics:
 
 ---
 
+## References For This Section
+
+- [Linux man-pages: `sched(7)`](https://man7.org/linux/man-pages/man7/sched.7.html)
+- [Linux man-pages: `pthreads(7)`](https://man7.org/linux/man-pages/man7/pthreads.7.html)
+
+Use these when checking Linux scheduling policies, priorities, and the relationship between POSIX threads and Linux scheduling.
+
+---
+
 ## Lead Into Next Section
 
 **Core takeaway to close with:** Cover scheduling policy, priority, system-call scheduling points, interrupts, and context switches.

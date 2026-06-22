@@ -382,6 +382,8 @@ Conceptual steps:
 
 A page fault is not always a bug.
 
+For the main concurrency path, keep this narrow: page faults matter here because copy-on-write, demand loading, stack growth, and invalid memory access all meet at the same kernel mechanism. You do not need a full virtual-memory implementation tour before understanding threads.
+
 Page faults happen when:
 
 - Page is not present and must be loaded.
@@ -497,67 +499,19 @@ flowchart LR
 
 ---
 
-## 32A. Bach-Style File Model: Descriptor, File Table Entry, Inode
+## 32A. Optional UNIX Detail: Descriptor, Open File Description, Inode
 
-One of the most useful UNIX lessons from Bach's style of explanation is that "a file" is not one thing inside the kernel.
+The main path only needs this practical rule:
 
-There are layers:
+> A file descriptor is process-local, but after `fork()` two descriptors can still refer to the same underlying open file description.
 
-```text
-process fd table
-  fd 3
-    |
-    v
-system-wide open file table entry
-  file offset
-  open mode/status flags
-  reference count
-    |
-    v
-inode / vnode-like object
-  file identity
-  permissions
-  size
-  block mapping / filesystem metadata
-```
+That is enough to understand fd inheritance, shell redirection, shared offsets, pipes, and sockets during `fork+exec`.
 
-Why this matters:
+The deeper Bach-style distinction between descriptor table, system-wide open file table entry, and inode-like file object is useful, but it is UNIX-specific enough to treat as optional reference material.
 
-- Two file descriptors can refer to the same open file table entry.
-- Parent and child after `fork()` can share file offset.
-- `dup()` creates another descriptor pointing to the same open file description.
-- Opening the same pathname twice creates separate open file descriptions.
-- The inode identifies the file object; the open file entry tracks an active open instance.
+Read [Appendix D. Bach-Style File Model](13-appendices.md#appendix-d-bach-style-file-model-descriptor-open-file-description-inode) when you want the full model.
 
-Example:
-
-```c
-int fd1 = open("data.txt", O_RDONLY);
-int fd2 = dup(fd1);
-int fd3 = open("data.txt", O_RDONLY);
-```
-
-Conceptually:
-
-```text
-fd1 -> open file entry A -> inode for data.txt
-fd2 -> open file entry A -> inode for data.txt
-fd3 -> open file entry B -> inode for data.txt
-```
-
-Consequence:
-
-- Reads through `fd1` advance the offset seen by `fd2`.
-- Reads through `fd3` use a separate offset.
-
-Concurrency implication:
-
-- File descriptors are process-local handles.
-- Open file descriptions may be shared kernel objects.
-- Inodes/filesystem objects are deeper shared objects.
-- Correctness depends on which layer is shared.
-
-> **Side note:** This is a classic UNIX distinction worth teaching slowly. Many engineers say "the fd points to a file." Better: fd points to an open file description, which points to the underlying file object.
+> **Side note:** This keeps the main flow about concurrency and process launch, while preserving the UNIX depth for readers who want it.
 
 ---
 
@@ -679,6 +633,18 @@ Concurrency connection:
 - Context switching between processes may include address-space changes.
 
 > **Side note:** By now you should be able to explain why process isolation is powerful and why it has cost.
+
+---
+
+## References For This Section
+
+- [Linux man-pages: `fork(2)`](https://man7.org/linux/man-pages/man2/fork.2.html)
+- [Linux man-pages: `execve(2)`](https://man7.org/linux/man-pages/man2/execve.2.html)
+- [Linux man-pages: `open(2)`](https://man7.org/linux/man-pages/man2/open.2.html)
+- [Linux man-pages: `dup(2)`](https://man7.org/linux/man-pages/man2/dup.2.html)
+- [Linux man-pages: `mmap(2)`](https://man7.org/linux/man-pages/man2/mmap.2.html)
+
+Use these when checking `fork`, `exec`, copy-on-write notes, file descriptor inheritance, open file descriptions, and memory mappings.
 
 ---
 

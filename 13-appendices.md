@@ -98,6 +98,70 @@ Good exercises:
 
 ---
 
+## Appendix D. Bach-Style File Model: Descriptor, Open File Description, Inode
+
+One of the most useful UNIX lessons from Maurice J. Bach's style of explanation is that "a file" is not one thing inside the kernel.
+
+There are layers:
+
+```text
+process fd table
+  fd 3
+    |
+    v
+system-wide open file table entry / open file description
+  file offset
+  open mode/status flags
+  reference count
+    |
+    v
+inode / vnode-like object
+  file identity
+  permissions
+  size
+  block mapping / filesystem metadata
+```
+
+Why this matters:
+
+- Two file descriptors can refer to the same open file table entry.
+- Parent and child after `fork()` can share file offset.
+- `dup()` creates another descriptor pointing to the same open file description.
+- Opening the same pathname twice creates separate open file descriptions.
+- The inode identifies the file object; the open file entry tracks an active open instance.
+
+Example:
+
+```c
+int fd1 = open("data.txt", O_RDONLY);
+int fd2 = dup(fd1);
+int fd3 = open("data.txt", O_RDONLY);
+```
+
+Conceptually:
+
+```text
+fd1 -> open file entry A -> inode for data.txt
+fd2 -> open file entry A -> inode for data.txt
+fd3 -> open file entry B -> inode for data.txt
+```
+
+Consequence:
+
+- Reads through `fd1` advance the offset seen by `fd2`.
+- Reads through `fd3` use a separate offset.
+
+Concurrency implication:
+
+- File descriptors are process-local handles.
+- Open file descriptions may be shared kernel objects.
+- Inodes/filesystem objects are deeper shared objects.
+- Correctness depends on which layer is shared.
+
+> **Side note:** This is a classic UNIX distinction worth teaching slowly. Many engineers say "the fd points to a file." Better: fd points to an open file description, which points to the underlying file object.
+
+---
+
 ## Lead Into Next Section
 
 **Core takeaway to close with:** Keep optional snippets, decision tables, and delivery rhythm separate from the main flow.

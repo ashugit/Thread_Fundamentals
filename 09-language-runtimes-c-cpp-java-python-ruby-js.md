@@ -1224,6 +1224,23 @@ This is why the next section moves into coroutines and Go. Once you understand O
 
 ---
 
+## References For This Section
+
+- [Oracle Java Tutorial: Concurrency](https://docs.oracle.com/javase/tutorial/essential/concurrency/)
+- [Java SE 21 API: `ExecutorService`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/ExecutorService.html)
+- [Oracle Java 21 docs: Virtual Threads](https://docs.oracle.com/en/java/javase/21/core/virtual-threads.html)
+- [Python docs: `threading`](https://docs.python.org/3/library/threading.html)
+- [Python docs: Global Interpreter Lock](https://docs.python.org/3/glossary.html#term-global-interpreter-lock)
+- [Python docs: `asyncio`](https://docs.python.org/3/library/asyncio.html)
+- [Node.js guide: The Event Loop](https://nodejs.org/learn/asynchronous-work/event-loop-timers-and-nexttick)
+- [Node.js guide: Don't Block the Event Loop or Worker Pool](https://nodejs.org/learn/asynchronous-work/dont-block-the-event-loop)
+- [Ruby docs: Thread](https://docs.ruby-lang.org/en/master/Thread.html)
+- [Ruby docs: Fiber](https://docs.ruby-lang.org/en/master/Fiber.html)
+
+Use these when checking language/runtime-specific claims about threads, GIL/GVL-style limits, event loops, virtual threads, and async APIs.
+
+---
+
 ## Lead Into Next Section
 
 **Core takeaway to close with:** Compare runtime models, threading models, GC, GIL/GVL, and event-loop choices.

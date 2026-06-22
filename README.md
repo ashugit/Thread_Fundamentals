@@ -32,6 +32,7 @@ If you have ever wondered why a service hangs with low CPU, why a mutex fixes co
 3. Use [Self Study Guide](SELF_STUDY_GUIDE.md) to pace the material.
 4. Use [Exercises And Checkpoints](EXERCISES_AND_CHECKPOINTS.md) to test understanding.
 5. Use [Deep Expansion Pack](14-deep-expansion-pack.md) when a topic needs more depth.
+6. Use [References](REFERENCES.md) to verify implementation-specific claims and go deeper.
 
 ## What You Will Learn
 
@@ -80,6 +81,7 @@ The course also includes:
 
 - [Self Study Guide](SELF_STUDY_GUIDE.md)
 - [Exercises And Checkpoints](EXERCISES_AND_CHECKPOINTS.md)
+- [References](REFERENCES.md)
 
 ## Recommended Study Modes
 

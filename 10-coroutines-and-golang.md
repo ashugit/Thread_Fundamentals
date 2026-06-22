@@ -72,7 +72,7 @@ The core idea:
 
 ```text
 Threads are an OS-visible execution abstraction.
-Coroutines are a runtime-visible control-flow abstraction.
+Coroutines are a higher-level runtime-visible control-flow abstraction built on runtime scheduling.
 Goroutines are runtime-scheduled execution units that can run in parallel on OS threads.
 ```
 
@@ -104,12 +104,15 @@ Examples:
 - Rust async futures.
 - Go goroutines are not exactly coroutines, but share lightweight scheduling ideas.
 
-Coroutine vs thread:
+Coroutine and thread live at different layers:
 
-- Thread can be preempted almost anywhere.
-- Coroutine yields at known points.
-- Thread stack is usually larger.
+- An OS thread is scheduled by the kernel, or by a runtime in cooperation with kernel threads.
+- A coroutine is scheduled by a language runtime, event loop, or coroutine scheduler.
+- A thread can be preempted almost anywhere.
+- A coroutine usually yields at known `await` or `yield` points.
+- A thread stack is usually larger.
 - Coroutine state can be much smaller.
+- Many coroutine systems still run on top of one or more OS threads.
 
 The reason coroutines exist:
 
@@ -676,6 +679,19 @@ flowchart TB
 ```
 
 > **Side note:** Runtime choice is architecture. The same business service in Java, Node, Python, C++, and Go will have different failure modes under load.
+
+---
+
+## References For This Section
+
+- [Python docs: `asyncio`](https://docs.python.org/3/library/asyncio.html)
+- [MDN: `async function`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)
+- [C++ reference: coroutine support](https://en.cppreference.com/w/cpp/language/coroutines)
+- [Effective Go: Goroutines](https://go.dev/doc/effective_go#goroutines)
+- [Go blog: Go Concurrency Patterns: Pipelines and cancellation](https://go.dev/blog/pipelines)
+- [Go memory model](https://go.dev/ref/mem)
+
+Use these when checking coroutine terminology, async/await behavior, goroutine lifecycle, cancellation, and Go synchronization semantics.
 
 ---
 

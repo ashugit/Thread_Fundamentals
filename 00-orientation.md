@@ -67,13 +67,115 @@ The goal is not to memorize trivia. The goal is to build a mental model strong e
 
 ---
 
+## Where Many Engineers First Meet Concurrency
+
+Many engineers first meet concurrency through Java-like thread APIs:
+
+```java
+Thread t = new Thread(() -> doWork());
+t.start();
+t.join();
+```
+
+Then they meet the next layer:
+
+```java
+ExecutorService pool = Executors.newFixedThreadPool(16);
+pool.submit(() -> doWork());
+```
+
+That is a reasonable starting point. A `Thread` feels concrete: create it, start it, let it run. An `ExecutorService` feels like an improvement: reuse threads, limit concurrency, submit tasks instead of manually owning every thread.
+
+But this is already the middle of the story.
+
+Below Java threads are OS threads, scheduler queues, CPU cores, stacks, locks, memory visibility, syscalls, interrupts, and blocking. Above Java threads are futures, callbacks, reactive streams, actors, coroutines, virtual threads, goroutines, queues, and service-level concurrency patterns.
+
+This material keeps returning to that middle point:
+
+> A thread is often where engineers first touch concurrency, but not where concurrency begins or ends.
+
+The course goes downward first so the mechanics are honest. It then comes back upward into language runtimes and backend architecture so the abstractions make sense.
+
+```mermaid
+flowchart TB
+  H["Hardware<br/>cores, interrupts, atomics, caches"]
+  OS["Operating system<br/>processes, threads, VM, scheduler"]
+  L["Language runtime<br/>JVM, CPython, V8, Go runtime"]
+  LIB["Library abstraction<br/>executors, futures, promises, pools"]
+  APP["Application architecture<br/>actors, queues, services, backpressure"]
+
+  H --> OS --> L --> LIB --> APP
+  LIB --> J["Typical first exposure<br/>Java Thread / ExecutorService"]
+```
+
+> **Side note:** This bridge helps a younger engineer place Java threads correctly. They are not "the whole concurrency model"; they are one visible handle into a much larger stack.
+
+---
+
+## Concurrency Abstraction Ladder
+
+The biggest mistake in concurrency discussions is comparing tools from different layers as if they were peers.
+
+A process, a thread, an executor, a callback, a future, a coroutine, an actor, and a goroutine do not all solve the same problem at the same layer.
+
+Use this ladder throughout the material:
+
+| Layer | Examples | What it mainly answers |
+|---|---|---|
+| Hardware | CPU core, interrupt, atomic instruction, cache coherence | What can physically run or change indivisibly? |
+| Kernel/OS | process, OS thread, scheduler, VM, syscall | What is isolated, scheduled, blocked, protected, or preempted? |
+| Runtime | JVM, CPython, V8/libuv, Go runtime, Ruby VM | How does the language map work onto OS facilities? |
+| Execution API | `Thread`, `pthread`, Java platform thread, worker thread | How does code get an execution stream? |
+| Work ownership | executor, thread pool, work queue, scheduler | Who owns and limits the threads? |
+| Completion model | callback, promise, future, `CompletableFuture`, `ListenableFuture` | How does waiting work return a result later? |
+| Coordination model | actor, channel, reactive stream, queue | How do independent pieces communicate without sharing everything? |
+| Control-flow abstraction | coroutine, fiber, async/await | How does code suspend and resume without blocking an OS thread? |
+| Architecture | service, worker, shard, job system, event-driven pipeline | How does the whole system absorb load and failure? |
+
+Important consequence:
+
+```text
+coroutine is not simply "thread but smaller"
+actor is not simply "thread with mailbox"
+future is not simply "thread result"
+executor is not simply "thread helper"
+```
+
+Many higher-level constructs still run on top of OS threads or thread pools:
+
+```mermaid
+flowchart TB
+  C["Coroutine / async function"] --> R["Runtime scheduler or event loop"]
+  F["Future / promise callback"] --> R
+  A["Actor mailbox"] --> EX["Executor / dispatcher"]
+  R --> T["One or more OS threads"]
+  EX --> T
+  T --> K["Kernel scheduler"]
+  K --> CPU["CPU cores"]
+```
+
+This is why later sections are careful about wording. The question is not only "which API is nicer?" The question is:
+
+- Which layer owns scheduling?
+- Which layer owns waiting?
+- Which layer owns cancellation?
+- Which layer owns memory visibility?
+- Which layer owns failure isolation?
+- Which layer applies backpressure?
+
+> **Side note:** This ladder prevents a false equivalence. A coroutine may be a better way to express waiting, while a thread is still the thing the kernel schedules underneath.
+
+---
+
 ## The Comparative Lens: REX, UNIX, And Linux
 
 This material uses REX-style real-time operating-system ideas and UNIX/Linux ideas side by side on purpose.
 
 REX is used here as a practical example of a real-time, task-oriented, generally non-VM or limited-protection embedded operating-system model. UNIX and Linux are used as examples of VM-backed, process-oriented systems with stronger isolation, richer file/process abstractions, and a different scheduling/resource-management contract.
 
-Learning the REX-style model first helps because it exposes the simpler baseline:
+The REX material is not intended to dominate the early reading path. It is used as a contrast lens: a simpler system where task scheduling, shared memory, interrupt pressure, and watchdog discipline are easier to see directly. Once that baseline is visible, UNIX/Linux complexity feels less arbitrary.
+
+Learning the REX-style model helps because it exposes the simpler baseline:
 
 - A schedulable task has registers, a stack, priority, and wait state.
 - Tasks can often see the same memory image.

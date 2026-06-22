@@ -160,6 +160,69 @@ mindmap
 
 ---
 
+## 4A. Place The API On The Right Layer
+
+Before the course moves into processes and memory, keep one map in mind.
+
+Most engineers first say:
+
+```text
+Thread vs async vs actor vs coroutine
+```
+
+That phrasing is convenient, but it can blur the layers.
+
+More precise:
+
+```text
+OS thread:
+  kernel-scheduled execution stream
+
+thread pool / executor:
+  library or runtime owner of a bounded set of threads
+
+callback / future / promise:
+  completion model for work that finishes later
+
+actor:
+  state ownership and message-passing model
+
+coroutine / async-await:
+  control-flow model for suspend/resume
+
+goroutine:
+  Go runtime-scheduled execution unit multiplexed over OS threads
+```
+
+```mermaid
+flowchart TB
+  APP["Application code"]
+  ASYNC["async/await<br/>callbacks<br/>futures"]
+  ACT["actors / queues / channels"]
+  POOL["executor / dispatcher / event loop"]
+  TH["OS threads"]
+  OS["kernel scheduler"]
+  CPU["CPU cores"]
+
+  APP --> ASYNC
+  APP --> ACT
+  ASYNC --> POOL
+  ACT --> POOL
+  POOL --> TH
+  TH --> OS
+  OS --> CPU
+```
+
+So when someone says "coroutines are better than threads", translate it carefully:
+
+> Coroutines may be a better way to express many waiting operations, but they usually still depend on runtime scheduling, event loops, and one or more OS threads underneath.
+
+This distinction will matter later when comparing Java, Python, Ruby, JavaScript, and Go.
+
+> **Side note:** This page is the reader's compass. If they keep the layers separate, the rest of the material becomes much less confusing.
+
+---
+
 ## Lead Into Next Section
 
 **Core takeaway to close with:** Build the vocabulary before introducing OS objects.

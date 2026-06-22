@@ -617,6 +617,16 @@ But every win has a corresponding risk:
 
 ---
 
+## References For This Section
+
+- [Linux man-pages: `pthreads(7)`](https://man7.org/linux/man-pages/man7/pthreads.7.html)
+- [Oracle Java Tutorial: Concurrency](https://docs.oracle.com/javase/tutorial/essential/concurrency/)
+- [Java SE 21 API: `ExecutorService`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/ExecutorService.html)
+
+Use these when checking thread vocabulary, POSIX thread behavior, and the Java thread/executor bridge.
+
+---
+
 ## Lead Into Next Section
 
 **Core takeaway to close with:** Define threads, TCBs, process-vs-thread context, and why UNIX/RTOS models differ.

@@ -896,6 +896,17 @@ Synchronization:
 
 ---
 
+## References For This Section
+
+- [Linux man-pages: `pthreads(7)`](https://man7.org/linux/man-pages/man7/pthreads.7.html)
+- [Linux man-pages: `futex(2)`](https://man7.org/linux/man-pages/man2/futex.2.html)
+- [C++ reference: threads library](https://en.cppreference.com/w/cpp/thread)
+- [C++ reference: memory model](https://en.cppreference.com/w/cpp/language/memory_model)
+
+Use these when checking mutexes, condition variables, futexes, atomics, and data-race terminology.
+
+---
+
 ## Lead Into Next Section
 
 **Core takeaway to close with:** Explain races, mutexes, semaphores, critical sections, interrupt locking, multicore requirements, and atomics.

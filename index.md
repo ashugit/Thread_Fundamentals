@@ -7,6 +7,7 @@ Use this page as the reading map. The sections are ordered so each layer gives v
 - [README](README.md): repository landing page.
 - [Self Study Guide](SELF_STUDY_GUIDE.md): paced learning plan.
 - [Exercises And Checkpoints](EXERCISES_AND_CHECKPOINTS.md): checkpoint questions and practice prompts.
+- [References](REFERENCES.md): source links for implementation-specific claims.
 
 ## Reading Path
 

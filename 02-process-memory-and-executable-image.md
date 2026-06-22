@@ -666,6 +666,16 @@ Concurrency connection:
 
 ---
 
+## References For This Section
+
+- [System V ABI: ELF contents](https://refspecs.linuxfoundation.org/elf/gabi4+/contents.html)
+- [Linux man-pages: `elf(5)`](https://man7.org/linux/man-pages/man5/elf.5.html)
+- [glibc manual: Program Basics](https://www.gnu.org/software/libc/manual/html_node/Program-Basics.html)
+
+Use these when checking ELF structure, loadable segments, program entry, and the C runtime path to `main`.
+
+---
+
 ## Lead Into Next Section
 
 **Core takeaway to close with:** Explain process anatomy: PCB, stack, heap, executable bytes, ELF, and loading.
