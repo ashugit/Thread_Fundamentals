@@ -21,6 +21,22 @@ There may be gaps, oversimplifications, or places where a detail depends on a sp
 
 ---
 
+## Authorship And Contributions
+
+This material is not presented as purely hand-authored prose. It has been substantially shaped and co-authored with AI assistance.
+
+The author provided:
+
+- the topic sequence
+- the intended teaching flow
+- the minimum depth expected for each area
+- the practical lens from embedded REX-style systems through UNIX/Linux and web architecture
+- the goal that engineers should be able to absorb the core mental model with the least unnecessary reading overhead
+
+If you find an error, ambiguity, missing caveat, or better explanation, please file an issue. If you would like to co-edit or contribute larger changes, please reach out to the author first so the flow and intent of the material remain coherent.
+
+---
+
 ## Why This Material Exists
 
 Most engineers learn concurrency backward.

@@ -8,6 +8,12 @@ This material is written from a practitioner's point of view, not as an official
 
 That mix is intentional: it lets the material compare the simpler discipline of shared-image embedded tasking with the richer machinery of UNIX/Linux process, virtual-memory, file-descriptor, and runtime management. There may still be gaps, oversimplifications, or places where a detail depends on a specific kernel, processor, runtime, or historical implementation. If you find one, please point it out. Corrections that sharpen the mental model are part of the value of this repository.
 
+## Authorship And Contributions
+
+This material is not presented as purely hand-authored prose. It has been substantially shaped and co-authored with AI assistance. The author provided the topic sequence, the intended teaching flow, the minimum depth expected for each area, and the practical lens through which the material should be useful to engineers.
+
+The goal is to help engineers absorb as much of the author's concurrency mental model as possible with the least unnecessary reading overhead, while still preserving the depth needed to reason from OS fundamentals to web architecture. If you find an error, ambiguity, missing caveat, or better explanation, please file an issue. If you would like to co-edit or contribute larger changes, please reach out to the author first so the flow and intent of the material remain coherent.
+
 This is not a short tutorial on `async`, threads, or locks. It is a layered mental model:
 
 ```text
