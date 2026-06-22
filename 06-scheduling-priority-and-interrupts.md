@@ -34,6 +34,13 @@ REX-style RTOS scheduling:
 - Lower-priority work may starve if design is poor.
 - Tasks often wait on signals/events/semaphores.
 
+Why learn this before UNIX scheduling:
+
+- It isolates the core scheduling idea: choose the highest-need runnable execution unit.
+- It makes preemption, interrupt latency, starvation, and priority inversion concrete.
+- It avoids hiding the scheduler behind VM, process accounting, cgroups, nice values, and multiple scheduling classes too early.
+- Once this is clear, UNIX scheduling reads as the same core problem plus fairness, isolation, accounting, multiprocess policy, and multicore load balancing.
+
 UNIX scheduling:
 
 - Designed for fairness, throughput, responsiveness, and policy.
@@ -764,6 +771,7 @@ We covered scheduling mechanics:
 - Context switch saves one execution context and restores another.
 - REX-style switches are often stack/register/task-control-block focused.
 - UNIX switches add VM/resource/accounting complexity.
+- That extra UNIX complexity is the price of managing process isolation, permissions, accounting, and many independently authored workloads.
 - Single-core concurrency is interleaving.
 - Multicore concurrency is interleaving plus true parallel execution.
 

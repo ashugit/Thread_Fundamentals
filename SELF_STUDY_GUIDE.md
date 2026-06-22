@@ -70,6 +70,7 @@ You should be able to answer:
 
 - Why does UNIX use virtual memory?
 - Why does an RTOS-style model often avoid full UNIX-like process isolation?
+- How does learning the REX-style shared-image model make UNIX process and VM machinery easier to understand?
 - What does `fork()` copy immediately?
 - What remains shared after `fork()`?
 - Why does copy-on-write exist?

@@ -208,6 +208,8 @@ flowchart TB
 
 In a REX-style RTOS, the word "thread" may not be necessary if the system already has "tasks".
 
+This is an important learning shortcut. In a non-VM task-oriented system, the schedulable unit is already visible and concrete. A task has its own stack and saved CPU context, but it may share the broader memory image with other tasks. That lets the learner understand "thread-like execution" before introducing the UNIX split between a process as a resource container and a thread as an execution stream inside that container.
+
 REX task model can provide:
 
 - Independent execution stacks.
@@ -224,6 +226,8 @@ Why no UNIX-style thread distinction?
 - Tasks already share the system image/address space.
 - Isolation boundary is not process-centric.
 - RTOS design starts with schedulable tasks, not forked processes.
+
+UNIX needs the distinction because a process owns a protected address space, file descriptor table, credentials, and lifecycle. Threads were added so multiple execution streams could share that protected container. REX-style tasks help the learner see the execution stream first; UNIX then adds the container around it.
 
 > **Side note:** In UNIX, threads are "inside a process". In an RTOS without UNIX processes, a task may already be the fundamental thread-like thing.
 

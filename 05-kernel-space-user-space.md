@@ -239,6 +239,12 @@ REX-style RTOS:
 - Isolation is less central.
 - Determinism and low overhead dominate.
 
+Learning value:
+
+- REX-style systems show the simpler question: "Can trusted tasks coordinate with low overhead and meet timing?"
+- UNIX adds the harder question: "Can untrusted or independent programs share CPU, memory, files, and devices without corrupting each other?"
+- Kernel space in UNIX is easier to appreciate once you have seen a model where some protection is replaced by discipline and whole-image ownership.
+
 UNIX:
 
 - Assumes multiple programs, users, permissions, files, sockets, devices.
@@ -305,7 +311,8 @@ We added protection:
 - System calls are controlled transitions.
 - User memory must be validated by the kernel.
 - REX-style systems may accept less isolation for lower overhead.
-- UNIX needs kernel isolation because it runs many independent programs.
+- UNIX needs kernel isolation because it runs many independent programs and must manage resources across trust boundaries.
+- The REX-style baseline helps the learner see kernel/user separation as added responsibility, not ceremony.
 
 Concurrency connection:
 

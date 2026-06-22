@@ -75,6 +75,7 @@ Draw a process memory layout and annotate:
 Checkpoint questions:
 
 - Why can an RTOS-style task model be simpler than UNIX processes?
+- How does that simplicity help you see the extra responsibilities UNIX takes on?
 - What does UNIX gain from virtual memory?
 - What does UNIX pay for virtual memory?
 - Why is shared memory dangerous in a non-VM system?
@@ -88,6 +89,15 @@ Compare a REX-style task and a UNIX process across:
 - memory corruption blast radius
 - debugging style
 - interrupt interaction
+- what the OS must manage on your behalf
+
+Write the comparison in this form:
+
+```text
+In the REX-style model, the system can stay simpler because...
+In UNIX, the system adds more machinery because...
+The concurrency lesson is...
+```
 
 ---
 
@@ -399,4 +409,3 @@ Answer:
 - What needs backpressure?
 - What metrics would you add?
 - Which runtime model would you choose and why?
-

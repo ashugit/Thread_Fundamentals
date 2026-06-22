@@ -664,6 +664,13 @@ We added VM and UNIX resource context:
 - File descriptors are process-visible handles to kernel objects.
 - `fork`, `exec`, `mmap`, page faults, and fd inheritance are central to UNIX execution.
 
+Why the REX contrast still matters here:
+
+- In a shared-image RTOS, launching another independent program image is usually not the central operation.
+- In UNIX, process creation and image replacement are central because the OS is a platform for many programs.
+- `fork`, `exec`, COW, and fd inheritance are the machinery UNIX needs once it commits to isolated process containers.
+- The simpler REX-style model helps the learner feel why this machinery is extra work and what problem that extra work solves.
+
 Concurrency connection:
 
 - VM makes concurrent processes safer.

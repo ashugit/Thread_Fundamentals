@@ -22,6 +22,16 @@ This comparison is not nostalgia and it is not a contest between operating syste
 
 The purpose is to show that concurrency mechanisms are not arbitrary. They are answers to different operating constraints.
 
+REX-style non-VM thinking gives the learner a clean starting point. You can see the essentials directly: task, stack, priority, interrupt, shared memory, and watchdog. There is less indirection.
+
+UNIX then becomes the next layer of the same story. It keeps the same core questions, but answers them with more system management:
+
+- Instead of one shared image, it has per-process virtual address spaces.
+- Instead of trusting every task equally, it has user/kernel privilege and permissions.
+- Instead of direct shared pointers everywhere, it has file descriptors, pipes, sockets, shared memory, and syscalls.
+- Instead of one firmware lifecycle, it has `fork`, `exec`, `wait`, signals, sessions, and resource limits.
+- Instead of memory corruption being mostly a whole-system problem, it uses VM to contain many failures to one process.
+
 REX-style embedded systems and UNIX-style systems make different promises:
 
 - REX-style systems emphasize bounded latency, direct hardware control, and disciplined shared-system design.
@@ -72,6 +82,13 @@ Public details are limited compared with UNIX/Linux, so treat this as the classi
 - Tasks share one address space or a small number of memory regions.
 - Strong focus on deterministic response to modem/baseband events.
 
+Why start here:
+
+- It makes the minimum unit of scheduling visible: a task that can run, block, wake, and be preempted.
+- It makes interrupt pressure concrete before adding UNIX syscalls, page faults, and process accounting.
+- It shows what life looks like when memory sharing is cheap but memory protection is weak.
+- It prepares the learner to ask why UNIX spends so much effort on VM, process descriptors, file tables, and privilege checks.
+
 Typical RTOS priorities:
 
 - Interrupt latency.
@@ -106,6 +123,13 @@ Typical RTOS priorities:
 UNIX gives you stronger isolation and generality.
 
 REX-style RTOS gives you tighter control and often lower overhead.
+
+The teaching value is in the contrast:
+
+```text
+REX-style model: "What must run now, and can the whole product keep making progress?"
+UNIX-style model: "How do many independent programs share one machine safely and fairly?"
+```
 
 Feature comparison as concurrency pressure:
 
@@ -259,6 +283,14 @@ In a non-VM or limited-VM RTOS-style system:
 - IPC can be cheap because pointers can be shared directly.
 - Protection relies on design, code review, testing, and sometimes MPU regions.
 
+This is exactly why the model is worth learning before UNIX:
+
+- You see what a task switch is before it is mixed with address-space switching.
+- You see why shared memory is fast before you see why it is dangerous.
+- You see why direct hardware access is attractive before you see why UNIX hides hardware behind kernel APIs.
+- You see why a watchdog can be a system-level progress detector before you see richer UNIX process supervision.
+- You see what UNIX adds: containment, naming, permissions, accounting, and safer coexistence.
+
 Benefits:
 
 - Low overhead.
@@ -311,6 +343,8 @@ In UNIX-like systems:
 - Page tables define what each process can access.
 - The scheduler can switch between processes by switching address-space context.
 - Shared memory must be explicitly requested.
+
+Compared with the REX-style baseline, UNIX is adding management layers around the same raw facts of execution. CPU still runs instructions. Stacks still hold call state. The scheduler still chooses runnable work. The difference is that UNIX wraps those facts in process identity, VM mappings, kernel-owned resources, and permission checks so unrelated programs can safely coexist.
 
 Important mechanisms:
 

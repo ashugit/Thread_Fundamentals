@@ -37,6 +37,7 @@ By the end, you should be able to explain:
 - Scheduling, interrupts, priority, and context switches.
 - REX-style RTOS scheduling, preemption, and watchdog/kickdog mechanics.
 - Why REX-style real-time non-VM design and UNIX/Linux VM-backed design solve different problems.
+- How learning a simpler REX-style shared-image task model makes UNIX process, VM, file descriptor, and kernel-management machinery easier to reason about.
 - Bach-style UNIX ideas that still matter: process state, fd/file/inode separation, syscall trap, sleep/wakeup, scheduler queues, and buffering.
 - How embedded systems instincts translate into web backend systems.
 - Race conditions, mutexes, semaphores, critical sections, atomics, and deadlocks.
@@ -52,7 +53,7 @@ By the end, you should be able to explain:
 | 00 | [Orientation](00-orientation.md) | Why this course exists and what it does not cover |
 | 01 | [Concurrency Intuition](01-concurrency-intuition.md) | Build the vocabulary |
 | 02 | [Process, Memory, And Executable Image](02-process-memory-and-executable-image.md) | Understand process anatomy and loading |
-| 03 | [REX, UNIX, And Virtual Memory](03-rex-unix-and-virtual-memory.md) | Compare RTOS and UNIX memory models |
+| 03 | [REX, UNIX, And Virtual Memory](03-rex-unix-and-virtual-memory.md) | Use a simpler non-VM RTOS model to understand why UNIX adds VM and process management |
 | 04 | [Fork, Exec, COW, And FDs](04-fork-exec-copy-on-write-and-fds.md) | Understand UNIX process launch deeply |
 | 05 | [Kernel Space And User Space](05-kernel-space-user-space.md) | Understand protection boundaries |
 | 06 | [Scheduling, Priority, And Interrupts](06-scheduling-priority-and-interrupts.md) | Understand who runs and why |

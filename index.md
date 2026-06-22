@@ -23,7 +23,7 @@ The original single-file deck remains available at [../concurrency-deep-dive-sli
    - Explain process anatomy: PCB, stack, heap, executable bytes, ELF, and loading.
 3. [REX, UNIX, And Virtual Memory](03-rex-unix-and-virtual-memory.md)
    - Slides 15-22
-   - Contrast RTOS-style tasks with UNIX processes and introduce VM as the isolation mechanism.
+   - Use a simpler REX-style non-VM task model to understand why UNIX adds VM, process containers, and stronger resource management.
 4. [Fork, Exec, Copy-On-Write, And File Descriptors](04-fork-exec-copy-on-write-and-fds.md)
    - Slides 23-34
    - Remove ambiguity around fork, exec, COW, page faults, context, and FD inheritance.

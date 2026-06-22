@@ -54,6 +54,16 @@ This material uses REX-style real-time operating-system ideas and UNIX/Linux ide
 
 REX is used here as a practical example of a real-time, task-oriented, generally non-VM or limited-protection embedded operating-system model. UNIX and Linux are used as examples of VM-backed, process-oriented systems with stronger isolation, richer file/process abstractions, and a different scheduling/resource-management contract.
 
+Learning the REX-style model first helps because it exposes the simpler baseline:
+
+- A schedulable task has registers, a stack, priority, and wait state.
+- Tasks can often see the same memory image.
+- A context switch can be mostly register and stack-pointer work.
+- Hardware events and interrupt latency are visible design pressures.
+- Protection is often a discipline of ownership, review, and testing rather than a full VM-enforced boundary.
+
+Once that baseline is clear, UNIX becomes easier to understand. UNIX adds machinery because it is solving a harder management problem: many programs, many users, independent lifetimes, file descriptors, permissions, page tables, demand paging, `fork`, `exec`, signals, and resource accounting. The learner should feel that UNIX is not complicated for its own sake; it is carrying responsibilities the simpler embedded model often does not need to carry.
+
 The comparison is not meant to say one model is inherently superior.
 
 It is meant to answer:
