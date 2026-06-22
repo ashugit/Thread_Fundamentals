@@ -2,6 +2,12 @@
 
 A self-study course for engineers who want to understand concurrency from the operating-system level up to language runtimes and backend architecture.
 
+## Author's Vantage Point
+
+This material is written from a practitioner's point of view, not as an official specification or a claim of complete authority. The perspective comes from early hands-on work with Qualcomm REX-style real-time software on non-VM, single-core embedded systems; later work with Linux in embedded environments; study of UNIX operating-system fundamentals through Maurice J. Bach's *The Design of the UNIX Operating System*; and many subsequent years building and architecting full-stack web systems.
+
+That mix is intentional: it lets the material compare the simpler discipline of shared-image embedded tasking with the richer machinery of UNIX/Linux process, virtual-memory, file-descriptor, and runtime management. There may still be gaps, oversimplifications, or places where a detail depends on a specific kernel, processor, runtime, or historical implementation. If you find one, please point it out. Corrections that sharpen the mental model are part of the value of this repository.
+
 This is not a short tutorial on `async`, threads, or locks. It is a layered mental model:
 
 ```text

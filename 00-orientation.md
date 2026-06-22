@@ -4,6 +4,23 @@ Previous: none | [Index](index.md) | Next: [Concurrency Intuition](01-concurrenc
 
 **Section purpose:** Explain why this material exists, what it will help engineers understand, and what it intentionally does not try to cover.
 
+## Author's Vantage Point
+
+This material is written from a practitioner's point of view, not as an official specification or a claim of complete authority.
+
+The perspective comes from:
+
+- early hands-on work with Qualcomm REX-style real-time software on non-VM, single-core embedded systems
+- later work with Linux in embedded environments
+- UNIX operating-system grounding built through Maurice J. Bach's *The Design of the UNIX Operating System*
+- many subsequent years building and architecting full-stack web systems
+
+That background shapes the course. It uses REX-style systems as a clean, simpler baseline for task scheduling, shared memory, interrupt pressure, and watchdog discipline. It then uses UNIX/Linux to show why richer systems add process containers, virtual memory, user/kernel separation, file descriptors, `fork`, `exec`, signals, and broader resource management.
+
+There may be gaps, oversimplifications, or places where a detail depends on a specific kernel, processor, runtime, or historical implementation. Please point them out. Corrections that make the model more accurate are welcome, especially when they clarify the tradeoff being taught.
+
+---
+
 ## Why This Material Exists
 
 Most engineers learn concurrency backward.
