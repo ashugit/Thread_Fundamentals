@@ -117,6 +117,22 @@ Better watchdog discipline:
 - Reports must mean real forward progress, not merely "loop is alive."
 - On failure, capture crash reason if possible before reset.
 
+Watchdog as a liveness contract:
+
+```mermaid
+flowchart TD
+  T1["Task A reports progress"] --> D["Dog task"]
+  T2["Task B reports progress"] --> D
+  T3["Task C reports progress"] --> D
+  IRQ["Timer tick schedules health check"] --> D
+  D --> H{"All required progress fresh?"}
+  H -->|yes| K["Kick hardware watchdog"]
+  K --> W["Watchdog countdown resets"]
+  H -->|no| L["Log failing task/state"]
+  L --> N["Do not kick"]
+  N --> R["Hardware watchdog expires and resets system"]
+```
+
 > **Side note:** Do not teach kickdog as "periodically reset a timer." Teach it as a system-level liveness contract. The important question is: what evidence must exist before software is allowed to kick the dog?
 
 ---
@@ -535,6 +551,19 @@ Costs:
 - Branch predictor/cache effects.
 - Locking inside scheduler.
 
+State transition view:
+
+```mermaid
+stateDiagram-v2
+  [*] --> RunningA: CPU executes A
+  RunningA --> Kernel: interrupt, syscall, fault, or block
+  Kernel --> SaveA: save A registers and accounting
+  SaveA --> PickB: scheduler selects runnable B
+  PickB --> SwitchMMU: switch address space if needed
+  SwitchMMU --> RestoreB: restore B registers and kernel stack
+  RestoreB --> RunningB: return to user mode
+```
+
 > **Side note:** Context switch cost is not one number. It depends on architecture, cache state, TLB behavior, scheduler path, security mitigations, and working set.
 
 ---
@@ -600,6 +629,17 @@ If switching between processes:
 - Address space changes.
 - TLB effects are more likely.
 - Process-level accounting/resources differ.
+
+Process switch vs same-process thread switch:
+
+```mermaid
+flowchart TB
+  S["Scheduler chooses next runnable execution context"] --> Q{"Same process address space?"}
+  Q -->|yes: thread switch| T["Save/restore registers<br/>switch user stack<br/>switch kernel stack<br/>keep page tables"]
+  Q -->|no: process switch| P["Save/restore registers<br/>switch kernel stack<br/>switch MMU context<br/>possible TLB/cache disruption"]
+  T --> R["Return to selected thread"]
+  P --> R2["Return to selected process/thread"]
+```
 
 > **Side note:** A UNIX "task" in kernel scheduling often represents a schedulable execution context. Whether you call it process or thread at user level, the scheduler needs a register/stack context to run.
 

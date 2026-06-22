@@ -160,6 +160,21 @@ Copy-on-write strategy:
 - If someone writes, copy only that page.
 - Keep the illusion that parent and child have private memory.
 
+Why this is cheaper:
+
+```mermaid
+flowchart LR
+  P0["Parent before fork<br/>writable pages A B C"] --> F["fork()"]
+  F --> P1["Parent after fork<br/>A B C mapped read-only COW"]
+  F --> C1["Child after fork<br/>same physical A B C mapped read-only COW"]
+  C1 --> E{"Child calls exec soon?"}
+  E -->|yes| X["Old COW mappings discarded<br/>no page copies needed"]
+  E -->|no, child writes B| PF["Write fault on B"]
+  PF --> CP["Kernel copies only page B"]
+  CP --> C2["Child maps private B' writable"]
+  CP --> P2["Parent still maps original B"]
+```
+
 > **Side note:** COW is laziness as an optimization. The OS delays work until it proves the work is necessary.
 
 ---
@@ -231,6 +246,36 @@ Survives across `execve()`:
 - Some signal dispositions reset while ignored signals may remain ignored according to UNIX rules.
 - Resource limits.
 - Process group/session relationship.
+
+Exec boundary as a picture:
+
+```mermaid
+flowchart TB
+  subgraph Before["Before execve: same PID, old program image"]
+    OC["old code/text"]
+    OH["old heap"]
+    OS["old stack"]
+    OL["old shared libraries"]
+    OFD["fd table"]
+    META["PID, credentials, cwd, limits"]
+  end
+
+  subgraph After["After execve: same PID, new program image"]
+    NC["new code/text"]
+    NH["new heap and bss"]
+    NS["new initial stack<br/>argc argv envp auxv"]
+    NL["new loader/libraries"]
+    NFD["fd table minus close-on-exec fds"]
+    NMETA["same process identity metadata"]
+  end
+
+  OC -.replaced.-> NC
+  OH -.replaced.-> NH
+  OS -.replaced.-> NS
+  OL -.replaced.-> NL
+  OFD --> NFD
+  META --> NMETA
+```
 
 Why this matters:
 
@@ -385,6 +430,35 @@ Process fd table
   1 -> stdout open file description
   2 -> stderr open file description
   3 -> socket
+```
+
+Relationship map:
+
+```mermaid
+flowchart LR
+  subgraph P["Process fd table"]
+    FD0["fd 0"]
+    FD1["fd 1"]
+    FD3["fd 3"]
+  end
+
+  FD0 --> OFD0["open file description<br/>offset, flags"]
+  FD1 --> OFD1["open file description<br/>offset, flags"]
+  FD3 --> OFD3["open file description<br/>offset, flags"]
+
+  OFD0 --> OBJ0["file/socket/pipe object"]
+  OFD1 --> OBJ1["file/socket/pipe object"]
+  OFD3 --> OBJ3["file/socket/pipe object"]
+
+  subgraph C["Child fd table after fork"]
+    CFD0["fd 0"]
+    CFD1["fd 1"]
+    CFD3["fd 3"]
+  end
+
+  CFD0 --> OFD0
+  CFD1 --> OFD1
+  CFD3 --> OFD3
 ```
 
 > **Side note:** `fork()` duplicates file descriptors, but the underlying open file description can be shared. That means parent and child may share file offset. This surprises people.

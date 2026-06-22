@@ -162,6 +162,19 @@ Common page states:
 - Dirty.
 - Accessed.
 
+Address translation picture:
+
+```mermaid
+flowchart LR
+  CPU["CPU executes load/store<br/>virtual address 0x7fff..."] --> MMU["MMU consults TLB/page tables"]
+  MMU --> PTE{"Page table entry"}
+  PTE -->|present and allowed| RAM["Physical RAM page"]
+  PTE -->|not present| PF["Page fault to kernel"]
+  PTE -->|permission denied| PROT["Protection fault"]
+  PF --> K["Kernel loads/maps page or kills process"]
+  PROT --> K
+```
+
 > **Side note:** VM is a contract between compiler, linker, loader, kernel, MMU, and CPU. It is not a single feature hidden in one place.
 
 ---
@@ -194,6 +207,27 @@ Costs:
 - Harder fault containment.
 - Memory corruption can be system-wide.
 - Security boundary is limited.
+
+Non-VM task layout:
+
+```mermaid
+flowchart TB
+  subgraph Image["One firmware/system image"]
+    CODE["shared code"]
+    GLOB["global data"]
+    HEAP["shared heap or memory pools"]
+    T1["Task A stack"]
+    T2["Task B stack"]
+    ISR["ISR stack/context"]
+    MMIO["memory-mapped hardware registers"]
+  end
+
+  T1 --> GLOB
+  T2 --> GLOB
+  ISR --> GLOB
+  T1 --> MMIO
+  T2 --> HEAP
+```
 
 > **Side note:** Embedded engineers often accept this because the image is built and tested as one product. UNIX assumes multiple programs, possibly from different authors, sharing one machine.
 

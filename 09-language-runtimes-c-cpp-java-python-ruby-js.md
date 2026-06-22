@@ -548,6 +548,27 @@ for t in threads: t.join()
 
 In classic CPython, this is unlikely to speed up pure Python CPU work across cores.
 
+Classic CPython GIL mental model:
+
+```mermaid
+flowchart TB
+  subgraph Proc["One CPython process"]
+    GIL["Global Interpreter Lock"]
+    T1["OS thread 1"]
+    T2["OS thread 2"]
+    T3["OS thread 3"]
+    PY["Python bytecode interpreter"]
+    IO["Blocking I/O or native extension<br/>may release GIL"]
+  end
+
+  T1 -->|must hold| GIL
+  T2 -->|waits for| GIL
+  T3 -->|waits for| GIL
+  GIL --> PY
+  T1 --> IO
+  IO -.releases GIL while waiting.-> T2
+```
+
 > **Side note:** For CPU-bound Python, reach first for vectorized native libraries, multiprocessing, or another runtime/language. Threads are still fine for I/O.
 
 ---
@@ -723,6 +744,24 @@ Node.js:
 - libuv handles I/O readiness.
 - libuv thread pool handles some filesystem/DNS/crypto work.
 - Worker threads can run JS in parallel with separate isolates.
+
+Node.js execution map:
+
+```mermaid
+flowchart TD
+  REQ["Incoming request"] --> JS["Main JavaScript call stack"]
+  JS --> LOOP["Event loop"]
+  LOOP --> NET["Non-blocking network I/O"]
+  LOOP --> TIMER["Timers"]
+  LOOP --> MICRO["Promise microtask queue"]
+  LOOP --> POOL["libuv thread pool<br/>fs dns crypto"]
+  LOOP --> WORKER["Worker thread<br/>separate JS isolate"]
+  NET --> READY["readiness callback"]
+  POOL --> READY
+  TIMER --> READY
+  READY --> JS
+  MICRO --> JS
+```
 
 Browser:
 

@@ -289,6 +289,22 @@ Architecture rules:
 - Use sanitizers and thread sanitizers.
 - Keep async lifetimes explicit.
 
+Concurrency-fit decision map:
+
+```mermaid
+flowchart TD
+  A["Backend workload"] --> B{"Mostly waiting on network, DB, cache?"}
+  B -->|yes| C{"Need huge connection fan-out with light CPU?"}
+  C -->|yes| N["Node.js / async Python / Go<br/>event-loop or lightweight-runtime fit"]
+  C -->|no| P["Python/Django, Java, Go<br/>worker processes, pools, queues"]
+  B -->|no| D{"CPU-heavy or low-latency hot path?"}
+  D -->|yes| E{"Can team own memory/lifetime complexity?"}
+  E -->|yes| CPP["C++ / Rust-style systems stack<br/>explicit control, high discipline"]
+  E -->|no| JVM["Java / Go<br/>managed runtime with parallel execution"]
+  D -->|no| J["Java / Python / Node / Go<br/>choose by ecosystem and operability"]
+  A --> O["Always decide pools, backpressure, timeouts, observability"]
+```
+
 > **Side note:** In C++, performance comes from design: fewer shared writes, better locality, bounded allocation, and predictable ownership. Threads alone do not create performance.
 
 ---

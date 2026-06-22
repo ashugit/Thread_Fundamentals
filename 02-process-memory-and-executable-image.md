@@ -479,6 +479,26 @@ What startup code prepares before `main()`:
 - constructors and pre-main hooks
 - dynamic loader state for shared libraries
 
+Visual model of the handoff:
+
+```mermaid
+flowchart TD
+  A["execve called by existing process"] --> B["Kernel validates ELF"]
+  B --> C["Kernel maps PT_LOAD segments"]
+  C --> D{"PT_INTERP present?"}
+  D -->|yes| E["Enter dynamic loader"]
+  D -->|no| F["Enter program ELF entry point"]
+  E --> G["Map shared libraries"]
+  G --> H["Relocate symbols and initialize TLS"]
+  H --> I["Jump to C runtime startup"]
+  F --> I
+  I --> J["Run constructors and libc setup"]
+  J --> K["Call main(argc, argv, envp)"]
+  K --> L["main returns status"]
+  L --> M["Runtime calls exit(status)"]
+  M --> N["Kernel destroys process resources"]
+```
+
 What happens after `main()` returns:
 
 ```c

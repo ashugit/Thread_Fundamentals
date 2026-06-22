@@ -113,6 +113,24 @@ In user-space threading libraries, there may also be runtime TCBs:
 - Runtime scheduler links.
 - Await/future state.
 
+TCB ownership model:
+
+```mermaid
+flowchart TB
+  K["Kernel scheduler"]
+  TCB["Thread Control Block<br/>state, priority, saved registers"]
+  KS["Kernel stack"]
+  US["User stack"]
+  TLS["Thread-local storage"]
+  P["Process resources<br/>VM, fd table, credentials"]
+
+  K --> TCB
+  TCB --> KS
+  TCB --> US
+  TCB --> TLS
+  TCB --> P
+```
+
 > **Side note:** PCB and TCB are conceptual tools. Real kernels may merge or split these structures. What matters is what state exists and who owns it.
 
 ---
@@ -152,6 +170,32 @@ Switch between processes:
 - Change address space.
 - Different VM mappings.
 - Different process resources.
+
+Resource boundary comparison:
+
+```mermaid
+flowchart TB
+  subgraph ProcA["Process A"]
+    AVM["VM map A"]
+    AFD["fd table A"]
+    AT1["thread A1<br/>registers + stack"]
+    AT2["thread A2<br/>registers + stack"]
+  end
+
+  subgraph ProcB["Process B"]
+    BVM["VM map B"]
+    BFD["fd table B"]
+    BT1["thread B1<br/>registers + stack"]
+  end
+
+  AT1 -.same-process thread switch.-> AT2
+  AT2 -.process switch.-> BT1
+  AT1 --> AVM
+  AT2 --> AVM
+  BT1 --> BVM
+  AT1 --> AFD
+  BT1 --> BFD
+```
 
 > **Side note:** A process is a resource container plus execution. A thread is primarily execution context inside that container.
 

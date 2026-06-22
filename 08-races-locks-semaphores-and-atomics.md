@@ -411,6 +411,16 @@ T2 waits for account_a
 Neither can proceed
 ```
 
+Wait-for graph:
+
+```mermaid
+flowchart LR
+  T1["Thread 1<br/>holds account_a"] -->|waits for| LB["account_b lock"]
+  T2["Thread 2<br/>holds account_b"] -->|waits for| LA["account_a lock"]
+  LA -->|held by| T1
+  LB -->|held by| T2
+```
+
 Fix: global lock order.
 
 ```c
@@ -515,6 +525,25 @@ Common bug:
 - Using one semaphore and no mutex.
 - Count remains correct while queue internals corrupt.
 
+Bounded queue visualization:
+
+```mermaid
+flowchart LR
+  P["Producer"] --> S1["sem_wait(slots)<br/>need empty slot"]
+  S1 --> M1["lock queue mutex"]
+  M1 --> Q["bounded queue"]
+  Q --> M2["unlock queue mutex"]
+  M2 --> S2["sem_post(items)<br/>one item available"]
+  S2 --> C["Consumer wakes"]
+
+  C --> S3["sem_wait(items)<br/>need item"]
+  S3 --> M3["lock queue mutex"]
+  M3 --> Q
+  Q --> M4["unlock queue mutex"]
+  M4 --> S4["sem_post(slots)<br/>one slot available"]
+  S4 --> P
+```
+
 > **Side note:** Semaphore answers "how many?" Mutex answers "who is inside the invariant right now?"
 
 ---
@@ -527,6 +556,23 @@ Common bug:
 A critical section is code that must not execute concurrently with conflicting code.
 
 It is not the lock itself. It is the protected region.
+
+Critical-section boundary:
+
+```mermaid
+sequenceDiagram
+  participant T1 as Thread 1
+  participant L as Lock
+  participant S as Shared invariant
+  participant T2 as Thread 2
+  T1->>L: lock()
+  T1->>S: read/modify/write protected state
+  T2->>L: lock() waits
+  T1->>L: unlock()
+  T2->>L: lock() succeeds
+  T2->>S: sees consistent state
+  T2->>L: unlock()
+```
 
 Example:
 

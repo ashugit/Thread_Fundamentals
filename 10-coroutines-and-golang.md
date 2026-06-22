@@ -47,6 +47,19 @@ Coroutine vs thread:
 - Thread stack is usually larger.
 - Coroutine state can be much smaller.
 
+Coroutine lifecycle:
+
+```mermaid
+stateDiagram-v2
+  [*] --> Created
+  Created --> Ready: scheduled
+  Ready --> Running: runtime resumes
+  Running --> Suspended: await/yield
+  Suspended --> Ready: awaited operation completes
+  Running --> Completed: returns or raises
+  Completed --> [*]
+```
+
 > **Side note:** Coroutines are a control-flow abstraction. They are not automatically parallel, and they do not automatically make blocking code non-blocking.
 
 ---
@@ -270,6 +283,23 @@ flowchart TB
   P2 --> M2["OS Thread M2"]
   M1 --> C1["CPU core"]
   M2 --> C2["CPU core"]
+```
+
+Blocking-aware scheduling intuition:
+
+```mermaid
+sequenceDiagram
+  participant G as Goroutine
+  participant R as Go runtime scheduler
+  participant N as Network poller
+  participant M as OS thread
+  participant C as CPU core
+  G->>R: calls blocking-looking network read
+  R->>N: register fd interest
+  R->>M: park goroutine, run another G
+  M->>C: keep CPU useful
+  N->>R: fd ready
+  R->>G: mark goroutine runnable
 ```
 
 > **Side note:** A goroutine is not an OS thread, but it can run on one. That distinction explains both Go's scalability and its runtime complexity.
