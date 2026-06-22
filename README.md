@@ -118,21 +118,6 @@ This is not a complete OS textbook, Linux kernel source tour, real-time certific
 
 It is a practical systems-thinking course about concurrency: mechanisms, tradeoffs, failure modes, and architecture judgment.
 
-## Suggested Repository Layout
-
-If publishing to GitHub, this folder can be the repository root:
-
-```text
-README.md
-index.md
-SELF_STUDY_GUIDE.md
-EXERCISES_AND_CHECKPOINTS.md
-00-orientation.md
-01-concurrency-intuition.md
-...
-14-deep-expansion-pack.md
-```
-
 ## License Placeholder
 
 Before publishing, choose a license that matches your intent.
