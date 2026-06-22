@@ -10,15 +10,15 @@ Previous: [Scheduling, Priority, And Interrupts](06-scheduling-priority-and-inte
 
 **This section answers:** Define threads, TCBs, process-vs-thread context, and why UNIX/RTOS models differ.
 
-**Listen for the next question:** once this section lands, the audience should naturally ask why we need **Races, Locks, Semaphores, And Atomics** next.
+**Watch for the next question:** once this section lands, the next natural question is why we need **Races, Locks, Semaphores, And Atomics** next.
 
-> **Teaching note:** Read this as one continuous block. The slide-level `Flow` notes explain local transitions; the section-level handoff at the end tells you how to move the room into the next topic.
+> **Reading note:** Read this as one continuous block. The slide-level `Flow` notes explain local transitions; the section-level transition at the end connects this topic to the next one.
 
 ---
 
 ## 56. What Is A Thread
 
-> **Flow:** From **Summary So Far**, move into **What Is A Thread**. This page should answer the natural follow-up and prepare the room for **Why Do We Need A Thread**.
+> **Flow:** From **Summary So Far**, move into **What Is A Thread**. This page should answer the natural follow-up and prepare for **Why Do We Need A Thread**.
 
 
 A thread is a schedulable execution stream within a process.
@@ -52,13 +52,13 @@ flowchart TB
   P --> T3["Thread 3: registers + stack"]
 ```
 
-> **Speaker side-note:** Threads are cheaper than processes mainly because they share the expensive process resources. That same sharing is why they are dangerous.
+> **Side note:** Threads are cheaper than processes mainly because they share the expensive process resources. That same sharing is why they are dangerous.
 
 ---
 
 ## 57. Why Do We Need A Thread
 
-> **Flow:** From **What Is A Thread**, move into **Why Do We Need A Thread**. This page should answer the natural follow-up and prepare the room for **What Is A Thread Control Block**.
+> **Flow:** From **What Is A Thread**, move into **Why Do We Need A Thread**. This page should answer the natural follow-up and prepare for **What Is A Thread Control Block**.
 
 
 Threads are useful when we want:
@@ -79,13 +79,13 @@ Examples:
 - Database uses worker threads for queries and I/O.
 - C++ service uses thread pool for CPU-bound work.
 
-> **Speaker side-note:** Threads solve both performance and structure problems. But if the main reason is "I do not want to think about state ownership", threads will punish you.
+> **Side note:** Threads solve both performance and structure problems. But if the main reason is "I do not want to think about state ownership", threads will punish you.
 
 ---
 
 ## 58. What Is A Thread Control Block
 
-> **Flow:** From **Why Do We Need A Thread**, move into **What Is A Thread Control Block**. This page should answer the natural follow-up and prepare the room for **Context Of Thread Vs Context Of Process**.
+> **Flow:** From **Why Do We Need A Thread**, move into **What Is A Thread Control Block**. This page should answer the natural follow-up and prepare for **Context Of Thread Vs Context Of Process**.
 
 
 A Thread Control Block, or TCB, is kernel/runtime metadata for a thread.
@@ -113,13 +113,13 @@ In user-space threading libraries, there may also be runtime TCBs:
 - Runtime scheduler links.
 - Await/future state.
 
-> **Speaker side-note:** PCB and TCB are conceptual tools. Real kernels may merge or split these structures. What matters is what state exists and who owns it.
+> **Side note:** PCB and TCB are conceptual tools. Real kernels may merge or split these structures. What matters is what state exists and who owns it.
 
 ---
 
 ## 59. Context Of Thread Vs Context Of Process
 
-> **Flow:** From **What Is A Thread Control Block**, move into **Context Of Thread Vs Context Of Process**. This page should answer the natural follow-up and prepare the room for **Does QComm REX Need A Thread, Why?**.
+> **Flow:** From **What Is A Thread Control Block**, move into **Context Of Thread Vs Context Of Process**. This page should answer the natural follow-up and prepare for **Does QComm REX Need A Thread, Why?**.
 
 
 Thread context:
@@ -153,13 +153,13 @@ Switch between processes:
 - Different VM mappings.
 - Different process resources.
 
-> **Speaker side-note:** A process is a resource container plus execution. A thread is primarily execution context inside that container.
+> **Side note:** A process is a resource container plus execution. A thread is primarily execution context inside that container.
 
 ---
 
 ## 60. Does QComm REX Need A Thread, Why?
 
-> **Flow:** From **Context Of Thread Vs Context Of Process**, move into **Does QComm REX Need A Thread, Why?**. This page should answer the natural follow-up and prepare the room for **Does UNIX Need A Thread, Why?**.
+> **Flow:** From **Context Of Thread Vs Context Of Process**, move into **Does QComm REX Need A Thread, Why?**. This page should answer the natural follow-up and prepare for **Does UNIX Need A Thread, Why?**.
 
 
 In a REX-style RTOS, the word "thread" may not be necessary if the system already has "tasks".
@@ -181,13 +181,13 @@ Why no UNIX-style thread distinction?
 - Isolation boundary is not process-centric.
 - RTOS design starts with schedulable tasks, not forked processes.
 
-> **Speaker side-note:** In UNIX, threads are "inside a process". In an RTOS without UNIX processes, a task may already be the fundamental thread-like thing.
+> **Side note:** In UNIX, threads are "inside a process". In an RTOS without UNIX processes, a task may already be the fundamental thread-like thing.
 
 ---
 
 ## 61. Does UNIX Need A Thread, Why?
 
-> **Flow:** From **Does QComm REX Need A Thread, Why?**, move into **Does UNIX Need A Thread, Why?**. This page should answer the natural follow-up and prepare the room for **When Thread In UNIX Makes Sense**.
+> **Flow:** From **Does QComm REX Need A Thread, Why?**, move into **Does UNIX Need A Thread, Why?**. This page should answer the natural follow-up and prepare for **When Thread In UNIX Makes Sense**.
 
 
 UNIX can run concurrent work with processes alone, but threads solve different problems.
@@ -209,13 +209,13 @@ With threads:
 
 UNIX does not strictly need threads, but modern workloads benefit from them.
 
-> **Speaker side-note:** Processes are safer; threads are more intimate. Use threads when shared memory is truly a benefit, not just a convenience.
+> **Side note:** Processes are safer; threads are more intimate. Use threads when shared memory is truly a benefit, not just a convenience.
 
 ---
 
 ## 62. When Thread In UNIX Makes Sense
 
-> **Flow:** From **Does UNIX Need A Thread, Why?**, move into **When Thread In UNIX Makes Sense**. This page should answer the natural follow-up and prepare the room for **How Context Switch Between UNIX Thread And Process Differ**.
+> **Flow:** From **Does UNIX Need A Thread, Why?**, move into **When Thread In UNIX Makes Sense**. This page should answer the natural follow-up and prepare for **How Context Switch Between UNIX Thread And Process Differ**.
 
 
 Threads make sense when:
@@ -235,13 +235,13 @@ Threads are less attractive when:
 - Scaling across machines is the real goal.
 - The language runtime prevents CPU parallelism, as classic CPython GIL does for Python bytecode.
 
-> **Speaker side-note:** Threading is an architecture decision. "Can use threads" is not the same as "should use threads."
+> **Side note:** Threading is an architecture decision. "Can use threads" is not the same as "should use threads."
 
 ---
 
 ## 63. How Context Switch Between UNIX Thread And Process Differ
 
-> **Flow:** From **When Thread In UNIX Makes Sense**, move into **How Context Switch Between UNIX Thread And Process Differ**. This page should answer the natural follow-up and prepare the room for **UNIX Thread Vs Process Context Switch: Deeper Details**.
+> **Flow:** From **When Thread In UNIX Makes Sense**, move into **How Context Switch Between UNIX Thread And Process Differ**. This page should answer the natural follow-up and prepare for **UNIX Thread Vs Process Context Switch: Deeper Details**.
 
 
 Thread switch in same process:
@@ -266,13 +266,13 @@ Commonality:
 - Both require saving/restoring CPU context.
 - Both can be preemptive.
 
-> **Speaker side-note:** The difference is not "threads do not context switch." They do. The difference is what else must change beyond CPU execution state.
+> **Side note:** The difference is not "threads do not context switch." They do. The difference is what else must change beyond CPU execution state.
 
 ---
 
 ## 64. UNIX Thread Vs Process Context Switch: Deeper Details
 
-> **Flow:** From **How Context Switch Between UNIX Thread And Process Differ**, move into **UNIX Thread Vs Process Context Switch: Deeper Details**. This page should answer the natural follow-up and prepare the room for **What Are Wins With Threads**.
+> **Flow:** From **How Context Switch Between UNIX Thread And Process Differ**, move into **UNIX Thread Vs Process Context Switch: Deeper Details**. This page should answer the natural follow-up and prepare for **What Are Wins With Threads**.
 
 
 Extra costs in process switch may include:
@@ -299,13 +299,13 @@ Optimization details:
 - Per-core run queues reduce scheduler lock contention.
 - CPU affinity improves cache locality but can hurt load balance.
 
-> **Speaker side-note:** Avoid teaching "thread switch is cheap" as absolute truth. It is cheaper in some dimensions, but contention and cache behavior can dominate.
+> **Side note:** Avoid teaching "thread switch is cheap" as absolute truth. It is cheaper in some dimensions, but contention and cache behavior can dominate.
 
 ---
 
 ## 65. What Are Wins With Threads
 
-> **Flow:** From **UNIX Thread Vs Process Context Switch: Deeper Details**, move into **What Are Wins With Threads**. This page should answer the natural follow-up and prepare the room for **What Is A Race Condition In Thread**.
+> **Flow:** From **UNIX Thread Vs Process Context Switch: Deeper Details**, move into **What Are Wins With Threads**. This page should answer the natural follow-up and prepare for **What Is A Race Condition In Thread**.
 
 
 Thread wins:
@@ -326,7 +326,7 @@ But every win has a corresponding risk:
 - Blocking APIs can exhaust pools.
 - Debugging interleavings is hard.
 
-> **Speaker side-note:** Threads are a power tool. They make easy things easy and hard things extremely hard unless ownership and synchronization are designed.
+> **Side note:** Threads are a power tool. They make easy things easy and hard things extremely hard unless ownership and synchronization are designed.
 
 ---
 
@@ -334,10 +334,10 @@ But every win has a corresponding risk:
 
 **Core takeaway to close with:** Define threads, TCBs, process-vs-thread context, and why UNIX/RTOS models differ.
 
-**Verbal handoff:** Threads win by sharing memory, but shared memory is the source of most concurrency bugs. Move next into races and synchronization.
+**Transition to next section:** Threads win by sharing memory, but shared memory is the source of most concurrency bugs. Move next into races and synchronization.
 
-**Opening line for next file:** "Now open [Races, Locks, Semaphores, And Atomics](08-races-locks-semaphores-and-atomics.md); it answers the next pressure point in the model."
+**Continue reading:** Continue with [Races, Locks, Semaphores, And Atomics](08-races-locks-semaphores-and-atomics.md) to follow the next layer of the model.
 
-**Pause check before moving on:** ask the room to summarize the section in one sentence and name the resource or boundary that became clearer.
+**Pause check before moving on:** pause and summarize the section in one sentence and name the resource or boundary that became clearer.
 
 Previous: [Scheduling, Priority, And Interrupts](06-scheduling-priority-and-interrupts.md) | [Index](index.md) | Next: [Races, Locks, Semaphores, And Atomics](08-races-locks-semaphores-and-atomics.md)

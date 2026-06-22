@@ -10,15 +10,15 @@ Previous: [REX, UNIX, And Virtual Memory](03-rex-unix-and-virtual-memory.md) | [
 
 **This section answers:** Remove ambiguity around fork, exec, COW, page faults, context, and FD inheritance.
 
-**Listen for the next question:** once this section lands, the audience should naturally ask why we need **Kernel Space And User Space** next.
+**Watch for the next question:** once this section lands, the next natural question is why we need **Kernel Space And User Space** next.
 
-> **Teaching note:** Read this as one continuous block. The slide-level `Flow` notes explain local transitions; the section-level handoff at the end tells you how to move the room into the next topic.
+> **Reading note:** Read this as one continuous block. The slide-level `Flow` notes explain local transitions; the section-level transition at the end connects this topic to the next one.
 
 ---
 
 ## 23. How VM Plays With Process: Fork Vs Exec
 
-> **Flow:** From **How VM Plays With Process: Address Space**, move into **How VM Plays With Process: Fork Vs Exec**. This page should answer the natural follow-up and prepare the room for **How VM Plays With Process: What Fork Copies Immediately**.
+> **Flow:** From **How VM Plays With Process: Address Space**, move into **How VM Plays With Process: Fork Vs Exec**. This page should answer the natural follow-up and prepare for **How VM Plays With Process: What Fork Copies Immediately**.
 
 
 `fork()` and `exec()` are different operations.
@@ -49,13 +49,13 @@ fork = create another process running the same program image
 exec = replace this process with a different program image
 ```
 
-> **Speaker side-note:** This is where many people get UNIX wrong. `exec` is not "start a new process." `fork` starts a new process; `exec` changes what that process is running.
+> **Side note:** This is where many people get UNIX wrong. `exec` is not "start a new process." `fork` starts a new process; `exec` changes what that process is running.
 
 ---
 
 ## 24. How VM Plays With Process: What Fork Copies Immediately
 
-> **Flow:** From **How VM Plays With Process: Fork Vs Exec**, move into **How VM Plays With Process: What Fork Copies Immediately**. This page should answer the natural follow-up and prepare the room for **How VM Plays With Process: What Remains Common After Fork**.
+> **Flow:** From **How VM Plays With Process: Fork Vs Exec**, move into **How VM Plays With Process: What Fork Copies Immediately**. This page should answer the natural follow-up and prepare for **How VM Plays With Process: What Remains Common After Fork**.
 
 
 When a process calls `fork()`, the kernel must create a child process that behaves as if it got a copy of the parent.
@@ -84,13 +84,13 @@ What is not copied byte-for-byte immediately in modern UNIX:
 
 Those are initially shared and protected by copy-on-write.
 
-> **Speaker side-note:** Fork creates the illusion of a full copy. The OS implements that illusion lazily because most forked children immediately call `exec`.
+> **Side note:** Fork creates the illusion of a full copy. The OS implements that illusion lazily because most forked children immediately call `exec`.
 
 ---
 
 ## 25. How VM Plays With Process: What Remains Common After Fork
 
-> **Flow:** From **How VM Plays With Process: What Fork Copies Immediately**, move into **How VM Plays With Process: What Remains Common After Fork**. This page should answer the natural follow-up and prepare the room for **How VM Plays With Process: Why Copy-On-Write Exists**.
+> **Flow:** From **How VM Plays With Process: What Fork Copies Immediately**, move into **How VM Plays With Process: What Remains Common After Fork**. This page should answer the natural follow-up and prepare for **How VM Plays With Process: Why Copy-On-Write Exists**.
 
 
 After `fork()`, parent and child are separate processes, but some things remain shared or refer to the same kernel objects.
@@ -123,13 +123,13 @@ pid_t pid = fork();
 // parent and child both have an fd number pointing to the same open file description
 ```
 
-> **Speaker side-note:** Parent and child have separate file descriptor tables, but entries can point to the same underlying open file description. "Separate table" does not always mean "separate file offset."
+> **Side note:** Parent and child have separate file descriptor tables, but entries can point to the same underlying open file description. "Separate table" does not always mean "separate file offset."
 
 ---
 
 ## 26. How VM Plays With Process: Why Copy-On-Write Exists
 
-> **Flow:** From **How VM Plays With Process: What Remains Common After Fork**, move into **How VM Plays With Process: Why Copy-On-Write Exists**. This page should answer the natural follow-up and prepare the room for **How VM Plays With Process: Copy-On-Write Mechanics**.
+> **Flow:** From **How VM Plays With Process: What Remains Common After Fork**, move into **How VM Plays With Process: Why Copy-On-Write Exists**. This page should answer the natural follow-up and prepare for **How VM Plays With Process: Copy-On-Write Mechanics**.
 
 
 Copy-on-write exists because eager copying would be wasteful.
@@ -160,13 +160,13 @@ Copy-on-write strategy:
 - If someone writes, copy only that page.
 - Keep the illusion that parent and child have private memory.
 
-> **Speaker side-note:** COW is laziness as an optimization. The OS delays work until it proves the work is necessary.
+> **Side note:** COW is laziness as an optimization. The OS delays work until it proves the work is necessary.
 
 ---
 
 ## 27. How VM Plays With Process: Copy-On-Write Mechanics
 
-> **Flow:** From **How VM Plays With Process: Why Copy-On-Write Exists**, move into **How VM Plays With Process: Copy-On-Write Mechanics**. This page should answer the natural follow-up and prepare the room for **How VM Plays With Process: What Exec Replaces And What Survives**.
+> **Flow:** From **How VM Plays With Process: Why Copy-On-Write Exists**, move into **How VM Plays With Process: Copy-On-Write Mechanics**. This page should answer the natural follow-up and prepare for **How VM Plays With Process: What Exec Replaces And What Survives**.
 
 
 `fork()` creates a child process with a nearly identical virtual address space.
@@ -198,13 +198,13 @@ sequenceDiagram
   K->>P: parent still maps X
 ```
 
-> **Speaker side-note:** The write instruction does not know about COW. It only sees a protection fault. The kernel interprets that fault using VM metadata.
+> **Side note:** The write instruction does not know about COW. It only sees a protection fault. The kernel interprets that fault using VM metadata.
 
 ---
 
 ## 28. How VM Plays With Process: What Exec Replaces And What Survives
 
-> **Flow:** From **How VM Plays With Process: Copy-On-Write Mechanics**, move into **How VM Plays With Process: What Exec Replaces And What Survives**. This page should answer the natural follow-up and prepare the room for **How Process Loads Revisited With Fork, Exec, File Descriptors, Memory, VM**.
+> **Flow:** From **How VM Plays With Process: Copy-On-Write Mechanics**, move into **How VM Plays With Process: What Exec Replaces And What Survives**. This page should answer the natural follow-up and prepare for **How Process Loads Revisited With Fork, Exec, File Descriptors, Memory, VM**.
 
 
 `execve()` keeps the process identity but replaces the program image.
@@ -239,13 +239,13 @@ Why this matters:
 - Servers can pass listening sockets across exec during restart.
 - FD leaks across exec can become security bugs.
 
-> **Speaker side-note:** `exec` is memory death and descriptor survival. That phrase sticks.
+> **Side note:** `exec` is memory death and descriptor survival. That phrase sticks.
 
 ---
 
 ## 29. How Process Loads Revisited With Fork, Exec, File Descriptors, Memory, VM
 
-> **Flow:** From **How VM Plays With Process: What Exec Replaces And What Survives**, move into **How Process Loads Revisited With Fork, Exec, File Descriptors, Memory, VM**. This page should answer the natural follow-up and prepare the room for **How VM Plays With Process: Page Faults**.
+> **Flow:** From **How VM Plays With Process: What Exec Replaces And What Survives**, move into **How Process Loads Revisited With Fork, Exec, File Descriptors, Memory, VM**. This page should answer the natural follow-up and prepare for **How VM Plays With Process: Page Faults**.
 
 
 A shell running a command demonstrates process, FD, memory, and VM together.
@@ -294,13 +294,13 @@ Conceptual steps:
 8. File descriptor table survives exec unless close-on-exec flag is set.
 9. Grep writes to fd `1`; output goes to file.
 
-> **Speaker side-note:** This sequence is the UNIX process model in miniature: clone process, adjust descriptors, replace memory image, run new program.
+> **Side note:** This sequence is the UNIX process model in miniature: clone process, adjust descriptors, replace memory image, run new program.
 
 ---
 
 ## 30. How VM Plays With Process: Page Faults
 
-> **Flow:** From **How Process Loads Revisited With Fork, Exec, File Descriptors, Memory, VM**, move into **How VM Plays With Process: Page Faults**. This page should answer the natural follow-up and prepare the room for **What Is Context**.
+> **Flow:** From **How Process Loads Revisited With Fork, Exec, File Descriptors, Memory, VM**, move into **How VM Plays With Process: Page Faults**. This page should answer the natural follow-up and prepare for **What Is Context**.
 
 
 A page fault is not always a bug.
@@ -322,13 +322,13 @@ Fault handling:
 5. If invalid, kernel sends signal such as `SIGSEGV`.
 6. Process resumes or dies.
 
-> **Speaker side-note:** A page fault is a synchronous trap caused by the current instruction. An interrupt is asynchronous to current code. That difference matters in debugging.
+> **Side note:** A page fault is a synchronous trap caused by the current instruction. An interrupt is asynchronous to current code. That difference matters in debugging.
 
 ---
 
 ## 31. What Is Context
 
-> **Flow:** From **How VM Plays With Process: Page Faults**, move into **What Is Context**. This page should answer the natural follow-up and prepare the room for **File Descriptors, Memory, VM, Etc.**.
+> **Flow:** From **How VM Plays With Process: Page Faults**, move into **What Is Context**. This page should answer the natural follow-up and prepare for **File Descriptors, Memory, VM, Etc.**.
 
 
 Context is the state required to pause an execution unit and later resume it correctly.
@@ -354,13 +354,13 @@ For a coroutine, context may include:
 - Saved local variables.
 - Awaited future/promise state.
 
-> **Speaker side-note:** Context is not a vague word. Ask: "What exact state must I save so this execution can continue as if nothing happened?"
+> **Side note:** Context is not a vague word. Ask: "What exact state must I save so this execution can continue as if nothing happened?"
 
 ---
 
 ## 32. File Descriptors, Memory, VM, Etc.
 
-> **Flow:** From **What Is Context**, move into **File Descriptors, Memory, VM, Etc.**. This page should answer the natural follow-up and prepare the room for **How Process Loads Revisited After File Descriptors**.
+> **Flow:** From **What Is Context**, move into **File Descriptors, Memory, VM, Etc.**. This page should answer the natural follow-up and prepare for **How Process Loads Revisited After File Descriptors**.
 
 
 A UNIX process context includes more than registers.
@@ -387,7 +387,7 @@ Process fd table
   3 -> socket
 ```
 
-> **Speaker side-note:** `fork()` duplicates file descriptors, but the underlying open file description can be shared. That means parent and child may share file offset. This surprises people.
+> **Side note:** `fork()` duplicates file descriptors, but the underlying open file description can be shared. That means parent and child may share file offset. This surprises people.
 
 ---
 
@@ -451,7 +451,7 @@ Concurrency implication:
 - Inodes/filesystem objects are deeper shared objects.
 - Correctness depends on which layer is shared.
 
-> **Speaker side-note:** This is a classic UNIX distinction worth teaching slowly. Many engineers say "the fd points to a file." Better: fd points to an open file description, which points to the underlying file object.
+> **Side note:** This is a classic UNIX distinction worth teaching slowly. Many engineers say "the fd points to a file." Better: fd points to an open file description, which points to the underlying file object.
 
 ---
 
@@ -494,13 +494,13 @@ The UNIX lesson:
 
 > Track the real resource and its reference path, not only the high-level object.
 
-> **Speaker side-note:** Embedded engineers often have excellent hardware-resource instincts. Reuse that instinct in web systems: sockets, fds, DB connections, file handles, and queues are all finite resources with ownership.
+> **Side note:** Embedded engineers often have excellent hardware-resource instincts. Reuse that instinct in web systems: sockets, fds, DB connections, file handles, and queues are all finite resources with ownership.
 
 ---
 
 ## 33. How Process Loads Revisited After File Descriptors
 
-> **Flow:** From **File Descriptors, Memory, VM, Etc.**, move into **How Process Loads Revisited After File Descriptors**. This page should answer the natural follow-up and prepare the room for **Summary So Far**.
+> **Flow:** From **File Descriptors, Memory, VM, Etc.**, move into **How Process Loads Revisited After File Descriptors**. This page should answer the natural follow-up and prepare for **Summary So Far**.
 
 
 After understanding file descriptors, revisit process launch one more time.
@@ -540,13 +540,13 @@ What does not survive:
 - The child copy of the shell executable mapping.
 - The child copy of the shell runtime state.
 
-> **Speaker side-note:** This is why fork-before-exec is powerful: the child can customize the process container before the new program image enters it.
+> **Side note:** This is why fork-before-exec is powerful: the child can customize the process container before the new program image enters it.
 
 ---
 
 ## 34. Summary So Far
 
-> **Flow:** From **How Process Loads Revisited After File Descriptors**, move into **Summary So Far**. This page should answer the natural follow-up and prepare the room for **Kernel Space Vs User Space**.
+> **Flow:** From **How Process Loads Revisited After File Descriptors**, move into **Summary So Far**. This page should answer the natural follow-up and prepare for **Kernel Space Vs User Space**.
 
 
 We added VM and UNIX resource context:
@@ -565,7 +565,7 @@ Concurrency connection:
 - Shared memory is explicit and therefore easier to reason about.
 - Context switching between processes may include address-space changes.
 
-> **Speaker side-note:** By now the audience should be able to explain why process isolation is powerful and why it has cost.
+> **Side note:** By now you should be able to explain why process isolation is powerful and why it has cost.
 
 ---
 
@@ -573,10 +573,10 @@ Concurrency connection:
 
 **Core takeaway to close with:** Remove ambiguity around fork, exec, COW, page faults, context, and FD inheritance.
 
-**Verbal handoff:** After showing how UNIX creates and replaces process images, transition to the protection boundary that makes this safe: kernel space versus user space.
+**Transition to next section:** After showing how UNIX creates and replaces process images, transition to the protection boundary that makes this safe: kernel space versus user space.
 
-**Opening line for next file:** "Now open [Kernel Space And User Space](05-kernel-space-user-space.md); it answers the next pressure point in the model."
+**Continue reading:** Continue with [Kernel Space And User Space](05-kernel-space-user-space.md) to follow the next layer of the model.
 
-**Pause check before moving on:** ask the room to summarize the section in one sentence and name the resource or boundary that became clearer.
+**Pause check before moving on:** pause and summarize the section in one sentence and name the resource or boundary that became clearer.
 
 Previous: [REX, UNIX, And Virtual Memory](03-rex-unix-and-virtual-memory.md) | [Index](index.md) | Next: [Kernel Space And User Space](05-kernel-space-user-space.md)

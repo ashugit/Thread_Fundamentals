@@ -10,15 +10,15 @@ Previous: [Backend Concurrency Architecture](11-backend-concurrency-architecture
 
 **This section answers:** Add memory model, false sharing, backpressure, structured concurrency, debugging, and final advice.
 
-**Listen for the next question:** once this section lands, the audience should naturally ask why we need **Appendices** next.
+**Watch for the next question:** once this section lands, the next natural question is why we need **Appendices** next.
 
-> **Teaching note:** Read this as one continuous block. The slide-level `Flow` notes explain local transitions; the section-level handoff at the end tells you how to move the room into the next topic.
+> **Reading note:** Read this as one continuous block. The slide-level `Flow` notes explain local transitions; the section-level transition at the end connects this topic to the next one.
 
 ---
 
 ## 115. Missing Glue: Memory Model And Happens-Before
 
-> **Flow:** From **Why Backend Systems Are Better Written With CPP For Its Threading Model**, move into **Missing Glue: Memory Model And Happens-Before**. This page should answer the natural follow-up and prepare the room for **Missing Glue: Cache Coherence, False Sharing, And Why Atomics Hurt**.
+> **Flow:** From **Why Backend Systems Are Better Written With CPP For Its Threading Model**, move into **Missing Glue: Memory Model And Happens-Before**. This page should answer the natural follow-up and prepare for **Missing Glue: Cache Coherence, False Sharing, And Why Atomics Hurt**.
 
 
 A memory model defines what reads and writes can be observed by concurrent execution units.
@@ -44,13 +44,13 @@ Examples of synchronization that commonly create happens-before relationships:
 - C++ release store pairs with acquire load.
 - Channel send/receive often establishes ordering in channel-based languages.
 
-> **Speaker side-note:** Most young engineers think locks are only about mutual exclusion. Locks are also about visibility. A lock says "not together" and "you can now see what the previous holder published."
+> **Side note:** Most young engineers think locks are only about mutual exclusion. Locks are also about visibility. A lock says "not together" and "you can now see what the previous holder published."
 
 ---
 
 ## 116. Missing Glue: Cache Coherence, False Sharing, And Why Atomics Hurt
 
-> **Flow:** From **Missing Glue: Memory Model And Happens-Before**, move into **Missing Glue: Cache Coherence, False Sharing, And Why Atomics Hurt**. This page should answer the natural follow-up and prepare the room for **Missing Glue: Backpressure Is Part Of Concurrency**.
+> **Flow:** From **Missing Glue: Memory Model And Happens-Before**, move into **Missing Glue: Cache Coherence, False Sharing, And Why Atomics Hurt**. This page should answer the natural follow-up and prepare for **Missing Glue: Backpressure Is Part Of Concurrency**.
 
 
 On multicore machines, each core has caches.
@@ -84,13 +84,13 @@ Mitigations:
 - Batch updates.
 - Prefer ownership over shared mutation.
 
-> **Speaker side-note:** Many "lock-free" designs are not fast. They replace a mutex with cache-line warfare. Measure before celebrating.
+> **Side note:** Many "lock-free" designs are not fast. They replace a mutex with cache-line warfare. Measure before celebrating.
 
 ---
 
 ## 117. Missing Glue: Backpressure Is Part Of Concurrency
 
-> **Flow:** From **Missing Glue: Cache Coherence, False Sharing, And Why Atomics Hurt**, move into **Missing Glue: Backpressure Is Part Of Concurrency**. This page should answer the natural follow-up and prepare the room for **Missing Glue: Structured Concurrency And Cancellation**.
+> **Flow:** From **Missing Glue: Cache Coherence, False Sharing, And Why Atomics Hurt**, move into **Missing Glue: Backpressure Is Part Of Concurrency**. This page should answer the natural follow-up and prepare for **Missing Glue: Structured Concurrency And Cancellation**.
 
 
 Backpressure means a system can tell upstream producers to slow down.
@@ -134,13 +134,13 @@ preserve latency for accepted work
 recover without backlog explosion
 ```
 
-> **Speaker side-note:** Concurrency without backpressure is just a more dramatic way to crash. The mature question is not "how many can I start?" It is "how many can I finish within the SLA?"
+> **Side note:** Concurrency without backpressure is just a more dramatic way to crash. The mature question is not "how many can I start?" It is "how many can I finish within the SLA?"
 
 ---
 
 ## 118. Missing Glue: Structured Concurrency And Cancellation
 
-> **Flow:** From **Missing Glue: Backpressure Is Part Of Concurrency**, move into **Missing Glue: Structured Concurrency And Cancellation**. This page should answer the natural follow-up and prepare the room for **Missing Glue: Debugging Production Concurrency**.
+> **Flow:** From **Missing Glue: Backpressure Is Part Of Concurrency**, move into **Missing Glue: Structured Concurrency And Cancellation**. This page should answer the natural follow-up and prepare for **Missing Glue: Debugging Production Concurrency**.
 
 
 Structured concurrency says concurrent work should have clear lifetimes and ownership.
@@ -181,13 +181,13 @@ Where it appears:
 - Python `asyncio.TaskGroup`.
 - C++ designs using RAII scope guards and task groups.
 
-> **Speaker side-note:** A leaked task is the concurrency version of a leaked file descriptor. It may not fail now, but it means ownership is broken.
+> **Side note:** A leaked task is the concurrency version of a leaked file descriptor. It may not fail now, but it means ownership is broken.
 
 ---
 
 ## 119. Missing Glue: Debugging Production Concurrency
 
-> **Flow:** From **Missing Glue: Structured Concurrency And Cancellation**, move into **Missing Glue: Debugging Production Concurrency**. This page should answer the natural follow-up and prepare the room for **Summary Overall**.
+> **Flow:** From **Missing Glue: Structured Concurrency And Cancellation**, move into **Missing Glue: Debugging Production Concurrency**. This page should answer the natural follow-up and prepare for **Summary Overall**.
 
 
 Concurrency debugging needs symptoms mapped to layers.
@@ -228,13 +228,13 @@ Useful tools and habits:
 - Profile CPU and wall-clock time separately.
 - Record lock wait time, not just lock count.
 
-> **Speaker side-note:** The production question is not "is it concurrent?" The question is "where is progress blocked, and who owns the resource everyone is waiting for?"
+> **Side note:** The production question is not "is it concurrent?" The question is "where is progress blocked, and who owns the resource everyone is waiting for?"
 
 ---
 
 ## 120. Summary Overall
 
-> **Flow:** From **Missing Glue: Debugging Production Concurrency**, move into **Summary Overall**. This page should answer the natural follow-up and prepare the room for **Final Mental Model: The Concurrency Stack**.
+> **Flow:** From **Missing Glue: Debugging Production Concurrency**, move into **Summary Overall**. This page should answer the natural follow-up and prepare for **Final Mental Model: The Concurrency Stack**.
 
 
 Concurrency is not a feature. It is a system property that emerges from:
@@ -264,13 +264,13 @@ The senior-engineer lens:
 - Managed runtimes buy productivity and safety at runtime-system complexity.
 - Native runtimes buy control at ownership and memory-safety cost.
 
-> **Speaker side-note:** The right concurrency architecture is the one whose failure modes your team can understand, observe, test, and operate.
+> **Side note:** The right concurrency architecture is the one whose failure modes your team can understand, observe, test, and operate.
 
 ---
 
 ## 121. Final Mental Model: The Concurrency Stack
 
-> **Flow:** From **Summary Overall**, move into **Final Mental Model: The Concurrency Stack**. This page should answer the natural follow-up and prepare the room for **Closing Slide: Advice To Younger Engineers**.
+> **Flow:** From **Summary Overall**, move into **Final Mental Model: The Concurrency Stack**. This page should answer the natural follow-up and prepare for **Closing Slide: Advice To Younger Engineers**.
 
 
 ```mermaid
@@ -295,13 +295,13 @@ If something goes wrong, debug down the stack:
 - Is the OS scheduling or paging heavily?
 - Is hardware cache/memory behavior dominating?
 
-> **Speaker side-note:** Senior debugging is stack-aware. Do not stop at "threads are slow" or "Node is blocked" or "GC happened." Ask which layer created the symptom.
+> **Side note:** Senior debugging is stack-aware. Do not stop at "threads are slow" or "Node is blocked" or "GC happened." Ask which layer created the symptom.
 
 ---
 
 ## 122. Closing Slide: Advice To Younger Engineers
 
-> **Flow:** After **Final Mental Model: The Concurrency Stack**, close with **Closing Slide: Advice To Younger Engineers** so the audience leaves with practical rules, not only mechanisms.
+> **Flow:** After **Final Mental Model: The Concurrency Stack**, close with **Closing Slide: Advice To Younger Engineers** so the reader leaves with practical rules, not only mechanisms.
 
 
 Rules worth carrying:
@@ -319,7 +319,7 @@ Rules worth carrying:
 - Keep critical sections boring.
 - Never confuse "works locally" with "safe under interleaving."
 
-> **Speaker side-note:** Concurrency bugs are often design bugs wearing timing costumes. The fix is usually ownership, boundaries, and measurement before clever primitives.
+> **Side note:** Concurrency bugs are often design bugs wearing timing costumes. The fix is usually ownership, boundaries, and measurement before clever primitives.
 
 ---
 
@@ -327,10 +327,10 @@ Rules worth carrying:
 
 **Core takeaway to close with:** Add memory model, false sharing, backpressure, structured concurrency, debugging, and final advice.
 
-**Verbal handoff:** Close the talk by using the appendices as optional exercises, comparison tables, and pacing guidance for a multi-hour session.
+**Transition to next section:** Close the main path by using the appendices as optional exercises, comparison tables, and pacing guidance for a multi-hour session.
 
-**Opening line for next file:** "Now open [Appendices](13-appendices.md); it answers the next pressure point in the model."
+**Continue reading:** Continue with [Appendices](13-appendices.md) to follow the next layer of the model.
 
-**Pause check before moving on:** ask the room to summarize the section in one sentence and name the resource or boundary that became clearer.
+**Pause check before moving on:** pause and summarize the section in one sentence and name the resource or boundary that became clearer.
 
 Previous: [Backend Concurrency Architecture](11-backend-concurrency-architecture.md) | [Index](index.md) | Next: [Appendices](13-appendices.md)

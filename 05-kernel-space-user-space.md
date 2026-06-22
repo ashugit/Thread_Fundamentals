@@ -10,15 +10,15 @@ Previous: [Fork, Exec, Copy-On-Write, And File Descriptors](04-fork-exec-copy-on
 
 **This section answers:** Explain privilege, memory protection, system calls, and why UNIX needs a kernel boundary.
 
-**Listen for the next question:** once this section lands, the audience should naturally ask why we need **Scheduling, Priority, And Interrupts** next.
+**Watch for the next question:** once this section lands, the next natural question is why we need **Scheduling, Priority, And Interrupts** next.
 
-> **Teaching note:** Read this as one continuous block. The slide-level `Flow` notes explain local transitions; the section-level handoff at the end tells you how to move the room into the next topic.
+> **Reading note:** Read this as one continuous block. The slide-level `Flow` notes explain local transitions; the section-level transition at the end connects this topic to the next one.
 
 ---
 
 ## 35. Kernel Space Vs User Space
 
-> **Flow:** From **Summary So Far**, move into **Kernel Space Vs User Space**. This page should answer the natural follow-up and prepare the room for **Kernel Space Vs User Space In Deeper Details**.
+> **Flow:** From **Summary So Far**, move into **Kernel Space Vs User Space**. This page should answer the natural follow-up and prepare for **Kernel Space Vs User Space In Deeper Details**.
 
 
 User space:
@@ -50,13 +50,13 @@ flowchart TB
   K -->|return to user mode| U
 ```
 
-> **Speaker side-note:** The kernel is not another library linked into your process. It is privileged code entered through controlled gates.
+> **Side note:** The kernel is not another library linked into your process. It is privileged code entered through controlled gates.
 
 ---
 
 ## 36. Kernel Space Vs User Space In Deeper Details
 
-> **Flow:** From **Kernel Space Vs User Space**, move into **Kernel Space Vs User Space In Deeper Details**. This page should answer the natural follow-up and prepare the room for **Memory Details In Terms Of Kernel And User Space**.
+> **Flow:** From **Kernel Space Vs User Space**, move into **Kernel Space Vs User Space In Deeper Details**. This page should answer the natural follow-up and prepare for **Memory Details In Terms Of Kernel And User Space**.
 
 
 Modern CPUs support privilege levels.
@@ -87,7 +87,7 @@ Cost factors:
 - Cache/TLB effects.
 - Security mitigations on modern CPUs.
 
-> **Speaker side-note:** System calls are not "just function calls". They are controlled crossings into privileged execution with validation and possible scheduling side effects.
+> **Side note:** System calls are not "just function calls". They are controlled crossings into privileged execution with validation and possible scheduling side effects.
 
 ---
 
@@ -148,7 +148,7 @@ This is a major concurrency idea:
 - It is waiting for a condition.
 - Wakeup makes it runnable again.
 
-> **Speaker side-note:** Bach's sleep/wakeup treatment is one of the most practical mental models for backend engineers. A modern web request blocked on socket, DB, futex, or epoll still fits this "sleep until condition changes" shape.
+> **Side note:** Bach's sleep/wakeup treatment is one of the most practical mental models for backend engineers. A modern web request blocked on socket, DB, futex, or epoll still fits this "sleep until condition changes" shape.
 
 ---
 
@@ -192,13 +192,13 @@ Web parallel:
 - Runtime must avoid missing readiness transition.
 - Future/promise completion must safely publish state before waking awaiters.
 
-> **Speaker side-note:** Lost wakeup is not an old textbook bug. It is the ancestor of many modern "hung future", "missed notification", and "stuck waiter" bugs.
+> **Side note:** Lost wakeup is not an old textbook bug. It is the ancestor of many modern "hung future", "missed notification", and "stuck waiter" bugs.
 
 ---
 
 ## 37. Memory Details In Terms Of Kernel And User Space
 
-> **Flow:** From **Kernel Space Vs User Space In Deeper Details**, move into **Memory Details In Terms Of Kernel And User Space**. This page should answer the natural follow-up and prepare the room for **Why We Need Kernel Space, Compare REX Vs UNIX**.
+> **Flow:** From **Kernel Space Vs User Space In Deeper Details**, move into **Memory Details In Terms Of Kernel And User Space**. This page should answer the natural follow-up and prepare for **Why We Need Kernel Space, Compare REX Vs UNIX**.
 
 
 In a UNIX-like VM system:
@@ -223,13 +223,13 @@ Kernel must ask:
 - Can copying fault?
 - What if another thread changes memory while kernel copies?
 
-> **Speaker side-note:** Kernel code treats user memory as hostile, even if the process is not malicious. It can be invalid, unmapped, racing, or intentionally crafted.
+> **Side note:** Kernel code treats user memory as hostile, even if the process is not malicious. It can be invalid, unmapped, racing, or intentionally crafted.
 
 ---
 
 ## 38. Why We Need Kernel Space, Compare REX Vs UNIX
 
-> **Flow:** From **Memory Details In Terms Of Kernel And User Space**, move into **Why We Need Kernel Space, Compare REX Vs UNIX**. This page should answer the natural follow-up and prepare the room for **Multiple Processes Simultaneously: What It Throws Into Action**.
+> **Flow:** From **Memory Details In Terms Of Kernel And User Space**, move into **Why We Need Kernel Space, Compare REX Vs UNIX**. This page should answer the natural follow-up and prepare for **Multiple Processes Simultaneously: What It Throws Into Action**.
 
 
 REX-style RTOS:
@@ -256,13 +256,13 @@ Kernel space is needed in UNIX to:
 - Multiplex devices.
 - Provide stable abstractions.
 
-> **Speaker side-note:** In embedded firmware, the product is the system. In UNIX, the OS is a platform for many programs with different trust levels.
+> **Side note:** In embedded firmware, the product is the system. In UNIX, the OS is a platform for many programs with different trust levels.
 
 ---
 
 ## 39. Multiple Processes Simultaneously: What It Throws Into Action
 
-> **Flow:** From **Why We Need Kernel Space, Compare REX Vs UNIX**, move into **Multiple Processes Simultaneously: What It Throws Into Action**. This page should answer the natural follow-up and prepare the room for **Summary So Far**.
+> **Flow:** From **Why We Need Kernel Space, Compare REX Vs UNIX**, move into **Multiple Processes Simultaneously: What It Throws Into Action**. This page should answer the natural follow-up and prepare for **Summary So Far**.
 
 
 When multiple processes run:
@@ -289,13 +289,13 @@ Problems introduced:
 - Cache contention.
 - Lock contention inside kernel.
 
-> **Speaker side-note:** Concurrency does not only create bugs in user code. It also forces the kernel to become a concurrency manager for CPU, memory, files, devices, and network.
+> **Side note:** Concurrency does not only create bugs in user code. It also forces the kernel to become a concurrency manager for CPU, memory, files, devices, and network.
 
 ---
 
 ## 40. Summary So Far
 
-> **Flow:** From **Multiple Processes Simultaneously: What It Throws Into Action**, move into **Summary So Far**. This page should answer the natural follow-up and prepare the room for **OS Scheduling: REX Vs UNIX**.
+> **Flow:** From **Multiple Processes Simultaneously: What It Throws Into Action**, move into **Summary So Far**. This page should answer the natural follow-up and prepare for **OS Scheduling: REX Vs UNIX**.
 
 
 We added protection:
@@ -313,7 +313,7 @@ Concurrency connection:
 - The scheduler is the core concurrency engine.
 - User/kernel transitions are points where blocking and rescheduling can happen.
 
-> **Speaker side-note:** This is the bridge into scheduling. Once multiple runnable things exist, somebody must decide who gets the CPU next.
+> **Side note:** This is the bridge into scheduling. Once multiple runnable things exist, somebody must decide who gets the CPU next.
 
 ---
 
@@ -321,10 +321,10 @@ Concurrency connection:
 
 **Core takeaway to close with:** Explain privilege, memory protection, system calls, and why UNIX needs a kernel boundary.
 
-**Verbal handoff:** Once the kernel boundary is clear, the next question is who gets the CPU when many protected processes want to run.
+**Transition to next section:** Once the kernel boundary is clear, the next question is who gets the CPU when many protected processes want to run.
 
-**Opening line for next file:** "Now open [Scheduling, Priority, And Interrupts](06-scheduling-priority-and-interrupts.md); it answers the next pressure point in the model."
+**Continue reading:** Continue with [Scheduling, Priority, And Interrupts](06-scheduling-priority-and-interrupts.md) to follow the next layer of the model.
 
-**Pause check before moving on:** ask the room to summarize the section in one sentence and name the resource or boundary that became clearer.
+**Pause check before moving on:** pause and summarize the section in one sentence and name the resource or boundary that became clearer.
 
 Previous: [Fork, Exec, Copy-On-Write, And File Descriptors](04-fork-exec-copy-on-write-and-fds.md) | [Index](index.md) | Next: [Scheduling, Priority, And Interrupts](06-scheduling-priority-and-interrupts.md)

@@ -10,15 +10,15 @@ Previous: [Threads And Process Comparison](07-threads-and-process-comparison.md)
 
 **This section answers:** Explain races, mutexes, semaphores, critical sections, interrupt locking, multicore requirements, and atomics.
 
-**Listen for the next question:** once this section lands, the audience should naturally ask why we need **Language Runtimes: C, C++, Java, Python, Ruby, JavaScript** next.
+**Watch for the next question:** once this section lands, the next natural question is why we need **Language Runtimes: C, C++, Java, Python, Ruby, JavaScript** next.
 
-> **Teaching note:** Read this as one continuous block. The slide-level `Flow` notes explain local transitions; the section-level handoff at the end tells you how to move the room into the next topic.
+> **Reading note:** Read this as one continuous block. The slide-level `Flow` notes explain local transitions; the section-level transition at the end connects this topic to the next one.
 
 ---
 
 ## 66. What Is A Race Condition In Thread
 
-> **Flow:** From **What Are Wins With Threads**, move into **What Is A Race Condition In Thread**. This page should answer the natural follow-up and prepare the room for **What Are The Ways To Mitigate Race**.
+> **Flow:** From **What Are Wins With Threads**, move into **What Is A Race Condition In Thread**. This page should answer the natural follow-up and prepare for **What Are The Ways To Mitigate Race**.
 
 
 A race condition occurs when program correctness depends on timing or interleaving of concurrent operations.
@@ -51,7 +51,7 @@ T2 store 1
 Expected result: 2  
 Actual result: 1
 
-> **Speaker side-note:** A race is not always a crash. Often it is silent wrongness, which is worse.
+> **Side note:** A race is not always a crash. Often it is silent wrongness, which is worse.
 
 ---
 
@@ -99,7 +99,7 @@ Correct approaches:
 - Use idempotency keys for request retries.
 - Use compare-and-swap/version checks for state transitions.
 
-> **Speaker side-note:** The mature lesson is that a race condition is not merely a thread bug. It is any correctness bug where interleaving changes the answer.
+> **Side note:** The mature lesson is that a race condition is not merely a thread bug. It is any correctness bug where interleaving changes the answer.
 
 ---
 
@@ -151,13 +151,13 @@ How to expose races:
 - Database constraints.
 - Idempotency tests.
 
-> **Speaker side-note:** If adding a log line makes the bug disappear, suspect timing. The log did not fix the bug; it changed the schedule.
+> **Side note:** If adding a log line makes the bug disappear, suspect timing. The log did not fix the bug; it changed the schedule.
 
 ---
 
 ## 67. What Are The Ways To Mitigate Race
 
-> **Flow:** From **What Is A Race Condition In Thread**, move into **What Are The Ways To Mitigate Race**. This page should answer the natural follow-up and prepare the room for **Deep Dive Into Mutex**.
+> **Flow:** From **What Is A Race Condition In Thread**, move into **What Are The Ways To Mitigate Race**. This page should answer the natural follow-up and prepare for **Deep Dive Into Mutex**.
 
 
 Race mitigation strategies:
@@ -186,7 +186,7 @@ Design questions:
 - What is the lock ordering?
 - What memory visibility is required?
 
-> **Speaker side-note:** Most race fixes should start at design level, not by sprinkling locks. Locks without ownership are just decorative risk.
+> **Side note:** Most race fixes should start at design level, not by sprinkling locks. Locks without ownership are just decorative risk.
 
 ---
 
@@ -216,13 +216,13 @@ Examples:
 - Per-connection state in Node: event-loop ownership may be enough.
 - Per-shard cache: shard ownership reduces global lock pressure.
 
-> **Speaker side-note:** The best lock is the one you deleted by changing ownership. The second-best lock is the one whose invariant is written down.
+> **Side note:** The best lock is the one you deleted by changing ownership. The second-best lock is the one whose invariant is written down.
 
 ---
 
 ## 68. Deep Dive Into Mutex
 
-> **Flow:** From **What Are The Ways To Mitigate Race**, move into **Deep Dive Into Mutex**. This page should answer the natural follow-up and prepare the room for **Deep Dive Into Semaphores**.
+> **Flow:** From **What Are The Ways To Mitigate Race**, move into **Deep Dive Into Mutex**. This page should answer the natural follow-up and prepare for **Deep Dive Into Semaphores**.
 
 
 A mutex provides mutual exclusion: only one thread enters the protected critical region at a time.
@@ -261,7 +261,7 @@ Failure modes:
 - Protecting too little.
 - Protecting too much.
 
-> **Speaker side-note:** A mutex protects a relationship, not a line of code. Say what invariant it protects.
+> **Side note:** A mutex protects a relationship, not a line of code. Say what invariant it protects.
 
 ---
 
@@ -334,7 +334,7 @@ What the mutex protects:
 - `count`.
 - The relationship among all four.
 
-> **Speaker side-note:** If a lock protects `count` but not `head` and `tail`, it does not protect the queue. Protect invariants, not variables.
+> **Side note:** If a lock protects `count` but not `head` and `tail`, it does not protect the queue. Protect invariants, not variables.
 
 ---
 
@@ -377,7 +377,7 @@ What RAII does not solve:
 - Calling unknown code while holding lock.
 - Protecting wrong invariant.
 
-> **Speaker side-note:** RAII solves mechanical unlock bugs. It does not solve design bugs.
+> **Side note:** RAII solves mechanical unlock bugs. It does not solve design bugs.
 
 ---
 
@@ -431,13 +431,13 @@ Other fixes:
 - Transactional database operation.
 - Actor ownership: all transfers for an account shard go through one worker.
 
-> **Speaker side-note:** Deadlock prevention is mostly about ordering. If locks have no order, production will eventually invent one for you, badly.
+> **Side note:** Deadlock prevention is mostly about ordering. If locks have no order, production will eventually invent one for you, badly.
 
 ---
 
 ## 69. Deep Dive Into Semaphores
 
-> **Flow:** From **Deep Dive Into Mutex**, move into **Deep Dive Into Semaphores**. This page should answer the natural follow-up and prepare the room for **Deep Dive Into Critical Section**.
+> **Flow:** From **Deep Dive Into Mutex**, move into **Deep Dive Into Semaphores**. This page should answer the natural follow-up and prepare for **Deep Dive Into Critical Section**.
 
 
 A semaphore is a counter with atomic wait/decrement and signal/increment behavior.
@@ -469,7 +469,7 @@ Mutex vs semaphore:
 - Mutex protects critical section.
 - Semaphore coordinates availability/count.
 
-> **Speaker side-note:** Many bugs come from using semaphores as vague "wake someone" tools. Be precise: what does the count mean?
+> **Side note:** Many bugs come from using semaphores as vague "wake someone" tools. Be precise: what does the count mean?
 
 ---
 
@@ -515,13 +515,13 @@ Common bug:
 - Using one semaphore and no mutex.
 - Count remains correct while queue internals corrupt.
 
-> **Speaker side-note:** Semaphore answers "how many?" Mutex answers "who is inside the invariant right now?"
+> **Side note:** Semaphore answers "how many?" Mutex answers "who is inside the invariant right now?"
 
 ---
 
 ## 70. Deep Dive Into Critical Section
 
-> **Flow:** From **Deep Dive Into Semaphores**, move into **Deep Dive Into Critical Section**. This page should answer the natural follow-up and prepare the room for **What Single Core Needs To Offer For Threads To Work Successfully**.
+> **Flow:** From **Deep Dive Into Semaphores**, move into **Deep Dive Into Critical Section**. This page should answer the natural follow-up and prepare for **What Single Core Needs To Offer For Threads To Work Successfully**.
 
 
 A critical section is code that must not execute concurrently with conflicting code.
@@ -554,7 +554,7 @@ enable_interrupts();
 
 This is fast but dangerous if held too long.
 
-> **Speaker side-note:** Disabling interrupts is the most brutal lock on a single core. It can be correct in tiny regions and catastrophic if abused.
+> **Side note:** Disabling interrupts is the most brutal lock on a single core. It can be correct in tiny regions and catastrophic if abused.
 
 ---
 
@@ -607,7 +607,7 @@ Possible refinements:
 - Request coalescing.
 - Singleflight pattern.
 
-> **Speaker side-note:** Shrinking a critical section may introduce duplicate work. That can be a good trade, but name it.
+> **Side note:** Shrinking a critical section may introduce duplicate work. That can be a good trade, but name it.
 
 ---
 
@@ -647,7 +647,7 @@ Rules:
 - Do not wait for hardware.
 - Restore previous interrupt state correctly.
 
-> **Speaker side-note:** Interrupt locking is not a general-purpose mutex. It is a tiny atomicity tool against ISR interleaving on that CPU.
+> **Side note:** Interrupt locking is not a general-purpose mutex. It is a tiny atomicity tool against ISR interleaving on that CPU.
 
 ---
 
@@ -683,13 +683,13 @@ for each callback in snapshot:
     callback(user_data);
 ```
 
-> **Speaker side-note:** Unknown code under a lock is a loaded trap. You do not know what locks it will try to take.
+> **Side note:** Unknown code under a lock is a loaded trap. You do not know what locks it will try to take.
 
 ---
 
 ## 71. What Single Core Needs To Offer For Threads To Work Successfully
 
-> **Flow:** From **Deep Dive Into Critical Section**, move into **What Single Core Needs To Offer For Threads To Work Successfully**. This page should answer the natural follow-up and prepare the room for **What Is Interrupt Locking**.
+> **Flow:** From **Deep Dive Into Critical Section**, move into **What Single Core Needs To Offer For Threads To Work Successfully**. This page should answer the natural follow-up and prepare for **What Is Interrupt Locking**.
 
 
 Single-core thread support needs:
@@ -715,13 +715,13 @@ But user-level correctness still needs:
 - Clear ownership.
 - Avoiding long non-preemptible regions.
 
-> **Speaker side-note:** Single core makes "simultaneous execution" impossible, but preemption still makes interleavings real.
+> **Side note:** Single core makes "simultaneous execution" impossible, but preemption still makes interleavings real.
 
 ---
 
 ## 72. What Is Interrupt Locking
 
-> **Flow:** From **What Single Core Needs To Offer For Threads To Work Successfully**, move into **What Is Interrupt Locking**. This page should answer the natural follow-up and prepare the room for **What Multi Core Needs To Offer For Threads To Work Successfully**.
+> **Flow:** From **What Single Core Needs To Offer For Threads To Work Successfully**, move into **What Is Interrupt Locking**. This page should answer the natural follow-up and prepare for **What Multi Core Needs To Offer For Threads To Work Successfully**.
 
 
 Interrupt locking means temporarily preventing interrupts from interrupting the current CPU.
@@ -749,13 +749,13 @@ Costs:
 - Can break real-time deadlines if held too long.
 - Does not protect against other cores unless interrupt disabling is paired with multicore locking.
 
-> **Speaker side-note:** On multicore, disabling local interrupts does not stop another core. That is the trap when moving RTOS instincts to SMP systems.
+> **Side note:** On multicore, disabling local interrupts does not stop another core. That is the trap when moving RTOS instincts to SMP systems.
 
 ---
 
 ## 73. What Multi Core Needs To Offer For Threads To Work Successfully
 
-> **Flow:** From **What Is Interrupt Locking**, move into **What Multi Core Needs To Offer For Threads To Work Successfully**. This page should answer the natural follow-up and prepare the room for **What Is Atomic Swap Instruction**.
+> **Flow:** From **What Is Interrupt Locking**, move into **What Multi Core Needs To Offer For Threads To Work Successfully**. This page should answer the natural follow-up and prepare for **What Is Atomic Swap Instruction**.
 
 
 Multicore thread support needs:
@@ -778,13 +778,13 @@ Challenges:
 - Lock contention becomes hardware traffic.
 - False sharing can destroy throughput.
 
-> **Speaker side-note:** Multicore correctness is not just "use a mutex." The mutex itself relies on atomic instructions, cache coherence, and memory ordering.
+> **Side note:** Multicore correctness is not just "use a mutex." The mutex itself relies on atomic instructions, cache coherence, and memory ordering.
 
 ---
 
 ## 74. What Is Atomic Swap Instruction
 
-> **Flow:** From **What Multi Core Needs To Offer For Threads To Work Successfully**, move into **What Is Atomic Swap Instruction**. This page should answer the natural follow-up and prepare the room for **Summary So Far**.
+> **Flow:** From **What Multi Core Needs To Offer For Threads To Work Successfully**, move into **What Is Atomic Swap Instruction**. This page should answer the natural follow-up and prepare for **Summary So Far**.
 
 
 An atomic swap instruction exchanges a register value with memory as one indivisible operation.
@@ -822,13 +822,13 @@ Memory ordering matters:
 - Release on unlock.
 - Sequential consistency when stronger ordering is needed.
 
-> **Speaker side-note:** Atomicity and ordering are different. Atomic says the update is indivisible. Ordering says what other memory operations become visible before or after it.
+> **Side note:** Atomicity and ordering are different. Atomic says the update is indivisible. Ordering says what other memory operations become visible before or after it.
 
 ---
 
 ## 75. Summary So Far
 
-> **Flow:** From **What Is Atomic Swap Instruction**, move into **Summary So Far**. This page should answer the natural follow-up and prepare the room for **What Kind Of Language Is C In Runtime**.
+> **Flow:** From **What Is Atomic Swap Instruction**, move into **Summary So Far**. This page should answer the natural follow-up and prepare for **What Kind Of Language Is C In Runtime**.
 
 
 Threads:
@@ -846,7 +846,7 @@ Synchronization:
 - Interrupt locking protects against ISR interleavings on a CPU.
 - Multicore requires atomics, barriers, and cache coherence.
 
-> **Speaker side-note:** Concurrency expertise is knowing the cost and failure mode of each primitive, not just knowing its API name.
+> **Side note:** Concurrency expertise is knowing the cost and failure mode of each primitive, not just knowing its API name.
 
 ---
 
@@ -854,10 +854,10 @@ Synchronization:
 
 **Core takeaway to close with:** Explain races, mutexes, semaphores, critical sections, interrupt locking, multicore requirements, and atomics.
 
-**Verbal handoff:** After the audience understands the primitives, shift upward into language runtimes: each language packages these primitives differently and creates different production failure modes.
+**Transition to next section:** After the reader understands the primitives, shift upward into language runtimes: each language packages these primitives differently and creates different production failure modes.
 
-**Opening line for next file:** "Now open [Language Runtimes: C, C++, Java, Python, Ruby, JavaScript](09-language-runtimes-c-cpp-java-python-ruby-js.md); it answers the next pressure point in the model."
+**Continue reading:** Continue with [Language Runtimes: C, C++, Java, Python, Ruby, JavaScript](09-language-runtimes-c-cpp-java-python-ruby-js.md) to follow the next layer of the model.
 
-**Pause check before moving on:** ask the room to summarize the section in one sentence and name the resource or boundary that became clearer.
+**Pause check before moving on:** pause and summarize the section in one sentence and name the resource or boundary that became clearer.
 
 Previous: [Threads And Process Comparison](07-threads-and-process-comparison.md) | [Index](index.md) | Next: [Language Runtimes: C, C++, Java, Python, Ruby, JavaScript](09-language-runtimes-c-cpp-java-python-ruby-js.md)

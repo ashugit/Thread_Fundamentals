@@ -10,9 +10,9 @@ Previous: [Production Glue And Closing Mental Model](12-production-glue-and-clos
 
 **This section answers:** Keep optional snippets, decision tables, and delivery rhythm separate from the main flow.
 
-**Listen for the next question:** after this section, the audience should be ready for exercises and discussion.
+**Watch for the next question:** after this section, you should be ready for exercises and discussion.
 
-> **Teaching note:** Read this as one continuous block. The slide-level `Flow` notes explain local transitions; the section-level handoff at the end tells you how to move the room into the next topic.
+> **Reading note:** Read this as one continuous block. The slide-level `Flow` notes explain local transitions; the section-level transition at the end connects this topic to the next one.
 
 ---
 
@@ -54,7 +54,7 @@ go work()
 go work()
 ```
 
-> **Speaker side-note:** These snippets look equally small. Their runtime implications are completely different.
+> **Side note:** These snippets look equally small. Their runtime implications are completely different.
 
 ---
 
@@ -70,7 +70,7 @@ go work()
 | High isolation workers | Processes | IPC overhead |
 | Millions of waiting tasks | Coroutines/goroutines/virtual threads | Blocking calls |
 
-> **Speaker side-note:** Pick the model whose operational failure you can explain at 3 AM.
+> **Side note:** Pick the model whose operational failure you can explain at 3 AM.
 
 ---
 
@@ -94,7 +94,7 @@ Good exercises:
 - Explain why Python threads help I/O but not pure CPU in classic CPython.
 - Compare one-process-many-threads vs many-process workers.
 
-> **Speaker side-note:** Use pauses. The goal is not to recite slides. The goal is to upgrade the mental model.
+> **Side note:** Use pauses. The goal is not to recite slides. The goal is to upgrade the mental model.
 
 ---
 
@@ -102,10 +102,10 @@ Good exercises:
 
 **Core takeaway to close with:** Keep optional snippets, decision tables, and delivery rhythm separate from the main flow.
 
-**Verbal handoff:** Use these pages after the main talk for exercises, discussion, or a second pass through the material.
+**Transition to next section:** Use these pages after the main path for exercises, discussion, or a second pass through the material.
 
-**Opening line for next file:** "Now use the appendices as exercises and reference material."
+**Continue reading:** Use this section as exercises and reference material when you want a second pass through the course.
 
-**Pause check before moving on:** ask the room to summarize the section in one sentence and name the resource or boundary that became clearer.
+**Pause check before moving on:** pause and summarize the section in one sentence and name the resource or boundary that became clearer.
 
 Previous: [Production Glue And Closing Mental Model](12-production-glue-and-closing.md) | [Index](index.md) | Next: none

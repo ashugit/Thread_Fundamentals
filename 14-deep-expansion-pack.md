@@ -6,11 +6,11 @@ Previous: [Appendices](13-appendices.md) | [Index](index.md) | Next: none
 
 ## Section Bridge
 
-**Arriving from:** [Appendices](13-appendices.md). The main deck has already given the teaching path.
+**Arriving from:** [Appendices](13-appendices.md). The main deck has already given the learning path.
 
-**This section answers:** what a senior engineer usually adds when the room starts asking "but how exactly does that work?"
+**This section answers:** what a senior engineer usually adds when readers or the team start asking "but how exactly does that work?"
 
-**How to use it:** do not teach this file end-to-end unless you have a very long session. Pull individual modules into the main sequence when the audience needs more depth.
+**How to use it:** do not teach this file end-to-end unless you have a very long session. Pull individual modules into the main sequence when readers need more depth.
 
 ---
 
@@ -68,7 +68,7 @@ sequenceDiagram
   end
 ```
 
-> **Speaker side-note:** A blocking syscall is not "CPU doing nothing." It is the calling task leaving the runnable set so another task can use the CPU.
+> **Side note:** A blocking syscall is not "CPU doing nothing." It is the calling task leaving the runnable set so another task can use the CPU.
 
 ---
 
@@ -109,7 +109,7 @@ Concurrency consequence:
 - Data observed by the kernel may not be stable if another user thread mutates it.
 - Kernel APIs must define when data is copied and what is atomic.
 
-> **Speaker side-note:** Kernel code assumes user memory is unstable. That is not paranoia; it is required for correctness and security.
+> **Side note:** Kernel code assumes user memory is unstable. That is not paranoia; it is required for correctness and security.
 
 ---
 
@@ -155,7 +155,7 @@ Context-switch relevance:
 - Address Space Identifiers can reduce flushing.
 - Large working sets can cause TLB pressure.
 
-> **Speaker side-note:** TLB misses are invisible in source code but visible in performance. VM is an abstraction, and abstractions have machinery.
+> **Side note:** TLB misses are invisible in source code but visible in performance. VM is an abstraction, and abstractions have machinery.
 
 ---
 
@@ -194,7 +194,7 @@ Concurrency consequence:
 - Latency spikes can occur when touching many new pages.
 - Real-time systems often avoid this by pre-faulting or static allocation.
 
-> **Speaker side-note:** Lazy work is great for throughput and memory efficiency. It is dangerous for hard latency unless you force the work earlier.
+> **Side note:** Lazy work is great for throughput and memory efficiency. It is dangerous for hard latency unless you force the work earlier.
 
 ---
 
@@ -243,7 +243,7 @@ Concurrency relevance:
 - System calls may return `EINTR`.
 - Signal delivery can wake or disturb blocking code.
 
-> **Speaker side-note:** Signals are old, powerful, and sharp. Treat them as low-level control-plane events, not normal application callbacks.
+> **Side note:** Signals are old, powerful, and sharp. Treat them as low-level control-plane events, not normal application callbacks.
 
 ---
 
@@ -280,7 +280,7 @@ Shared memory warning:
 - It also removes process-isolation simplicity for that memory region.
 - You need mutexes, atomics, semaphores, or lock-free protocol.
 
-> **Speaker side-note:** IPC is not only a performance tool. It is an architecture tool for containing failure.
+> **Side note:** IPC is not only a performance tool. It is an architecture tool for containing failure.
 
 ---
 
@@ -327,7 +327,7 @@ Why this matters:
 - Contended locks are still expensive.
 - Lock design should minimize contention, not merely choose a fast primitive.
 
-> **Speaker side-note:** A mutex is not "a kernel object" in all implementations. Often it is a user-space word with kernel help only in the slow path.
+> **Side note:** A mutex is not "a kernel object" in all implementations. Often it is a user-space word with kernel help only in the slow path.
 
 ---
 
@@ -371,7 +371,7 @@ if (!ready) {
 
 That can proceed when `ready` is still false.
 
-> **Speaker side-note:** A condition variable is not the condition. The condition is your predicate over protected state.
+> **Side note:** A condition variable is not the condition. The condition is your predicate over protected state.
 
 ---
 
@@ -406,7 +406,7 @@ Alternative designs:
 - Per-core state.
 - Actor ownership.
 
-> **Speaker side-note:** Read-write locks are seductive. Many systems get faster with a plain mutex because the read sections are too tiny for RW-lock overhead to pay back.
+> **Side note:** Read-write locks are seductive. Many systems get faster with a plain mutex because the read sections are too tiny for RW-lock overhead to pay back.
 
 ---
 
@@ -454,7 +454,7 @@ Mitigation:
 - Avoid nested locks.
 - Design ownership to avoid shared locks.
 
-> **Speaker side-note:** A system can consume 100% CPU and still make zero progress. Progress is a semantic property, not a CPU metric.
+> **Side note:** A system can consume 100% CPU and still make zero progress. Progress is a semantic property, not a CPU metric.
 
 ---
 
@@ -500,7 +500,7 @@ Why one global pool is risky:
 - Retries can occupy the same pool needed for recovery.
 - A single bad task class can starve unrelated work.
 
-> **Speaker side-note:** A thread pool is a bulkhead. If everything shares one pool, you did not build compartments; you built one floodable room.
+> **Side note:** A thread pool is a bulkhead. If everything shares one pool, you did not build compartments; you built one floodable room.
 
 ---
 
@@ -545,7 +545,7 @@ Common event-loop mistakes:
 - Doing CPU-heavy work inside event callback.
 - Blocking on DNS/filesystem unexpectedly.
 
-> **Speaker side-note:** Async I/O does not remove state machines. It moves state machines into your runtime and protocol code.
+> **Side note:** Async I/O does not remove state machines. It moves state machines into your runtime and protocol code.
 
 ---
 
@@ -593,7 +593,7 @@ Production metric:
 - Track callback duration.
 - Track slow synchronous sections.
 
-> **Speaker side-note:** Event loops fail by not coming back around. Anything that delays the next tick delays every other task.
+> **Side note:** Event loops fail by not coming back around. Anything that delays the next tick delays every other task.
 
 ---
 
@@ -634,7 +634,7 @@ Key idea:
 - Cancellation must be propagated intentionally.
 - Cleanup must be idempotent.
 
-> **Speaker side-note:** In async systems, orphan tasks are a serious production bug. They keep doing work after the reason for the work disappeared.
+> **Side note:** In async systems, orphan tasks are a serious production bug. They keep doing work after the reason for the work disappeared.
 
 ---
 
@@ -676,7 +676,7 @@ Concurrency consequence:
 - Application thread behavior affects GC behavior.
 - GC tuning is workload-specific.
 
-> **Speaker side-note:** In managed runtimes, allocation is a concurrency decision. Allocation rate influences GC threads, pauses, CPU, and tail latency.
+> **Side note:** In managed runtimes, allocation is a concurrency decision. Allocation rate influences GC threads, pauses, CPU, and tail latency.
 
 ---
 
@@ -715,7 +715,7 @@ Design advice:
 - Measure allocation rate.
 - Watch allocator lock contention.
 
-> **Speaker side-note:** "malloc is slow" is rarely the full diagnosis. Ask which size, which thread, which lifetime, which contention pattern.
+> **Side note:** "malloc is slow" is rarely the full diagnosis. Ask which size, which thread, which lifetime, which contention pattern.
 
 ---
 
@@ -747,7 +747,7 @@ Application strategies:
 - Pin carefully only when measured.
 - Avoid global hot counters.
 
-> **Speaker side-note:** On small systems you can ignore NUMA. On large systems NUMA can turn an elegant shared-memory design into a remote-memory benchmark.
+> **Side note:** On small systems you can ignore NUMA. On large systems NUMA can turn an elegant shared-memory design into a remote-memory benchmark.
 
 ---
 
@@ -789,7 +789,7 @@ Better design:
 - Keep write-heavy fields apart.
 - Avoid global shared metrics in hot path.
 
-> **Speaker side-note:** False sharing is humiliating because the code looks independent. Hardware sees cache lines, not your struct field intentions.
+> **Side note:** False sharing is humiliating because the code looks independent. Hardware sees cache lines, not your struct field intentions.
 
 ---
 
@@ -828,7 +828,7 @@ Mitigation:
 - Compare-and-set at storage layer.
 - Distributed locks only when necessary.
 
-> **Speaker side-note:** Race conditions exist at every layer: CPU memory, process state, database rows, message queues, and distributed workflows.
+> **Side note:** Race conditions exist at every layer: CPU memory, process state, database rows, message queues, and distributed workflows.
 
 ---
 
@@ -864,7 +864,7 @@ Fixes:
 - Version column compare-and-swap.
 - Serializable isolation where appropriate.
 
-> **Speaker side-note:** If your app is "single-threaded" but handles concurrent requests against a database, you still have concurrency bugs.
+> **Side note:** If your app is "single-threaded" but handles concurrent requests against a database, you still have concurrency bugs.
 
 ---
 
@@ -900,7 +900,7 @@ Correct assumption:
 
 > "The request timed out, so I do not know whether it happened."
 
-> **Speaker side-note:** Distributed concurrency is concurrency plus uncertainty. You must design for duplicate, delayed, and partially completed work.
+> **Side note:** Distributed concurrency is concurrency plus uncertainty. You must design for duplicate, delayed, and partially completed work.
 
 ---
 
@@ -936,7 +936,7 @@ Trace dimensions:
 - Queue enqueue/dequeue timestamps.
 - Deadline remaining.
 
-> **Speaker side-note:** If you cannot see waiting, you cannot debug concurrency. Most incidents are not "doing work"; they are "waiting in the wrong place."
+> **Side note:** If you cannot see waiting, you cannot debug concurrency. Most incidents are not "doing work"; they are "waiting in the wrong place."
 
 ---
 
@@ -986,7 +986,7 @@ Observability:
 - Can we dump stacks/tasks?
 - Can we trace child work?
 
-> **Speaker side-note:** A concurrency design without ownership, backpressure, cancellation, and observability is incomplete.
+> **Side note:** A concurrency design without ownership, backpressure, cancellation, and observability is incomplete.
 
 ---
 
@@ -1024,7 +1024,7 @@ Pattern 5: Retry storm
 - Cause: clients retry aggressively.
 - Lesson: retries need budgets, jitter, and backpressure.
 
-> **Speaker side-note:** War stories make concurrency memorable because they connect mechanisms to production pain.
+> **Side note:** War stories make concurrency memorable because they connect mechanisms to production pain.
 
 ---
 
@@ -1054,7 +1054,7 @@ Final phrasing:
 
 > Concurrency is not about starting more work. It is about preserving correctness and progress when many things are in flight.
 
-> **Speaker side-note:** This is the line to end with when the audience has absorbed the machinery. It brings the talk back to engineering judgment.
+> **Side note:** This is the line to end with when the reader has absorbed the machinery. It brings the material back to engineering judgment.
 
 ---
 
@@ -1140,7 +1140,7 @@ Questions for design review:
 - Is there a staged response before reset?
 - Does the watchdog catch both CPU spin and blocked deadlock?
 
-> **Speaker side-note:** In embedded concurrency, a watchdog is the final progress detector. The art is making sure it detects real progress, not fake heartbeats.
+> **Side note:** In embedded concurrency, a watchdog is the final progress detector. The art is making sure it detects real progress, not fake heartbeats.
 
 ---
 
@@ -1148,8 +1148,8 @@ Questions for design review:
 
 **Core takeaway to close with:** The main deck teaches the path; this expansion pack gives you the extra depth to answer hard follow-up questions.
 
-**Verbal handoff:** Use these modules selectively. If the room is younger, pull in futexes, condition variables, event loops, and database races. If the room is senior, pull in TLB, NUMA, allocators, memory models, and observability.
+**Transition to next section:** Use these modules selectively. If the group is newer to the topic, pull in futexes, condition variables, event loops, and database races. If the group is more senior, pull in TLB, NUMA, allocators, memory models, and observability.
 
-**Pause check before moving on:** ask which layer the team most often debugs poorly today: OS, runtime, database, event loop, or distributed workflow.
+**Pause check before moving on:** identify which layer the team most often debugs poorly today: OS, runtime, database, event loop, or distributed workflow.
 
 Previous: [Appendices](13-appendices.md) | [Index](index.md) | Next: none

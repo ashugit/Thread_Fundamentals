@@ -1,6 +1,6 @@
 # Concurrency Deep Dive: Modular Reading Index
 
-This folder breaks the original long deck into smaller markdown files. Read the sections in order for the intended teaching flow, or jump directly to a topic.
+This folder breaks the original long deck into smaller markdown files. Read the sections in order for the intended learning flow, or jump directly to a topic.
 
 The original single-file deck remains available at [../concurrency-deep-dive-slide-book.md](../concurrency-deep-dive-slide-book.md).
 
@@ -97,6 +97,6 @@ flowchart TD
 
 - Use `index.md` as the table of contents.
 - Each section has Previous/Index/Next navigation at top and bottom.
-- Each section ends with `Lead Into Next Section`, written as a verbal handoff for teaching.
-- Use the deep expansion pack selectively when the room asks for more detail or when a topic feels too compressed.
+- Each section ends with `Lead Into Next Section`, written as a transition for both readers and teachers.
+- Use the deep expansion pack selectively when readers or the team ask for more detail or when a topic feels too compressed.
 - Keep Mermaid rendering enabled in VS Code/Cursor/GitHub to see diagrams.

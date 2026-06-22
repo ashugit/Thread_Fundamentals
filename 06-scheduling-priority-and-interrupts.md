@@ -10,15 +10,15 @@ Previous: [Kernel Space And User Space](05-kernel-space-user-space.md) | [Index]
 
 **This section answers:** Cover scheduling policy, priority, system-call scheduling points, interrupts, and context switches.
 
-**Listen for the next question:** once this section lands, the audience should naturally ask why we need **Threads And Process Comparison** next.
+**Watch for the next question:** once this section lands, the next natural question is why we need **Threads And Process Comparison** next.
 
-> **Teaching note:** Read this as one continuous block. The slide-level `Flow` notes explain local transitions; the section-level handoff at the end tells you how to move the room into the next topic.
+> **Reading note:** Read this as one continuous block. The slide-level `Flow` notes explain local transitions; the section-level transition at the end connects this topic to the next one.
 
 ---
 
 ## 41. OS Scheduling: REX Vs UNIX
 
-> **Flow:** From **Summary So Far**, move into **OS Scheduling: REX Vs UNIX**. This page should answer the natural follow-up and prepare the room for **Types Of Scheduling In UNIX**.
+> **Flow:** From **Summary So Far**, move into **OS Scheduling: REX Vs UNIX**. This page should answer the natural follow-up and prepare for **Types Of Scheduling In UNIX**.
 
 
 Scheduling answers:
@@ -42,7 +42,7 @@ UNIX scheduling:
 - Balances CPU usage across cores.
 - Handles interactive and batch workloads.
 
-> **Speaker side-note:** RTOS scheduling asks "who must run to meet a deadline?" UNIX scheduling often asks "how do we share this machine acceptably among many workloads?"
+> **Side note:** RTOS scheduling asks "who must run to meet a deadline?" UNIX scheduling often asks "how do we share this machine acceptably among many workloads?"
 
 ---
 
@@ -117,7 +117,7 @@ Better watchdog discipline:
 - Reports must mean real forward progress, not merely "loop is alive."
 - On failure, capture crash reason if possible before reset.
 
-> **Speaker side-note:** Do not teach kickdog as "periodically reset a timer." Teach it as a system-level liveness contract. The important question is: what evidence must exist before software is allowed to kick the dog?
+> **Side note:** Do not teach kickdog as "periodically reset a timer." Teach it as a system-level liveness contract. The important question is: what evidence must exist before software is allowed to kick the dog?
 
 ---
 
@@ -194,13 +194,13 @@ What a seasoned engineer asks:
 - Can an ISR accidentally keep kicking the watchdog?
 - What diagnostics survive reset?
 
-> **Speaker side-note:** Watchdogs do not fix concurrency bugs. They convert certain unrecoverable concurrency failures into controlled reset plus evidence collection.
+> **Side note:** Watchdogs do not fix concurrency bugs. They convert certain unrecoverable concurrency failures into controlled reset plus evidence collection.
 
 ---
 
 ## 42. Types Of Scheduling In UNIX
 
-> **Flow:** From **OS Scheduling: REX Vs UNIX**, move into **Types Of Scheduling In UNIX**. This page should answer the natural follow-up and prepare the room for **What Is Process Priority**.
+> **Flow:** From **OS Scheduling: REX Vs UNIX**, move into **Types Of Scheduling In UNIX**. This page should answer the natural follow-up and prepare for **What Is Process Priority**.
 
 
 UNIX-like systems may support:
@@ -221,13 +221,13 @@ Linux example names:
 - `SCHED_IDLE`
 - `SCHED_DEADLINE`
 
-> **Speaker side-note:** The exact names vary by UNIX flavor, but the engineering idea is stable: policy classes define what "fair" or "urgent" means.
+> **Side note:** The exact names vary by UNIX flavor, but the engineering idea is stable: policy classes define what "fair" or "urgent" means.
 
 ---
 
 ## 43. What Is Process Priority
 
-> **Flow:** From **Types Of Scheduling In UNIX**, move into **What Is Process Priority**. This page should answer the natural follow-up and prepare the room for **How Priority Plays With Scheduling**.
+> **Flow:** From **Types Of Scheduling In UNIX**, move into **What Is Process Priority**. This page should answer the natural follow-up and prepare for **How Priority Plays With Scheduling**.
 
 
 Process priority is scheduler metadata used to influence CPU selection.
@@ -252,13 +252,13 @@ But priority is not the same as performance:
 - Too many high-priority tasks can destroy responsiveness.
 - Incorrect real-time priority can starve the system.
 
-> **Speaker side-note:** Priority is a responsibility. Raising priority is not an optimization knob to turn casually; it changes fairness and can hide design problems.
+> **Side note:** Priority is a responsibility. Raising priority is not an optimization knob to turn casually; it changes fairness and can hide design problems.
 
 ---
 
 ## 44. How Priority Plays With Scheduling
 
-> **Flow:** From **What Is Process Priority**, move into **How Priority Plays With Scheduling**. This page should answer the natural follow-up and prepare the room for **Summary So Far**.
+> **Flow:** From **What Is Process Priority**, move into **How Priority Plays With Scheduling**. This page should answer the natural follow-up and prepare for **Summary So Far**.
 
 
 Scheduling combines:
@@ -292,13 +292,13 @@ Mitigation:
 - Priority ceiling.
 - Avoid long critical sections.
 
-> **Speaker side-note:** Priority inversion is where scheduler theory becomes production pain. It famously affected real systems because the scheduler obeyed priority locally while the lock dependency created a global contradiction.
+> **Side note:** Priority inversion is where scheduler theory becomes production pain. It famously affected real systems because the scheduler obeyed priority locally while the lock dependency created a global contradiction.
 
 ---
 
 ## 45. Summary So Far
 
-> **Flow:** From **How Priority Plays With Scheduling**, move into **Summary So Far**. This page should answer the natural follow-up and prepare the room for **In UNIX, Points At Which Scheduling May Happen**.
+> **Flow:** From **How Priority Plays With Scheduling**, move into **Summary So Far**. This page should answer the natural follow-up and prepare for **In UNIX, Points At Which Scheduling May Happen**.
 
 
 Scheduling basics:
@@ -316,7 +316,7 @@ Concurrency connection:
 - Waking inserts it back into scheduler decisions.
 - Locks and priorities can interact in surprising ways.
 
-> **Speaker side-note:** A scheduler does not make blocked code run. Blocking changes the set of candidates.
+> **Side note:** A scheduler does not make blocked code run. Blocking changes the set of candidates.
 
 ---
 
@@ -367,7 +367,7 @@ browser/application
 
 The write returning does not always mean the other side processed the data.
 
-> **Speaker side-note:** Bach's buffer cache lesson generalizes: modern systems are full of buffers. A successful write often means "accepted by the next layer," not "fully consumed by the final destination."
+> **Side note:** Bach's buffer cache lesson generalizes: modern systems are full of buffers. A successful write often means "accepted by the next layer," not "fully consumed by the final destination."
 
 ---
 
@@ -410,13 +410,13 @@ Questions to ask:
 - Is there a buffer that can fill?
 - What happens on retry?
 
-> **Speaker side-note:** Embedded experience gives you respect for hardware truth. Carry that forward, but in web systems the "hardware" is a chain of buffers and services.
+> **Side note:** Embedded experience gives you respect for hardware truth. Carry that forward, but in web systems the "hardware" is a chain of buffers and services.
 
 ---
 
 ## 46. In UNIX, Points At Which Scheduling May Happen
 
-> **Flow:** From **Summary So Far**, move into **In UNIX, Points At Which Scheduling May Happen**. This page should answer the natural follow-up and prepare the room for **What Is An Interrupt**.
+> **Flow:** From **Summary So Far**, move into **In UNIX, Points At Which Scheduling May Happen**. This page should answer the natural follow-up and prepare for **What Is An Interrupt**.
 
 
 Scheduling may happen when:
@@ -439,13 +439,13 @@ System calls matter because many can block:
 - `futex()` waiting on lock state.
 - `poll()`/`epoll_wait()` waiting for readiness.
 
-> **Speaker side-note:** The CPU does not schedule only at pretty API boundaries. Interrupts and kernel paths can change the decision at points invisible in your source code.
+> **Side note:** The CPU does not schedule only at pretty API boundaries. Interrupts and kernel paths can change the decision at points invisible in your source code.
 
 ---
 
 ## 47. What Is An Interrupt
 
-> **Flow:** From **In UNIX, Points At Which Scheduling May Happen**, move into **What Is An Interrupt**. This page should answer the natural follow-up and prepare the room for **How Interrupt Can Cause Context Switch**.
+> **Flow:** From **In UNIX, Points At Which Scheduling May Happen**, move into **What Is An Interrupt**. This page should answer the natural follow-up and prepare for **How Interrupt Can Cause Context Switch**.
 
 
 An interrupt is an asynchronous signal to the CPU that an event needs attention.
@@ -470,13 +470,13 @@ Interrupt handling:
 6. Work may be deferred to a bottom half/tasklet/workqueue/thread.
 7. CPU returns to previous code or scheduler chooses another task.
 
-> **Speaker side-note:** Interrupts are one reason a single-core system can feel concurrent. Your code can be interrupted between two ordinary-looking instructions.
+> **Side note:** Interrupts are one reason a single-core system can feel concurrent. Your code can be interrupted between two ordinary-looking instructions.
 
 ---
 
 ## 48. How Interrupt Can Cause Context Switch
 
-> **Flow:** From **What Is An Interrupt**, move into **How Interrupt Can Cause Context Switch**. This page should answer the natural follow-up and prepare the room for **What Happens When Process A Is Scheduled Out And Process B Is Scheduled In**.
+> **Flow:** From **What Is An Interrupt**, move into **How Interrupt Can Cause Context Switch**. This page should answer the natural follow-up and prepare for **What Happens When Process A Is Scheduled Out And Process B Is Scheduled In**.
 
 
 Timer interrupt example:
@@ -505,13 +505,13 @@ sequenceDiagram
   K->>B: return to user mode
 ```
 
-> **Speaker side-note:** A context switch is often caused by an interrupt, but the interrupt handler itself is not always the full scheduler. Kernels often defer expensive work until a safe point.
+> **Side note:** A context switch is often caused by an interrupt, but the interrupt handler itself is not always the full scheduler. Kernels often defer expensive work until a safe point.
 
 ---
 
 ## 49. What Happens When Process A Is Scheduled Out And Process B Is Scheduled In
 
-> **Flow:** From **How Interrupt Can Cause Context Switch**, move into **What Happens When Process A Is Scheduled Out And Process B Is Scheduled In**. This page should answer the natural follow-up and prepare the room for **How Context Is Switched: Minutest Details In REX Model**.
+> **Flow:** From **How Interrupt Can Cause Context Switch**, move into **What Happens When Process A Is Scheduled Out And Process B Is Scheduled In**. This page should answer the natural follow-up and prepare for **How Context Is Switched: Minutest Details In REX Model**.
 
 
 Conceptually:
@@ -535,13 +535,13 @@ Costs:
 - Branch predictor/cache effects.
 - Locking inside scheduler.
 
-> **Speaker side-note:** Context switch cost is not one number. It depends on architecture, cache state, TLB behavior, scheduler path, security mitigations, and working set.
+> **Side note:** Context switch cost is not one number. It depends on architecture, cache state, TLB behavior, scheduler path, security mitigations, and working set.
 
 ---
 
 ## 50. How Context Is Switched: Minutest Details In REX Model
 
-> **Flow:** From **What Happens When Process A Is Scheduled Out And Process B Is Scheduled In**, move into **How Context Is Switched: Minutest Details In REX Model**. This page should answer the natural follow-up and prepare the room for **How Context Is Switched: Minutest Details In UNIX Model**.
+> **Flow:** From **What Happens When Process A Is Scheduled Out And Process B Is Scheduled In**, move into **How Context Is Switched: Minutest Details In REX Model**. This page should answer the natural follow-up and prepare for **How Context Is Switched: Minutest Details In UNIX Model**.
 
 
 Typical REX/RTOS-style task switch:
@@ -566,13 +566,13 @@ Task A stack: [saved r0-r12, lr, pc, cpsr, ...]
 Task B stack: [saved r0-r12, lr, pc, cpsr, ...]
 ```
 
-> **Speaker side-note:** In many RTOS designs, the task stack itself is the saved context. That is elegant and fast, but only if memory corruption is controlled.
+> **Side note:** In many RTOS designs, the task stack itself is the saved context. That is elegant and fast, but only if memory corruption is controlled.
 
 ---
 
 ## 51. How Context Is Switched: Minutest Details In UNIX Model
 
-> **Flow:** From **How Context Is Switched: Minutest Details In REX Model**, move into **How Context Is Switched: Minutest Details In UNIX Model**. This page should answer the natural follow-up and prepare the room for **Introducing Single Core ARM7 Vs Multicore Say ARM9**.
+> **Flow:** From **How Context Is Switched: Minutest Details In REX Model**, move into **How Context Is Switched: Minutest Details In UNIX Model**. This page should answer the natural follow-up and prepare for **Introducing Single Core ARM7 Vs Multicore Say ARM9**.
 
 
 UNIX process/thread switch includes:
@@ -601,13 +601,13 @@ If switching between processes:
 - TLB effects are more likely.
 - Process-level accounting/resources differ.
 
-> **Speaker side-note:** A UNIX "task" in kernel scheduling often represents a schedulable execution context. Whether you call it process or thread at user level, the scheduler needs a register/stack context to run.
+> **Side note:** A UNIX "task" in kernel scheduling often represents a schedulable execution context. Whether you call it process or thread at user level, the scheduler needs a register/stack context to run.
 
 ---
 
 ## 52. Introducing Single Core ARM7 Vs Multicore Say ARM9
 
-> **Flow:** From **How Context Is Switched: Minutest Details In UNIX Model**, move into **Introducing Single Core ARM7 Vs Multicore Say ARM9**. This page should answer the natural follow-up and prepare the room for **How Process Execution Works From Single Core Vs Multi Core**.
+> **Flow:** From **How Context Is Switched: Minutest Details In UNIX Model**, move into **Introducing Single Core ARM7 Vs Multicore Say ARM9**. This page should answer the natural follow-up and prepare for **How Process Execution Works From Single Core Vs Multi Core**.
 
 
 ARM7-era embedded systems are often discussed as:
@@ -632,13 +632,13 @@ Key conceptual split:
 - **Single core:** only one instruction stream executes at a time.
 - **Multicore:** multiple instruction streams can execute truly simultaneously.
 
-> **Speaker side-note:** Do not over-index on exact ARM7/ARM9 marketing names. Use them as a historical teaching anchor: small single-core RTOS world versus richer MMU/multicore UNIX-capable world.
+> **Side note:** Do not over-index on exact ARM7/ARM9 marketing names. Use them as a historical teaching anchor: small single-core RTOS world versus richer MMU/multicore UNIX-capable world.
 
 ---
 
 ## 53. How Process Execution Works From Single Core Vs Multi Core
 
-> **Flow:** From **Introducing Single Core ARM7 Vs Multicore Say ARM9**, move into **How Process Execution Works From Single Core Vs Multi Core**. This page should answer the natural follow-up and prepare the room for **How Scheduling Works Between Single Core Vs Multi Core**.
+> **Flow:** From **Introducing Single Core ARM7 Vs Multicore Say ARM9**, move into **How Process Execution Works From Single Core Vs Multi Core**. This page should answer the natural follow-up and prepare for **How Scheduling Works Between Single Core Vs Multi Core**.
 
 
 Single core:
@@ -678,13 +678,13 @@ gantt
   B :0, 6
 ```
 
-> **Speaker side-note:** Single core does not eliminate concurrency bugs; it changes their shape. Multi-core makes memory visibility and atomicity much harder.
+> **Side note:** Single core does not eliminate concurrency bugs; it changes their shape. Multi-core makes memory visibility and atomicity much harder.
 
 ---
 
 ## 54. How Scheduling Works Between Single Core Vs Multi Core
 
-> **Flow:** From **How Process Execution Works From Single Core Vs Multi Core**, move into **How Scheduling Works Between Single Core Vs Multi Core**. This page should answer the natural follow-up and prepare the room for **Summary So Far**.
+> **Flow:** From **How Process Execution Works From Single Core Vs Multi Core**, move into **How Scheduling Works Between Single Core Vs Multi Core**. This page should answer the natural follow-up and prepare for **Summary So Far**.
 
 
 Single-core scheduling:
@@ -708,13 +708,13 @@ Tradeoff:
 - Moving a task balances load.
 - Keeping a task on same core preserves cache warmth.
 
-> **Speaker side-note:** On multicore, the scheduler is also a traffic engineer. Moving work too aggressively wastes cache; moving too little leaves cores idle.
+> **Side note:** On multicore, the scheduler is also a traffic engineer. Moving work too aggressively wastes cache; moving too little leaves cores idle.
 
 ---
 
 ## 55. Summary So Far
 
-> **Flow:** From **How Scheduling Works Between Single Core Vs Multi Core**, move into **Summary So Far**. This page should answer the natural follow-up and prepare the room for **What Is A Thread**.
+> **Flow:** From **How Scheduling Works Between Single Core Vs Multi Core**, move into **Summary So Far**. This page should answer the natural follow-up and prepare for **What Is A Thread**.
 
 
 We covered scheduling mechanics:
@@ -727,7 +727,7 @@ We covered scheduling mechanics:
 - Single-core concurrency is interleaving.
 - Multicore concurrency is interleaving plus true parallel execution.
 
-> **Speaker side-note:** This is the point to ask the room: "Can a race condition happen on a single-core system?" Correct answer: yes, if preemption or interrupts split a non-atomic operation.
+> **Side note:** This is the point to pause and ask: "Can a race condition happen on a single-core system?" Correct answer: yes, if preemption or interrupts split a non-atomic operation.
 
 ---
 
@@ -735,10 +735,10 @@ We covered scheduling mechanics:
 
 **Core takeaway to close with:** Cover scheduling policy, priority, system-call scheduling points, interrupts, and context switches.
 
-**Verbal handoff:** Scheduling explains how whole execution contexts move on and off CPU. Now narrow the unit of execution from processes to threads inside a process.
+**Transition to next section:** Scheduling explains how whole execution contexts move on and off CPU. Now narrow the unit of execution from processes to threads inside a process.
 
-**Opening line for next file:** "Now open [Threads And Process Comparison](07-threads-and-process-comparison.md); it answers the next pressure point in the model."
+**Continue reading:** Continue with [Threads And Process Comparison](07-threads-and-process-comparison.md) to follow the next layer of the model.
 
-**Pause check before moving on:** ask the room to summarize the section in one sentence and name the resource or boundary that became clearer.
+**Pause check before moving on:** pause and summarize the section in one sentence and name the resource or boundary that became clearer.
 
 Previous: [Kernel Space And User Space](05-kernel-space-user-space.md) | [Index](index.md) | Next: [Threads And Process Comparison](07-threads-and-process-comparison.md)

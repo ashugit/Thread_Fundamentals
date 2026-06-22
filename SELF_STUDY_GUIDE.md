@@ -18,7 +18,7 @@ For every module:
    - What can interleave?
    - What protects the invariant?
    - What can block?
-6. Read the `Lead Into Next Section`.
+6. Read the `Lead Into Next Section` to connect the current topic to the next one.
 7. Write a three-sentence summary in your own words.
 
 Template:

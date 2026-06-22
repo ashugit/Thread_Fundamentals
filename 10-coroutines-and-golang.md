@@ -10,15 +10,15 @@ Previous: [Language Runtimes: C, C++, Java, Python, Ruby, JavaScript](09-languag
 
 **This section answers:** Explain coroutine context switches, coroutine tradeoffs, Go's goroutine model, and language summary.
 
-**Listen for the next question:** once this section lands, the audience should naturally ask why we need **Backend Concurrency Architecture** next.
+**Watch for the next question:** once this section lands, the next natural question is why we need **Backend Concurrency Architecture** next.
 
-> **Teaching note:** Read this as one continuous block. The slide-level `Flow` notes explain local transitions; the section-level handoff at the end tells you how to move the room into the next topic.
+> **Reading note:** Read this as one continuous block. The slide-level `Flow` notes explain local transitions; the section-level transition at the end connects this topic to the next one.
 
 ---
 
 ## 97. Deep Dive Into Coroutines
 
-> **Flow:** From **Why Javascript Picked This Kind Of Threading Model**, move into **Deep Dive Into Coroutines**. This page should answer the natural follow-up and prepare the room for **How Is Context Switch Going To Happen In Coroutine**.
+> **Flow:** From **Why Javascript Picked This Kind Of Threading Model**, move into **Deep Dive Into Coroutines**. This page should answer the natural follow-up and prepare for **How Is Context Switch Going To Happen In Coroutine**.
 
 
 A coroutine is an execution unit that can suspend and resume without relying on kernel preemption.
@@ -47,13 +47,13 @@ Coroutine vs thread:
 - Thread stack is usually larger.
 - Coroutine state can be much smaller.
 
-> **Speaker side-note:** Coroutines are a control-flow abstraction. They are not automatically parallel, and they do not automatically make blocking code non-blocking.
+> **Side note:** Coroutines are a control-flow abstraction. They are not automatically parallel, and they do not automatically make blocking code non-blocking.
 
 ---
 
 ## 98. How Is Context Switch Going To Happen In Coroutine
 
-> **Flow:** From **Deep Dive Into Coroutines**, move into **How Is Context Switch Going To Happen In Coroutine**. This page should answer the natural follow-up and prepare the room for **Languages Which Offer Coroutines**.
+> **Flow:** From **Deep Dive Into Coroutines**, move into **How Is Context Switch Going To Happen In Coroutine**. This page should answer the natural follow-up and prepare for **Languages Which Offer Coroutines**.
 
 
 Coroutine switch:
@@ -87,13 +87,13 @@ sequenceDiagram
   R->>C1: I/O ready, resume continuation
 ```
 
-> **Speaker side-note:** Coroutine context switch is cheaper partly because it avoids kernel scheduler involvement, but the cost can still include allocations, promise/future machinery, and callback dispatch.
+> **Side note:** Coroutine context switch is cheaper partly because it avoids kernel scheduler involvement, but the cost can still include allocations, promise/future machinery, and callback dispatch.
 
 ---
 
 ## 99. Languages Which Offer Coroutines
 
-> **Flow:** From **How Is Context Switch Going To Happen In Coroutine**, move into **Languages Which Offer Coroutines**. This page should answer the natural follow-up and prepare the room for **Why Is Coroutine Better Than Threads**.
+> **Flow:** From **How Is Context Switch Going To Happen In Coroutine**, move into **Languages Which Offer Coroutines**. This page should answer the natural follow-up and prepare for **Why Is Coroutine Better Than Threads**.
 
 
 Languages/runtimes with coroutine-like features:
@@ -117,13 +117,13 @@ Important distinction:
 - Some runtimes multiplex onto OS threads.
 - Some require async-compatible libraries.
 
-> **Speaker side-note:** Do not teach "coroutine" as one universal implementation. Ask whether it is stackful, stackless, preemptive, cooperative, single-threaded, or work-stealing.
+> **Side note:** Do not teach "coroutine" as one universal implementation. Ask whether it is stackful, stackless, preemptive, cooperative, single-threaded, or work-stealing.
 
 ---
 
 ## 100. Why Is Coroutine Better Than Threads
 
-> **Flow:** From **Languages Which Offer Coroutines**, move into **Why Is Coroutine Better Than Threads**. This page should answer the natural follow-up and prepare the room for **Why Is Coroutine Worse Than Thread**.
+> **Flow:** From **Languages Which Offer Coroutines**, move into **Why Is Coroutine Better Than Threads**. This page should answer the natural follow-up and prepare for **Why Is Coroutine Worse Than Thread**.
 
 
 Coroutines can be better when:
@@ -143,13 +143,13 @@ Operational wins:
 - Backpressure can be modeled through awaitable queues.
 - Less lock contention if single-threaded event loop owns state.
 
-> **Speaker side-note:** Coroutines are excellent for wait-heavy workloads. They are not a replacement for CPU parallelism unless the runtime schedules them across multiple OS threads and the code is parallel-safe.
+> **Side note:** Coroutines are excellent for wait-heavy workloads. They are not a replacement for CPU parallelism unless the runtime schedules them across multiple OS threads and the code is parallel-safe.
 
 ---
 
 ## 101. Why Is Coroutine Worse Than Thread
 
-> **Flow:** From **Why Is Coroutine Better Than Threads**, move into **Why Is Coroutine Worse Than Thread**. This page should answer the natural follow-up and prepare the room for **Summary Of Context Switch Between Process, Thread, Coroutine**.
+> **Flow:** From **Why Is Coroutine Better Than Threads**, move into **Why Is Coroutine Worse Than Thread**. This page should answer the natural follow-up and prepare for **Summary Of Context Switch Between Process, Thread, Coroutine**.
 
 
 Coroutines can be worse when:
@@ -171,13 +171,13 @@ Thread advantages:
 - Stack traces can be more straightforward.
 - Mature tooling for some ecosystems.
 
-> **Speaker side-note:** Coroutine systems fail when one function lies: it looks async but blocks, or it forgets to await/backpressure. That one lie can freeze the event loop.
+> **Side note:** Coroutine systems fail when one function lies: it looks async but blocks, or it forgets to await/backpressure. That one lie can freeze the event loop.
 
 ---
 
 ## 102. Summary Of Context Switch Between Process, Thread, Coroutine
 
-> **Flow:** From **Why Is Coroutine Worse Than Thread**, move into **Summary Of Context Switch Between Process, Thread, Coroutine**. This page should answer the natural follow-up and prepare the room for **What Kind Of Language Is Golang In Runtime**.
+> **Flow:** From **Why Is Coroutine Worse Than Thread**, move into **Summary Of Context Switch Between Process, Thread, Coroutine**. This page should answer the natural follow-up and prepare for **What Kind Of Language Is Golang In Runtime**.
 
 
 | Unit | Scheduler | Isolation | Switch cost | Shared memory | Parallelism |
@@ -204,13 +204,13 @@ Coroutine switch:
 - Usually cooperative.
 - No kernel switch if purely user-space.
 
-> **Speaker side-note:** When someone says "coroutines are lightweight threads", ask which properties they mean: memory, scheduling, isolation, preemption, or parallelism.
+> **Side note:** When someone says "coroutines are lightweight threads", ask which properties they mean: memory, scheduling, isolation, preemption, or parallelism.
 
 ---
 
 ## 103. What Kind Of Language Is Golang In Runtime
 
-> **Flow:** From **Summary Of Context Switch Between Process, Thread, Coroutine**, move into **What Kind Of Language Is Golang In Runtime**. This page should answer the natural follow-up and prepare the room for **What Is The Threading Model In Golang**.
+> **Flow:** From **Summary Of Context Switch Between Process, Thread, Coroutine**, move into **What Kind Of Language Is Golang In Runtime**. This page should answer the natural follow-up and prepare for **What Is The Threading Model In Golang**.
 
 
 Go is a compiled language with a managed runtime designed around concurrency.
@@ -234,13 +234,13 @@ Go's design center:
 - Production network services.
 - Runtime-managed scheduling over OS threads.
 
-> **Speaker side-note:** Go did not merely add a thread library. It designed the language, runtime, standard library, and tooling around concurrent services.
+> **Side note:** Go did not merely add a thread library. It designed the language, runtime, standard library, and tooling around concurrent services.
 
 ---
 
 ## 104. What Is The Threading Model In Golang
 
-> **Flow:** From **What Kind Of Language Is Golang In Runtime**, move into **What Is The Threading Model In Golang**. This page should answer the natural follow-up and prepare the room for **How Golang Goroutines Are Different From Python Coroutines**.
+> **Flow:** From **What Kind Of Language Is Golang In Runtime**, move into **What Is The Threading Model In Golang**. This page should answer the natural follow-up and prepare for **How Golang Goroutines Are Different From Python Coroutines**.
 
 
 Go uses an M:N scheduler:
@@ -272,13 +272,13 @@ flowchart TB
   M2 --> C2["CPU core"]
 ```
 
-> **Speaker side-note:** A goroutine is not an OS thread, but it can run on one. That distinction explains both Go's scalability and its runtime complexity.
+> **Side note:** A goroutine is not an OS thread, but it can run on one. That distinction explains both Go's scalability and its runtime complexity.
 
 ---
 
 ## 105. How Golang Goroutines Are Different From Python Coroutines
 
-> **Flow:** From **What Is The Threading Model In Golang**, move into **How Golang Goroutines Are Different From Python Coroutines**. This page should answer the natural follow-up and prepare the room for **Summary Of All Languages In Terms Of Process, Threads, Goroutines So Far**.
+> **Flow:** From **What Is The Threading Model In Golang**, move into **How Golang Goroutines Are Different From Python Coroutines**. This page should answer the natural follow-up and prepare for **Summary Of All Languages In Terms Of Process, Threads, Goroutines So Far**.
 
 
 Go goroutines:
@@ -309,13 +309,13 @@ Comparison:
 | Stack | Growable goroutine stack | Coroutine frame/state |
 | Blocking APIs | Often okay if Go-aware | Dangerous if blocks event loop |
 
-> **Speaker side-note:** Go lets code look synchronous while runtime multiplexes. Python async makes suspension visible in the syntax.
+> **Side note:** Go lets code look synchronous while runtime multiplexes. Python async makes suspension visible in the syntax.
 
 ---
 
 ## 106. Summary Of All Languages In Terms Of Process, Threads, Goroutines So Far
 
-> **Flow:** From **How Golang Goroutines Are Different From Python Coroutines**, move into **Summary Of All Languages In Terms Of Process, Threads, Goroutines So Far**. This page should answer the natural follow-up and prepare the room for **Backend Systems As Case: Better Written In Javascript With NodeJS For Threading Model**.
+> **Flow:** From **How Golang Goroutines Are Different From Python Coroutines**, move into **Summary Of All Languages In Terms Of Process, Threads, Goroutines So Far**. This page should answer the natural follow-up and prepare for **Backend Systems As Case: Better Written In Javascript With NodeJS For Threading Model**.
 
 
 | Language | Runtime style | Main concurrency tools | CPU parallelism caveat |
@@ -328,7 +328,7 @@ Comparison:
 | JavaScript | Event-loop managed | Promises, async/await, workers | Main event loop must not block |
 | Go | Native + managed runtime | Goroutines, channels, mutexes | Runtime handles M:N scheduling |
 
-> **Speaker side-note:** Runtime choice is architecture. The same business service in Java, Node, Python, C++, and Go will have different failure modes under load.
+> **Side note:** Runtime choice is architecture. The same business service in Java, Node, Python, C++, and Go will have different failure modes under load.
 
 ---
 
@@ -336,10 +336,10 @@ Comparison:
 
 **Core takeaway to close with:** Explain coroutine context switches, coroutine tradeoffs, Go's goroutine model, and language summary.
 
-**Verbal handoff:** With OS processes, threads, coroutines, and goroutines compared, move from mechanisms into backend architecture choices.
+**Transition to next section:** With OS processes, threads, coroutines, and goroutines compared, move from mechanisms into backend architecture choices.
 
-**Opening line for next file:** "Now open [Backend Concurrency Architecture](11-backend-concurrency-architecture.md); it answers the next pressure point in the model."
+**Continue reading:** Continue with [Backend Concurrency Architecture](11-backend-concurrency-architecture.md) to follow the next layer of the model.
 
-**Pause check before moving on:** ask the room to summarize the section in one sentence and name the resource or boundary that became clearer.
+**Pause check before moving on:** pause and summarize the section in one sentence and name the resource or boundary that became clearer.
 
 Previous: [Language Runtimes: C, C++, Java, Python, Ruby, JavaScript](09-language-runtimes-c-cpp-java-python-ruby-js.md) | [Index](index.md) | Next: [Backend Concurrency Architecture](11-backend-concurrency-architecture.md)

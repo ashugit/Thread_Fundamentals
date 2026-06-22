@@ -10,9 +10,9 @@ Previous: [What This Material Is About](00-orientation.md) | [Index](index.md) |
 
 **This section answers:** Build the vocabulary before introducing OS objects.
 
-**Listen for the next question:** once this section lands, the audience should naturally ask why we need **Process, Memory, And Executable Image** next.
+**Watch for the next question:** once this section lands, the next natural question is why we need **Process, Memory, And Executable Image** next.
 
-> **Teaching note:** Read this as one continuous block. The slide-level `Flow` notes explain local transitions; the section-level handoff at the end tells you how to move the room into the next topic.
+> **Reading note:** Read this as one continuous block. The slide-level `Flow` notes explain local transitions; the section-level transition at the end connects this topic to the next one.
 
 ---
 
@@ -45,13 +45,13 @@ flowchart LR
   B2 --> B3["resume"]
 ```
 
-> **Speaker side-note:** Do not start by saying "threads". Threads are only one mechanism. Concurrency is a design property; threads, processes, coroutines, event loops, interrupts, DMA, queues, and actors are implementation choices.
+> **Side note:** Do not start by saying "threads". Threads are only one mechanism. Concurrency is a design property; threads, processes, coroutines, event loops, interrupts, DMA, queues, and actors are implementation choices.
 
 ---
 
 ## 2. How A Grandma Understands Concurrency
 
-> **Flow:** From **What Is Concurrency**, move into **How A Grandma Understands Concurrency**. This page should answer the natural follow-up and prepare the room for **How An Engineer With 5 Years Of Working Understands Concurrency**.
+> **Flow:** From **What Is Concurrency**, move into **How A Grandma Understands Concurrency**. This page should answer the natural follow-up and prepare for **How An Engineer With 5 Years Of Working Understands Concurrency**.
 
 
 Imagine making tea, toast, and taking a phone call.
@@ -73,13 +73,13 @@ Parallelism would be different:
 - Someone else answers the phone.
 - All happen at the same exact time.
 
-> **Speaker side-note:** This example is powerful because most concurrency in backend systems is not "CPU doing many things at once"; it is "CPU not wasting time while disk, network, database, or timer work is pending."
+> **Side note:** This example is powerful because most concurrency in backend systems is not "CPU doing many things at once"; it is "CPU not wasting time while disk, network, database, or timer work is pending."
 
 ---
 
 ## 3. How An Engineer With 5 Years Of Working Understands Concurrency
 
-> **Flow:** From **How A Grandma Understands Concurrency**, move into **How An Engineer With 5 Years Of Working Understands Concurrency**. This page should answer the natural follow-up and prepare the room for **What All Are Common Ways Of Concurrency**.
+> **Flow:** From **How A Grandma Understands Concurrency**, move into **How An Engineer With 5 Years Of Working Understands Concurrency**. This page should answer the natural follow-up and prepare for **What All Are Common Ways Of Concurrency**.
 
 
 An engineer with experience usually sees concurrency through production symptoms:
@@ -107,13 +107,13 @@ Key engineering questions:
 - How is failure isolated?
 - How do we debug it?
 
-> **Speaker side-note:** Five-year engineers often know APIs such as `Thread`, `async`, `Promise`, `ExecutorService`, or `goroutine`. The upgrade is knowing the runtime below them: kernel scheduler, memory model, lock implementation, stack, heap, context switch, and visibility.
+> **Side note:** Five-year engineers often know APIs such as `Thread`, `async`, `Promise`, `ExecutorService`, or `goroutine`. The upgrade is knowing the runtime below them: kernel scheduler, memory model, lock implementation, stack, heap, context switch, and visibility.
 
 ---
 
 ## 4. What All Are Common Ways Of Concurrency
 
-> **Flow:** From **How An Engineer With 5 Years Of Working Understands Concurrency**, move into **What All Are Common Ways Of Concurrency**. This page should answer the natural follow-up and prepare the room for **What Is A Process**.
+> **Flow:** From **How An Engineer With 5 Years Of Working Understands Concurrency**, move into **What All Are Common Ways Of Concurrency**. This page should answer the natural follow-up and prepare for **What Is A Process**.
 
 
 Common concurrency mechanisms:
@@ -156,7 +156,7 @@ mindmap
       DMA
 ```
 
-> **Speaker side-note:** Every concurrency model is a trade: isolation, overhead, latency, throughput, memory, debuggability, fairness, and failure blast radius.
+> **Side note:** Every concurrency model is a trade: isolation, overhead, latency, throughput, memory, debuggability, fairness, and failure blast radius.
 
 ---
 
@@ -164,10 +164,10 @@ mindmap
 
 **Core takeaway to close with:** Build the vocabulary before introducing OS objects.
 
-**Verbal handoff:** Now that concurrency is separated from parallelism and from any one API, the next question is: what exactly does the operating system run when it runs a program?
+**Transition to next section:** Now that concurrency is separated from parallelism and from any one API, the next question is: what exactly does the operating system run when it runs a program?
 
-**Opening line for next file:** "Now open [Process, Memory, And Executable Image](02-process-memory-and-executable-image.md); it answers the next pressure point in the model."
+**Continue reading:** Continue with [Process, Memory, And Executable Image](02-process-memory-and-executable-image.md) to follow the next layer of the model.
 
-**Pause check before moving on:** ask the room to summarize the section in one sentence and name the resource or boundary that became clearer.
+**Pause check before moving on:** pause and summarize the section in one sentence and name the resource or boundary that became clearer.
 
 Previous: none | [Index](index.md) | Next: [Process, Memory, And Executable Image](02-process-memory-and-executable-image.md)

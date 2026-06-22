@@ -10,15 +10,15 @@ Previous: [Coroutines And Golang](10-coroutines-and-golang.md) | [Index](index.m
 
 **This section answers:** Discuss when Node, Python, Java, and C++ fit backend systems based on concurrency model.
 
-**Listen for the next question:** once this section lands, the audience should naturally ask why we need **Production Glue And Closing Mental Model** next.
+**Watch for the next question:** once this section lands, the next natural question is why we need **Production Glue And Closing Mental Model** next.
 
-> **Teaching note:** Read this as one continuous block. The slide-level `Flow` notes explain local transitions; the section-level handoff at the end tells you how to move the room into the next topic.
+> **Reading note:** Read this as one continuous block. The slide-level `Flow` notes explain local transitions; the section-level transition at the end connects this topic to the next one.
 
 ---
 
 ## 107. Backend Systems As Case: Better Written In Javascript With NodeJS For Threading Model
 
-> **Flow:** From **Summary Of All Languages In Terms Of Process, Threads, Goroutines So Far**, move into **Backend Systems As Case: Better Written In Javascript With NodeJS For Threading Model**. This page should answer the natural follow-up and prepare the room for **Why Backend Systems Are Better Written In Javascript For Its Threading Model**.
+> **Flow:** From **Summary Of All Languages In Terms Of Process, Threads, Goroutines So Far**, move into **Backend Systems As Case: Better Written In Javascript With NodeJS For Threading Model**. This page should answer the natural follow-up and prepare for **Why Backend Systems Are Better Written In Javascript For Its Threading Model**.
 
 
 Node.js is a strong fit for:
@@ -46,13 +46,13 @@ Bad fits:
 - Long synchronous JSON processing for huge payloads.
 - Unbounded promise fan-out without backpressure.
 
-> **Speaker side-note:** Node is not "single-threaded server." It is event-loop JavaScript plus native I/O plus thread pool plus optional workers/processes.
+> **Side note:** Node is not "single-threaded server." It is event-loop JavaScript plus native I/O plus thread pool plus optional workers/processes.
 
 ---
 
 ## 108. Why Backend Systems Are Better Written In Javascript For Its Threading Model
 
-> **Flow:** From **Backend Systems As Case: Better Written In Javascript With NodeJS For Threading Model**, move into **Why Backend Systems Are Better Written In Javascript For Its Threading Model**. This page should answer the natural follow-up and prepare the room for **Backend Systems As Case: Better Written In Python With Django Or Otherwise For The Threading Model**.
+> **Flow:** From **Backend Systems As Case: Better Written In Javascript With NodeJS For Threading Model**, move into **Why Backend Systems Are Better Written In Javascript For Its Threading Model**. This page should answer the natural follow-up and prepare for **Backend Systems As Case: Better Written In Python With Django Or Otherwise For The Threading Model**.
 
 
 Node's concurrency model is better when the service waits more than it computes.
@@ -79,13 +79,13 @@ Architecture rules:
 - Use worker threads/processes for CPU-heavy work.
 - Monitor event-loop lag.
 
-> **Speaker side-note:** The key Node metric is not just CPU. Watch event-loop lag. If the loop is blocked, your service is unavailable even if the machine has idle cores.
+> **Side note:** The key Node metric is not just CPU. Watch event-loop lag. If the loop is blocked, your service is unavailable even if the machine has idle cores.
 
 ---
 
 ## 109. Backend Systems As Case: Better Written In Python With Django Or Otherwise For The Threading Model
 
-> **Flow:** From **Why Backend Systems Are Better Written In Javascript For Its Threading Model**, move into **Backend Systems As Case: Better Written In Python With Django Or Otherwise For The Threading Model**. This page should answer the natural follow-up and prepare the room for **Why Backend Systems Are Better Written In Python For Its Threading Model**.
+> **Flow:** From **Why Backend Systems Are Better Written In Javascript For Its Threading Model**, move into **Backend Systems As Case: Better Written In Python With Django Or Otherwise For The Threading Model**. This page should answer the natural follow-up and prepare for **Why Backend Systems Are Better Written In Python For Its Threading Model**.
 
 
 Python/Django is strong for:
@@ -115,13 +115,13 @@ The deployment model matters more than language slogans:
 - Database connection pool.
 - Task queue architecture.
 
-> **Speaker side-note:** Python web scalability often comes from process-level horizontal scaling and pushing CPU-heavy work into native libraries or workers, not from pure Python threads.
+> **Side note:** Python web scalability often comes from process-level horizontal scaling and pushing CPU-heavy work into native libraries or workers, not from pure Python threads.
 
 ---
 
 ## 110. Why Backend Systems Are Better Written In Python For Its Threading Model
 
-> **Flow:** From **Backend Systems As Case: Better Written In Python With Django Or Otherwise For The Threading Model**, move into **Why Backend Systems Are Better Written In Python For Its Threading Model**. This page should answer the natural follow-up and prepare the room for **Backend Systems As Case: Better Written In Java With Any Framework For The Threading Model**.
+> **Flow:** From **Backend Systems As Case: Better Written In Python With Django Or Otherwise For The Threading Model**, move into **Why Backend Systems Are Better Written In Python For Its Threading Model**. This page should answer the natural follow-up and prepare for **Backend Systems As Case: Better Written In Java With Any Framework For The Threading Model**.
 
 
 Python is better when:
@@ -147,13 +147,13 @@ Rules:
 - Bound DB connections; concurrency without DB capacity is self-harm.
 - Measure queue latency, not just request latency.
 
-> **Speaker side-note:** Python is excellent when architecture admits its runtime shape. It is painful when teams expect Java/C++ thread semantics from classic CPython.
+> **Side note:** Python is excellent when architecture admits its runtime shape. It is painful when teams expect Java/C++ thread semantics from classic CPython.
 
 ---
 
 ## 111. Backend Systems As Case: Better Written In Java With Any Framework For The Threading Model
 
-> **Flow:** From **Why Backend Systems Are Better Written In Python For Its Threading Model**, move into **Backend Systems As Case: Better Written In Java With Any Framework For The Threading Model**. This page should answer the natural follow-up and prepare the room for **Why Backend Systems Are Better Written With Java For Its Threading Model**.
+> **Flow:** From **Why Backend Systems Are Better Written In Python For Its Threading Model**, move into **Backend Systems As Case: Better Written In Java With Any Framework For The Threading Model**. This page should answer the natural follow-up and prepare for **Why Backend Systems Are Better Written With Java For Its Threading Model**.
 
 
 Java is strong for:
@@ -182,13 +182,13 @@ Java frameworks:
 - Vert.x.
 - Netty-based stacks.
 
-> **Speaker side-note:** Java remains one of the strongest general backend choices because the JVM has spent decades becoming good at long-running concurrent services.
+> **Side note:** Java remains one of the strongest general backend choices because the JVM has spent decades becoming good at long-running concurrent services.
 
 ---
 
 ## 112. Why Backend Systems Are Better Written With Java For Its Threading Model
 
-> **Flow:** From **Backend Systems As Case: Better Written In Java With Any Framework For The Threading Model**, move into **Why Backend Systems Are Better Written With Java For Its Threading Model**. This page should answer the natural follow-up and prepare the room for **Backend Systems As Case: Better Written In CPP For The Threading Model**.
+> **Flow:** From **Backend Systems As Case: Better Written In Java With Any Framework For The Threading Model**, move into **Why Backend Systems Are Better Written With Java For Its Threading Model**. This page should answer the natural follow-up and prepare for **Backend Systems As Case: Better Written In CPP For The Threading Model**.
 
 
 Java wins when:
@@ -215,13 +215,13 @@ Virtual thread impact:
 - Does not make CPU work free.
 - Still requires synchronization around shared state.
 
-> **Speaker side-note:** Virtual threads are not "no threads." They are a runtime-managed way to make blocking-style code cheaper at high concurrency.
+> **Side note:** Virtual threads are not "no threads." They are a runtime-managed way to make blocking-style code cheaper at high concurrency.
 
 ---
 
 ## 113. Backend Systems As Case: Better Written In CPP For The Threading Model
 
-> **Flow:** From **Why Backend Systems Are Better Written With Java For Its Threading Model**, move into **Backend Systems As Case: Better Written In CPP For The Threading Model**. This page should answer the natural follow-up and prepare the room for **Why Backend Systems Are Better Written With CPP For Its Threading Model**.
+> **Flow:** From **Why Backend Systems Are Better Written With Java For Its Threading Model**, move into **Backend Systems As Case: Better Written In CPP For The Threading Model**. This page should answer the natural follow-up and prepare for **Why Backend Systems Are Better Written With CPP For Its Threading Model**.
 
 
 C++ is strong for:
@@ -253,13 +253,13 @@ Risks:
 - Complex builds/deployments.
 - Harder hiring/debugging than managed stacks.
 
-> **Speaker side-note:** C++ should be chosen because control matters, not because of ego. The engineering tax is real.
+> **Side note:** C++ should be chosen because control matters, not because of ego. The engineering tax is real.
 
 ---
 
 ## 114. Why Backend Systems Are Better Written With CPP For Its Threading Model
 
-> **Flow:** From **Backend Systems As Case: Better Written In CPP For The Threading Model**, move into **Why Backend Systems Are Better Written With CPP For Its Threading Model**. This page should answer the natural follow-up and prepare the room for **Missing Glue: Memory Model And Happens-Before**.
+> **Flow:** From **Backend Systems As Case: Better Written In CPP For The Threading Model**, move into **Why Backend Systems Are Better Written With CPP For Its Threading Model**. This page should answer the natural follow-up and prepare for **Missing Glue: Memory Model And Happens-Before**.
 
 
 C++ is better when:
@@ -289,7 +289,7 @@ Architecture rules:
 - Use sanitizers and thread sanitizers.
 - Keep async lifetimes explicit.
 
-> **Speaker side-note:** In C++, performance comes from design: fewer shared writes, better locality, bounded allocation, and predictable ownership. Threads alone do not create performance.
+> **Side note:** In C++, performance comes from design: fewer shared writes, better locality, bounded allocation, and predictable ownership. Threads alone do not create performance.
 
 ---
 
@@ -338,7 +338,7 @@ What remains the same:
 - Shared mutable state creates races.
 - Observability must show waiting, not only execution.
 
-> **Speaker side-note:** Your embedded background is not obsolete. It is a strong advantage if you translate "interrupts, buffers, watchdogs, and shared memory" into "event loops, queues, health checks, and distributed state."
+> **Side note:** Your embedded background is not obsolete. It is a strong advantage if you translate "interrupts, buffers, watchdogs, and shared memory" into "event loops, queues, health checks, and distributed state."
 
 ---
 
@@ -391,7 +391,7 @@ The durable lesson:
 
 Those questions still work for web apps.
 
-> **Speaker side-note:** This is the clean bridge from Bach to backend architecture. You do not need to force old implementation details onto modern systems; preserve the questions.
+> **Side note:** This is the clean bridge from Bach to backend architecture. You do not need to force old implementation details onto modern systems; preserve the questions.
 
 ---
 
@@ -399,10 +399,10 @@ Those questions still work for web apps.
 
 **Core takeaway to close with:** Discuss when Node, Python, Java, and C++ fit backend systems based on concurrency model.
 
-**Verbal handoff:** Backend choices are not complete without the missing glue that causes real incidents: memory visibility, cache behavior, backpressure, cancellation, and debugging.
+**Transition to next section:** Backend choices are not complete without the missing glue that causes real incidents: memory visibility, cache behavior, backpressure, cancellation, and debugging.
 
-**Opening line for next file:** "Now open [Production Glue And Closing Mental Model](12-production-glue-and-closing.md); it answers the next pressure point in the model."
+**Continue reading:** Continue with [Production Glue And Closing Mental Model](12-production-glue-and-closing.md) to follow the next layer of the model.
 
-**Pause check before moving on:** ask the room to summarize the section in one sentence and name the resource or boundary that became clearer.
+**Pause check before moving on:** pause and summarize the section in one sentence and name the resource or boundary that became clearer.
 
 Previous: [Coroutines And Golang](10-coroutines-and-golang.md) | [Index](index.md) | Next: [Production Glue And Closing Mental Model](12-production-glue-and-closing.md)

@@ -44,7 +44,7 @@ flowchart TB
 
 The goal is not to memorize trivia. The goal is to build a mental model strong enough that a younger engineer can reason from first principles when the abstraction leaks.
 
-> **Speaker side-note:** Tell the room this upfront: "You are not here to learn thread APIs. You are here to learn why those APIs behave the way they do under pressure."
+> **Side note:** State this upfront: "You are not here to learn thread APIs. You are here to learn why those APIs behave the way they do under pressure."
 
 ---
 
@@ -86,7 +86,7 @@ In a UNIX/Linux system, it can be reasonable to prefer:
 
 This course draws from practical understanding across REX-style embedded work, UNIX fundamentals, and Linux/web systems. The goal is not to preserve nostalgia for any one environment. The goal is to understand why each environment made different tradeoffs, so the engineer can recognize those tradeoffs in modern backend systems.
 
-> **Speaker side-note:** Say this politely but clearly: "We are not comparing REX and UNIX as a contest. We are using them as two clean design poles: real-time shared-system discipline versus VM-backed multi-program isolation."
+> **Side note:** Say this politely but clearly: "We are not comparing REX and UNIX as a contest. We are using them as two clean design poles: real-time shared-system discipline versus VM-backed multi-program isolation."
 
 ---
 
@@ -153,7 +153,7 @@ This material answers these whys:
 13. **Why production concurrency debugging needs different metrics**
     - You need queue age, lock wait, event-loop lag, thread pool saturation, GC pause, run queue length, and dependency fan-out.
 
-> **Speaker side-note:** This is the promise of the material. If the audience can answer these whys, they can have serious architecture conversations instead of API debates.
+> **Side note:** This is the promise of the material. If you can answer these whys, you can have serious architecture conversations instead of API debates.
 
 ---
 
@@ -187,7 +187,7 @@ The practical target:
 
 ## Who This Is For
 
-Primary audience:
+Intended readers:
 
 - Younger engineers who can build services but have not deeply internalized OS/runtime behavior.
 - Backend engineers moving from framework-level knowledge into systems thinking.
@@ -207,7 +207,7 @@ This material does not assume:
 - Formal distributed systems background.
 - Prior deep knowledge of ARM internals.
 
-> **Speaker side-note:** The material is intentionally layered. If someone does not know ELF, they can still follow the process story. If someone knows ELF deeply, they can use those slides as a bridge to teach others.
+> **Side note:** The material is intentionally layered. If someone does not know ELF, they can still follow the process story. If someone knows ELF deeply, they can use those slides as a bridge to teach others.
 
 ---
 
@@ -243,7 +243,7 @@ The material is deliberately about judgment:
 mechanism -> tradeoff -> failure mode -> architecture choice
 ```
 
-> **Speaker side-note:** This boundary matters. The talk should not become "Linux kernel source tour" or "language war." Keep pulling it back to concurrency reasoning.
+> **Side note:** This boundary matters. The material should not become "Linux kernel source tour" or "language war." Keep pulling it back to concurrency reasoning.
 
 ---
 
@@ -254,7 +254,7 @@ Recommended path:
 1. Start with this orientation.
 2. Move through sections 1-12 in order.
 3. Use appendices for exercises and pacing.
-4. Use the deep expansion pack when the room asks for more.
+4. Use the deep expansion pack when readers or the team ask for more.
 
 Do not rush the first half.
 
@@ -281,7 +281,7 @@ Teaching rhythm:
 - Explain the tradeoff.
 - Lead into the next layer.
 
-> **Speaker side-note:** The strongest version of this material is interactive. Ask "what can go wrong here?" before showing the bug.
+> **Side note:** The strongest version of this material is interactive. Ask "what can go wrong here?" before showing the bug.
 
 ---
 
@@ -289,10 +289,10 @@ Teaching rhythm:
 
 **Core takeaway to close with:** This material is about building a layered mental model for concurrency, from CPU and OS mechanics up to backend architecture decisions.
 
-**Verbal handoff:** Now that the audience knows why the material exists, start with the most abused word in the room: concurrency itself.
+**Transition to next section:** Now that the purpose of the material is clear, start with the most abused word in concurrency discussions: concurrency itself.
 
-**Opening line for next file:** "Now open [Concurrency Intuition](01-concurrency-intuition.md); before we talk about processes or threads, we need to separate concurrency from parallelism."
+**Continue reading:** Continue with [Concurrency Intuition](01-concurrency-intuition.md) to separate concurrency from parallelism before moving into mechanisms.
 
-**Pause check before moving on:** ask the room to name one production symptom they have seen that might be explained by scheduler, runtime, lock, or event-loop behavior.
+**Pause check before moving on:** pause and name one production symptom you have seen that might be explained by scheduler, runtime, lock, or event-loop behavior.
 
 Previous: none | [Index](index.md) | Next: [Concurrency Intuition](01-concurrency-intuition.md)
