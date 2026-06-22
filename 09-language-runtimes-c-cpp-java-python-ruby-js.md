@@ -16,6 +16,53 @@ Previous: [Races, Locks, Semaphores, And Atomics](08-races-locks-semaphores-and-
 
 ---
 
+## Runtime Lens: What This Section Is Really Comparing
+
+Before comparing C, C++, Java, Python, Ruby, and JavaScript, keep the earlier OS model in mind.
+
+Every language must eventually answer the same questions:
+
+- What does the OS load: native executable, bytecode launcher, VM process, script interpreter, or runtime host?
+- Where do function calls live: native stack, VM frame stack, coroutine frame, fiber stack, or interpreter frame?
+- Where do objects live: manual heap, garbage-collected heap, reference-counted heap, arena, stack, or runtime-managed object store?
+- Who schedules execution: kernel scheduler, language runtime scheduler, event loop, thread pool, or cooperative coroutine scheduler?
+- What is shared: process memory, runtime heap, interpreter state, file descriptors, sockets, database connections, global variables?
+- What protects shared state: mutex, atomic, monitor, GIL/GVL, event-loop serialization, ownership discipline, actor boundary?
+- What pauses or blocks progress: syscall, page fault, lock wait, GC safepoint, event-loop blockage, runtime scheduler, native extension?
+
+```mermaid
+flowchart TB
+  SRC["source code"] --> BUILD{"compiled ahead of time?"}
+  BUILD -->|yes| BIN["native binary / ELF"]
+  BUILD -->|bytecode| BC["bytecode / VM artifact"]
+  BUILD -->|script| SCRIPT["source loaded by interpreter/runtime"]
+
+  BIN --> OS["OS loader, VM mappings, stacks, heap"]
+  BC --> VM["language VM process<br/>JVM, CRuby VM, CPython, JS engine"]
+  SCRIPT --> VM
+  VM --> OS
+
+  OS --> SCHED["kernel scheduler"]
+  VM --> RSCHED["runtime scheduler / GC / event loop"]
+  SCHED --> RUN["execution on CPU cores"]
+  RSCHED --> RUN
+```
+
+The important point is not whether a language is "fast" or "slow". The important point is where it places responsibility:
+
+| Runtime style | What it gives you | What it makes you manage |
+|---|---|---|
+| C | direct control, small runtime, predictable representation | memory lifetime, synchronization, undefined behavior, portability |
+| C++ | native control plus RAII and abstractions | ownership, data races, memory ordering, async lifetime |
+| Java | managed heap, strong runtime, specified memory model | GC pressure, executor sizing, safepoints, heap retention |
+| Python | fast development, rich libraries, orchestration | GIL assumptions, object overhead, process/async choices |
+| Ruby | expressive app development, fibers/event ecosystem | GVL assumptions, I/O vs CPU split, runtime implementation choice |
+| JavaScript | event-loop concurrency, non-blocking I/O culture | event-loop blockage, backpressure, worker boundaries |
+
+> **Side note:** A language runtime is an operating-system guest with opinions. It sits on top of process, thread, memory, fd, and scheduler machinery, then exposes a friendlier model to the programmer.
+
+---
+
 ## 76. What Kind Of Language Is C In Runtime
 
 > **Flow:** From **Summary So Far**, move into **What Kind Of Language Is C In Runtime**. This page should answer the natural follow-up and prepare for **Threading Model In C**.
@@ -41,6 +88,35 @@ C depends heavily on:
 - Linker/loader.
 - ABI calling convention.
 - Hardware memory model.
+
+Connect this to earlier sections:
+
+- The ELF loader maps C program segments.
+- C runtime startup calls `main`.
+- Function calls use the native stack.
+- `malloc` uses heap memory usually backed by `brk`, `mmap`, or allocator arenas.
+- File descriptors are ordinary integers returned by syscalls or C library wrappers.
+- Threads are OS threads or RTOS tasks exposed through platform APIs.
+- Page faults, signals, and syscalls are not hidden by a large managed runtime.
+
+```mermaid
+flowchart TB
+  ELF["ELF executable"] --> K["kernel maps segments"]
+  K --> CRT["C runtime startup"]
+  CRT --> MAIN["main()"]
+  MAIN --> STACK["native stack frames"]
+  MAIN --> HEAP["malloc/free heap"]
+  MAIN --> FD["file descriptors via libc/syscalls"]
+  MAIN --> TH["pthread / OS threads"]
+```
+
+Why this matters for concurrency:
+
+- C gives direct shared memory, so races are direct and brutal.
+- There is no runtime lock like Python's GIL to serialize normal C code.
+- There is no GC to keep objects alive while another thread still has a pointer.
+- The compiler assumes data-race-free code for normal objects; violating that can produce undefined behavior.
+- If an object is shared, the synchronization discipline must be designed explicitly.
 
 > **Side note:** C is close to the machine, but not the machine. The compiler is an aggressive optimizing participant. In concurrent C, undefined behavior can turn "seems to work" into nonsense.
 
@@ -85,6 +161,38 @@ C does not protect you from:
 - Lifetime bugs.
 - Lock ordering deadlocks.
 
+C threading is really OS threading plus the C memory model.
+
+When you call `pthread_create` on UNIX-like systems, the implementation generally arranges:
+
+- a new schedulable kernel thread or kernel-supported thread context
+- a user stack for that thread
+- thread-local storage setup
+- startup trampoline code that calls your function
+- participation in the same process address space
+- shared file descriptors and heap
+
+```mermaid
+flowchart LR
+  P["C process"] --> H["shared heap"]
+  P --> FD["shared fd table"]
+  P --> T1["pthread A<br/>stack + registers"]
+  P --> T2["pthread B<br/>stack + registers"]
+  T1 --> H
+  T2 --> H
+  T1 --> M["mutex/atomic required<br/>for shared mutation"]
+  T2 --> M
+```
+
+The hardest C threading bugs are often not the lock calls themselves. They are ownership questions:
+
+- Who owns this pointer after it is placed on a queue?
+- Can the producer free it while the consumer still reads it?
+- Does the lock protect the object, the pointer, or the container?
+- Does an atomic counter protect the data, or only the counter?
+- Can a signal handler interrupt code that holds a lock?
+- Does cancellation or early return skip cleanup?
+
 > **Side note:** C concurrency is honest. If you share memory, you must define synchronization. The compiler will not infer your intention.
 
 ---
@@ -114,6 +222,27 @@ C++ gives abstractions but keeps costs explicit:
 - `std::shared_ptr` uses reference counting.
 - `std::mutex` maps to OS/runtime locking primitives.
 - `std::thread` maps to native threads in common implementations.
+
+C++ runtime depth:
+
+- Constructors and destructors create deterministic lifetime hooks.
+- RAII lets locks, files, sockets, memory, and transactions release on scope exit.
+- Exceptions require stack unwinding, so cleanup must be exception-safe.
+- Object lifetime is part of the concurrency story: a reference captured by a thread must remain valid until that thread stops using it.
+- Move semantics let ownership transfer between threads without sharing.
+- `shared_ptr` makes lifetime shared, but not object mutation safe.
+- `thread_local` creates per-thread instances that behave differently from globals.
+
+```mermaid
+flowchart TB
+  OBJ["C++ object"] --> OWN{"ownership model"}
+  OWN --> U["unique_ptr / value<br/>single owner"]
+  OWN --> S["shared_ptr<br/>shared lifetime"]
+  OWN --> R["raw/reference<br/>borrowed access"]
+  U --> X["safe transfer with move"]
+  S --> Y["lifetime shared<br/>mutation still needs lock"]
+  R --> Z["caller must prove lifetime"]
+```
 
 > **Side note:** Modern C++ is not "C with classes" for concurrency. RAII changes lock and lifetime discipline dramatically.
 
@@ -164,6 +293,28 @@ Risk areas:
 - Misusing `shared_ptr` cycles.
 - Data races causing undefined behavior.
 - Atomics without a design-level memory-order story.
+
+C++ concurrency should be read through three layers:
+
+1. **Execution**
+   - `std::thread`, `std::jthread`, thread pools, OS scheduling.
+   - Threads run native code in the same process address space.
+
+2. **Ownership**
+   - RAII, move-only types, shared ownership, borrowed references.
+   - A correct lock does not save an object whose lifetime already ended.
+
+3. **Visibility**
+   - Mutex lock/unlock establishes synchronization.
+   - Atomics provide indivisible operations and ordering, but only for the design they are part of.
+   - `memory_order_relaxed` can be correct for counters and wrong for publishing objects.
+
+Example of the real design question:
+
+```text
+Bad question: should this be atomic?
+Better question: what state is being published, who owns it, and what ordering makes that publication visible?
+```
 
 > **Side note:** C++ makes high-performance concurrency possible, but it will not save a weak ownership model.
 
@@ -240,6 +391,22 @@ Concurrency interaction:
 - Thread stacks are scanned as roots.
 - Safepoints coordinate threads with collector.
 
+GC connects directly to the earlier process/thread model:
+
+```mermaid
+flowchart TB
+  T1["thread stack A"] --> ROOTS["GC roots"]
+  T2["thread stack B"] --> ROOTS
+  GLOB["globals/static refs"] --> ROOTS
+  ROOTS --> H1["reachable object graph"]
+  H1 --> H2["objects kept alive"]
+  HEAP["heap"] --> DEAD["unreachable objects reclaimed"]
+  GC["GC threads / collector"] --> ROOTS
+  GC --> HEAP
+```
+
+The collector must coordinate with application threads because application threads are changing the graph while the collector is trying to understand it. That is why terms such as safepoint, write barrier, concurrent marking, and stop-the-world matter.
+
 > **Side note:** GC is a concurrency subsystem. It coordinates with all application threads while they mutate the heap.
 
 ---
@@ -306,6 +473,38 @@ JVM is a major concurrency runtime:
 - ForkJoin pools.
 - Virtual threads in modern Java.
 
+The JVM is not just "a program that runs Java". It is a managed execution environment inside an OS process:
+
+```mermaid
+flowchart TB
+  subgraph OS["OS process running JVM"]
+    CL["class loader"]
+    INT["interpreter"]
+    JIT["JIT compiler"]
+    HEAP["managed heap"]
+    GC["GC subsystem"]
+    APP["application threads"]
+    VT["virtual threads / carriers where used"]
+    JNI["native/JNI boundary"]
+  end
+
+  CL --> INT
+  INT --> JIT
+  APP --> HEAP
+  GC --> HEAP
+  APP --> JNI
+  VT --> APP
+```
+
+Connect to prior sections:
+
+- The OS schedules JVM carrier/platform threads.
+- The JVM schedules some runtime work internally.
+- Java object allocation is usually fast because allocation can use thread-local buffers.
+- The JVM can move objects during compaction, so raw stable object addresses are not the normal programming model.
+- Safepoints require threads to reach known safe locations before some runtime operations complete.
+- Native code can bypass some safety assumptions and must be treated carefully.
+
 > **Side note:** Java is not "slow because VM." The JVM is an adaptive runtime that can optimize based on production behavior, but it also has runtime systems you must understand.
 
 ---
@@ -348,6 +547,36 @@ Java memory model defines:
 - Visibility through `volatile`.
 - Monitor lock acquire/release semantics.
 - Safe publication rules.
+
+Java threading depth:
+
+- `synchronized` is both mutual exclusion and memory visibility.
+- `volatile` is visibility and ordering, not compound atomicity for operations like `count++`.
+- `ExecutorService` separates task submission from thread ownership.
+- ForkJoin is designed for work splitting and work stealing.
+- Virtual threads make blocking-style code cheaper for many I/O-bound tasks, but they do not remove shared-state races.
+- Pinning or blocking native sections can reduce the benefit of virtual threads depending on the runtime behavior.
+
+```mermaid
+flowchart LR
+  REQ["request/task"] --> EXEC["executor / scheduler"]
+  EXEC --> PT["platform thread"]
+  EXEC --> VT["virtual thread"]
+  PT --> OS["OS scheduler"]
+  VT --> CARRIER["carrier platform thread"]
+  CARRIER --> OS
+  PT --> HEAP["shared Java heap"]
+  VT --> HEAP
+```
+
+Seasoned Java concurrency is mostly about choosing the right boundary:
+
+- thread-per-request
+- bounded executor
+- virtual-thread-per-task
+- reactive/event-loop
+- actor/message queue
+- process/service boundary
 
 > **Side note:** Java's great gift to concurrent programming is not just threads. It is a specified memory model plus a mature standard concurrency library.
 
@@ -423,6 +652,34 @@ Runtime costs:
 - GIL constraints in classic CPython.
 - C extension behavior can dominate concurrency.
 
+CPython runtime shape:
+
+- Python variables are references to objects.
+- Most objects carry metadata such as type and reference count.
+- Function calls create Python frame objects/interpreter frames in addition to native stack activity.
+- Reference counting reclaims many objects immediately when the count reaches zero.
+- Cyclic GC handles object cycles reference counting cannot free.
+- C extensions can release the GIL around long native work.
+
+```mermaid
+flowchart TB
+  PY["Python source"] --> BC["bytecode"]
+  BC --> INT["CPython interpreter loop"]
+  INT --> OBJ["PyObject heap<br/>type + refcount + value"]
+  INT --> CEXT["C extension"]
+  CEXT --> NATIVE["native code / OS calls"]
+  INT --> GIL["GIL protects interpreter execution"]
+```
+
+Connect to prior sections:
+
+- The CPython interpreter is itself a native process loaded by the OS.
+- Python threads are OS threads in that process.
+- The Python heap is a runtime-managed object graph inside the process heap.
+- File descriptors and sockets still come from the OS.
+- `multiprocessing` returns to the UNIX process model for CPU parallelism.
+- `asyncio` uses the event-loop/coroutine model to avoid one thread per wait.
+
 > **Side note:** "Python is slow" is too crude. Python is often fast enough at orchestration and I/O, while native extensions do heavy CPU work.
 
 ---
@@ -448,6 +705,25 @@ Python concurrency options:
 - `asyncio` for event-loop cooperative concurrency.
 - `concurrent.futures` for thread/process pools.
 - Native libraries such as NumPy may use native parallelism.
+
+Python design choices map cleanly to earlier mechanisms:
+
+| Need | Python tool | Underlying model |
+|---|---|---|
+| overlap blocking I/O | `threading` | OS threads, GIL released during waits |
+| CPU parallelism in Python code | `multiprocessing` | multiple processes, IPC, serialization |
+| many socket waits | `asyncio` | event loop, coroutines, readiness |
+| native numeric compute | NumPy/PyTorch/etc. | native code, often releases GIL |
+| background jobs | Celery/RQ/process workers | process/service boundary |
+
+The common mistake is choosing by syntax instead of bottleneck:
+
+```text
+CPU-bound Python bytecode -> processes or native code
+I/O-bound blocking calls  -> threads may be fine
+I/O-bound async stack     -> asyncio may be fine
+shared mutable objects    -> still need locks or ownership
+```
 
 > **Side note:** Python threads are real OS threads. The GIL does not mean "fake threads." It means Python bytecode execution is serialized in classic CPython.
 
@@ -501,6 +777,14 @@ Tradeoff:
 - CPU-bound Python bytecode does not scale across cores with threads in classic CPython.
 - C extensions must be careful about GIL behavior.
 - Multicore CPU parallelism often uses processes or native libraries.
+
+Why this connects to C:
+
+- CPython is implemented largely in C.
+- Reference counts are mutable fields on Python objects.
+- Without a global lock, those fields and many interpreter invariants need another synchronization strategy.
+- Fine-grained locking can make single-threaded execution slower and extension compatibility harder.
+- A free-threaded implementation has to revisit object layout, reference counting strategy, extension assumptions, and performance tradeoffs.
 
 > **Side note:** The GIL was not stupidity. It was a trade made for simplicity, safety, performance of common cases, and extension compatibility.
 
@@ -607,6 +891,24 @@ JRuby:
 - JVM threading model.
 - Can allow more true parallel Ruby execution depending on workload.
 
+Ruby runtime lens:
+
+- Ruby code usually runs through a VM/interpreter/JIT depending on implementation.
+- Objects live on a managed heap.
+- Blocks, closures, dynamic dispatch, and metaprogramming make the runtime powerful and flexible.
+- CRuby's GVL simplifies VM internals similarly in spirit to CPython's GIL.
+- Ruby web apps often scale through multiple worker processes plus I/O-friendly concurrency inside each worker.
+
+```mermaid
+flowchart TB
+  RB["Ruby code"] --> VM["Ruby VM implementation"]
+  VM --> HEAP["managed object heap"]
+  VM --> GVL["GVL in CRuby"]
+  VM --> TH["native threads"]
+  VM --> FIB["fibers"]
+  VM --> EXT["native extensions"]
+```
+
 > **Side note:** Like Python, "Ruby threading" must specify implementation. CRuby and JRuby do not have identical runtime constraints.
 
 ---
@@ -636,6 +938,14 @@ Ruby synchronization:
 - `Queue`
 - `ConditionVariable`
 - `Monitor`
+
+Ruby concurrency depth:
+
+- A CRuby thread is an OS thread, but Ruby bytecode execution is constrained by the GVL.
+- Blocking I/O can release the GVL, so threads remain useful for I/O-bound applications.
+- A `Queue` is often better than hand-rolled locking because it expresses ownership transfer.
+- Fibers are cooperative; they are excellent when waiting is explicit or scheduler-integrated.
+- Ractors aim to make parallelism safer by restricting object sharing, but they require a different programming style.
 
 Example:
 
@@ -687,6 +997,14 @@ flowchart LR
   LOOP --> F1R["Socket ready: Fiber A resumes"]
 ```
 
+How this connects to earlier sections:
+
+- Fibers are closer to coroutines than OS threads.
+- The kernel is still responsible for socket readiness and OS scheduling.
+- The Ruby runtime decides which fiber resumes when I/O is ready.
+- Shared mutable Ruby objects still need discipline if multiple threads or ractors are involved.
+- The benefit is not "more CPU"; it is avoiding idle OS threads during waits.
+
 > **Side note:** Evented Ruby is about not wasting OS threads during I/O waits. It is not magic multicore CPU parallelism.
 
 ---
@@ -721,6 +1039,24 @@ Node.js adds:
 - Worker threads for parallel JS execution.
 - Cluster/process models.
 
+JavaScript runtime lens:
+
+- ECMAScript defines language behavior, but the host defines I/O and event integration.
+- V8/SpiderMonkey/JavaScriptCore execute JS and manage the heap.
+- Browser runtimes integrate JS with DOM, rendering, timers, network, and workers.
+- Node integrates JS with libuv, OS sockets, timers, filesystem, DNS, crypto, worker threads, and child processes.
+- A single event loop gives run-to-completion semantics for ordinary JS code on that loop.
+
+```mermaid
+flowchart TB
+  JS["JavaScript code"] --> ENG["JS engine<br/>parser, JIT, GC"]
+  ENG --> HEAP["managed JS heap"]
+  ENG --> LOOP["event loop integration"]
+  LOOP --> HOST{"host runtime"}
+  HOST --> BROWSER["browser<br/>DOM, rendering, web APIs"]
+  HOST --> NODE["Node.js<br/>libuv, fs, net, timers"]
+```
+
 > **Side note:** JavaScript concurrency is host-defined around the language. The language gives promises and async functions; Node/browser decide event loop and I/O integration.
 
 ---
@@ -737,6 +1073,17 @@ JavaScript's mainstream model:
 - Asynchronous I/O via event loop.
 - Promises schedule microtasks.
 - Timers, network events, file I/O callbacks schedule tasks.
+
+The event loop has two important promises:
+
+- A JavaScript task runs to completion before another task starts on the same loop.
+- Awaiting a promise yields control; it does not create CPU parallelism by itself.
+
+That gives a simpler shared-state model than arbitrary preemptive threads, but it creates a harsh rule:
+
+```text
+If one callback blocks the loop, every request/timer/promise behind it waits.
+```
 
 Node.js:
 
@@ -768,6 +1115,14 @@ Browser:
 - Main thread handles JS, layout, painting coordination.
 - Web Workers provide background parallelism.
 - SharedArrayBuffer and Atomics enable shared-memory coordination with restrictions.
+
+Node's "single-threaded" phrase is incomplete:
+
+- JS application code usually runs on one main thread per isolate.
+- Some I/O readiness is evented by the OS.
+- Some operations use libuv's thread pool.
+- Worker threads can run JS in parallel but do not share the same ordinary JS heap.
+- Cluster or multiple processes return to the UNIX process model.
 
 > **Side note:** Single-threaded JS avoids many shared-memory races in application code, but it creates event-loop blocking as the central failure mode.
 
@@ -802,7 +1157,70 @@ Costs:
 - Backpressure must be designed.
 - Debugging async stack traces can be hard.
 
+Why JavaScript is the right bridge into coroutines:
+
+- `async`/`await` makes continuation passing look sequential.
+- Promises represent future completion, not OS threads.
+- The event loop resumes work when awaited operations settle.
+- Interleavings happen at `await` boundaries rather than arbitrary machine instructions on the same JS thread.
+- This prepares the learner for the next section: coroutines are execution state machines managed by a runtime.
+
 > **Side note:** JavaScript's model is excellent when you keep the event loop free. It becomes terrible when you treat the event loop like a CPU worker.
+
+---
+
+## Runtime Summary: Same OS Machinery, Different Promises
+
+All six languages eventually sit on the same lower layers:
+
+- CPU cores execute instructions.
+- The OS schedules threads/processes.
+- Virtual memory maps code, heap, stacks, and libraries.
+- File descriptors or handles represent kernel resources.
+- Shared state needs synchronization or ownership.
+- Waiting must be represented somewhere: blocked thread, parked coroutine, event-loop callback, queue, future, or process boundary.
+
+What changes is the contract the language runtime gives the programmer.
+
+| Language | What usually schedules application work? | Memory ownership model | Main concurrency win | Main concurrency trap |
+|---|---|---|---|---|
+| C | OS/RTOS threads or tasks | manual ownership | precise control, small runtime | undefined behavior, lifetime bugs, weak guardrails |
+| C++ | OS threads plus library abstractions | RAII, values, smart pointers, manual design | high performance with deterministic cleanup | async lifetime, data races, memory ordering mistakes |
+| Java | JVM over OS threads, executors, virtual threads | garbage-collected heap | strong memory model and mature concurrency libraries | GC pressure, pool misuse, shared-state complexity |
+| Python | interpreter, OS threads, processes, event loop | refcount + GC in CPython | orchestration, I/O overlap, rich native libraries | GIL assumptions, CPU-bound thread disappointment |
+| Ruby | Ruby VM, OS threads, fibers/event loop | managed heap | expressive I/O-heavy app concurrency | GVL assumptions, CPU-bound limits in CRuby |
+| JavaScript | host event loop, workers/processes when needed | GC heap per isolate/context | high I/O concurrency with simple run-to-completion state | event-loop blocking and unbounded async fan-out |
+
+The senior way to compare runtimes is not:
+
+```text
+Which language has threads?
+```
+
+It is:
+
+```text
+Where does execution wait?
+Where is state shared?
+Who owns memory lifetime?
+Who schedules work?
+What can run in parallel?
+What is the failure mode under load?
+```
+
+```mermaid
+flowchart LR
+  LANG["Language/runtime choice"] --> WAIT["waiting model<br/>thread, event loop, coroutine, process"]
+  LANG --> STATE["state model<br/>shared heap, actor, process boundary"]
+  LANG --> MEM["memory model<br/>manual, RAII, GC, refcount"]
+  LANG --> PAR["parallelism model<br/>OS threads, workers, processes, runtime scheduler"]
+  WAIT --> ARCH["backend architecture"]
+  STATE --> ARCH
+  MEM --> ARCH
+  PAR --> ARCH
+```
+
+This is why the next section moves into coroutines and Go. Once you understand OS threads and language runtimes, the next question is how runtimes create lighter execution units that are not simply UNIX processes or kernel threads.
 
 ---
 
