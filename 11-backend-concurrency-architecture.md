@@ -364,11 +364,286 @@ Classic UNIX concepts still sit under modern web systems.
 
 Process model:
 
-- Container process.
-- Worker process.
-- Sidecar process.
-- Supervisor process.
-- Job worker process.
+UNIX teaches that a process is not just "code running." It is a resource container:
+
+- PID and parent relationship.
+- Address space.
+- File descriptor table.
+- Credentials and permissions.
+- Environment variables.
+- Current working directory.
+- Signal handling.
+- Exit status.
+- Resource limits.
+
+Modern web systems still build architecture out of these containers.
+
+### Container Process
+
+A container usually has one main process as its unit of life.
+
+In Docker/Kubernetes language, people often say "the container crashed", but what often happened is simpler:
+
+```text
+the main process exited
+```
+
+Why it matters:
+
+- The container runtime watches a process.
+- Kubernetes restarts a container because the main process exits or health checks fail.
+- Logs are often stdout/stderr file descriptors of that process.
+- Signals such as `SIGTERM` are sent to the process so it can shut down.
+- If PID 1 inside the container handles signals poorly, shutdown behavior becomes unreliable.
+
+Concurrency connection:
+
+- A web server process may contain many threads, an event loop, or many goroutines.
+- If that process dies, all in-process concurrency dies with it.
+- If it leaks fds, memory, goroutines, or threads, the container may still look "running" while becoming unhealthy.
+- If it ignores termination, rolling deploys can drop requests or exceed shutdown budgets.
+
+```mermaid
+flowchart TB
+  K["Kubernetes / container runtime"] --> P["main process in container<br/>PID 1 or supervised app"]
+  P --> FD["stdout/stderr/log fds"]
+  P --> NET["listening socket"]
+  P --> MEM["process memory"]
+  K --> SIG["SIGTERM / health checks / restart policy"]
+  SIG --> P
+```
+
+### Worker Process
+
+A worker process is a process that performs application work.
+
+Common examples:
+
+- Gunicorn workers running Python web app code.
+- Puma/Unicorn workers running Ruby app code.
+- Node.js cluster workers.
+- PHP-FPM workers.
+- Java service processes behind a load balancer.
+- C++ or Go service workers.
+
+Why systems use workers:
+
+- Use multiple CPU cores.
+- Isolate crashes between workers.
+- Limit memory growth by restarting workers.
+- Avoid one giant process becoming the only failure domain.
+- Keep one worker from blocking all application traffic.
+
+Worker concurrency can be shaped several ways:
+
+```text
+one worker process
+  -> one event loop
+  -> many threads
+  -> many goroutines
+  -> many request handlers
+```
+
+The process is the outer boundary. Inside it, the runtime chooses threads, event loops, coroutines, or goroutines.
+
+Concurrency connection:
+
+- More worker processes means more isolation, but also more memory and more DB connections.
+- More threads per worker means more in-process concurrency, but also more lock contention and stack memory.
+- More async tasks per worker means more concurrent waits, but also more pressure on downstream services.
+- Restarting a worker can clear leaked memory, but active requests must drain or be retried.
+
+```mermaid
+flowchart LR
+  LB["load balancer"] --> W1["worker process 1"]
+  LB --> W2["worker process 2"]
+  LB --> W3["worker process 3"]
+  W1 --> DB["DB connections"]
+  W2 --> DB
+  W3 --> DB
+  W1 --> C1["threads/event loop/goroutines"]
+  W2 --> C2["threads/event loop/goroutines"]
+```
+
+The senior question is not "how many workers?" It is:
+
+```text
+How many independent process containers can the machine, database,
+cache, downstream services, and deployment system actually support?
+```
+
+### Sidecar Process
+
+A sidecar process is a helper process deployed next to the main application process.
+
+Common examples:
+
+- Envoy or service-mesh proxy.
+- Log shipper.
+- Metrics collector.
+- Secret refresh agent.
+- Local cache or adapter.
+- TLS proxy.
+
+The sidecar is not a library in your process. It is another process with its own:
+
+- PID.
+- memory.
+- file descriptors.
+- sockets.
+- CPU usage.
+- failure modes.
+- logs.
+- lifecycle.
+
+Why this matters:
+
+- Traffic may flow through the sidecar before reaching the app.
+- The app may appear slow because the sidecar is saturated.
+- The app may fail readiness because the sidecar is not ready.
+- The sidecar may hold open sockets after the app changes state.
+- Shutdown ordering can matter: proxy drains, app drains, then container exits.
+
+Concurrency connection:
+
+- A sidecar introduces another scheduler participant on the same node.
+- It adds queues and buffers that can hide or amplify backpressure.
+- It may create another retry layer.
+- It may multiplex many app requests over fewer upstream connections.
+- It can protect the app, but it can also become the bottleneck.
+
+```mermaid
+flowchart LR
+  CLIENT["client"] --> PROXY["sidecar proxy process"]
+  PROXY --> APP["application process"]
+  APP --> PROXY
+  PROXY --> UP["upstream service"]
+  PROXY --> MET["metrics/logging"]
+```
+
+### Supervisor Process
+
+A supervisor process manages other processes.
+
+Classic UNIX examples:
+
+- `init`
+- `systemd`
+- service supervisors
+- shell scripts that fork and wait
+
+Modern examples:
+
+- container runtime
+- Kubernetes kubelet
+- process managers such as `supervisord`
+- Node process managers
+- application master processes such as older pre-fork servers
+
+What a supervisor does:
+
+- starts child processes
+- watches exit status
+- restarts failed children
+- sends signals
+- reaps zombies
+- coordinates graceful shutdown
+- may rotate workers
+- may enforce resource policy
+
+Concurrency connection:
+
+- Supervision is process-level concurrency control.
+- A supervisor decides when to create, stop, restart, or replace execution containers.
+- Bad supervision creates zombie processes, restart storms, dropped requests, and half-dead deployments.
+- Good supervision gives bounded recovery and predictable lifecycle.
+
+```mermaid
+sequenceDiagram
+  participant S as Supervisor
+  participant W as Worker process
+  participant K as Kernel
+  S->>K: fork/exec worker
+  K->>W: run application
+  W-->>K: exits or crashes
+  K-->>S: SIGCHLD / wait status
+  S->>S: decide restart/backoff
+  S->>K: start replacement worker
+```
+
+The Bach-style point is direct: process exit and wait status are not ancient trivia. They are still the basis of service lifecycle.
+
+### Job Worker Process
+
+A job worker process consumes work from a queue rather than serving a request directly.
+
+Examples:
+
+- Celery worker.
+- Sidekiq worker.
+- Resque worker.
+- BullMQ worker.
+- Kafka consumer process.
+- background image/video processing worker.
+- email delivery worker.
+
+Why job workers exist:
+
+- Move slow work out of request latency.
+- Retry failed work.
+- Smooth spikes through queues.
+- Run CPU-heavy or I/O-heavy work separately.
+- Scale background work independently from web traffic.
+
+Concurrency connection:
+
+- A job worker process often has its own internal concurrency: threads, async tasks, goroutines, or child processes.
+- Queue depth becomes a scheduling signal.
+- Queue age becomes a latency signal.
+- Retry storms can multiply load.
+- One poisoned job can block a worker if isolation is weak.
+- Too many workers can overwhelm the database or downstream APIs.
+
+```mermaid
+flowchart LR
+  WEB["web process"] --> Q["queue / broker"]
+  Q --> JW1["job worker process 1"]
+  Q --> JW2["job worker process 2"]
+  JW1 --> DB["database"]
+  JW2 --> API["external API"]
+  JW1 --> RETRY["retry / dead-letter path"]
+```
+
+The important UNIX-style lesson:
+
+```text
+The queue is not magic concurrency.
+It is a scheduling boundary between producer processes and consumer processes.
+```
+
+If you do not bound producers, consumers, retries, and downstream capacity, a queue only moves the overload to a different place.
+
+### Process Model Summary
+
+Modern backend process design is UNIX thinking with new names:
+
+| Web term | UNIX-shaped reality | Concurrency lesson |
+|---|---|---|
+| container | one main process plus namespaces/cgroups around it | process exit and signals define lifecycle |
+| worker | process handling app work | process count controls isolation and resource multiplication |
+| sidecar | helper process beside app | another queue, buffer, socket owner, and failure point |
+| supervisor | parent/manager process | restart, reap, signal, and lifecycle control |
+| job worker | queue-consuming process | queue scheduling, retry, backpressure, and downstream capacity |
+
+When debugging, ask:
+
+- Which process owns the socket?
+- Which process owns the memory growth?
+- Which process owns the queue wait?
+- Which process receives the signal?
+- Which process should be restarted?
+- Which process has the leaked fd?
+- Which process is blocked, and what wakes it?
 
 File descriptor model:
 
