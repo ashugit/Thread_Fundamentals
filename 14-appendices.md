@@ -96,9 +96,9 @@ Good exercises:
 
 ---
 
-## Appendix D. Bach-Style File Model: Descriptor, Open File Description, Inode
+## Appendix D. UNIX File Model: Descriptor, Open File Description, Inode
 
-One of the most useful UNIX lessons from Maurice J. Bach's style of explanation is that "a file" is not one thing inside the kernel.
+One of the most useful UNIX lessons is that "a file" is not one thing inside the kernel.
 
 There are layers:
 

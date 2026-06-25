@@ -47,7 +47,7 @@ By the end, you should be able to explain:
 - REX-style RTOS scheduling, preemption, and watchdog/kickdog mechanics.
 - Why REX-style real-time non-VM design and UNIX/Linux VM-backed design solve different problems.
 - How learning a simpler REX-style shared-image task model makes UNIX process, VM, file descriptor, and kernel-management machinery easier to reason about.
-- Bach-style UNIX ideas that still matter: process state, fd/file/inode separation, syscall trap, sleep/wakeup, scheduler queues, and buffering.
+- Classic UNIX ideas that still matter: process state, fd/file/inode separation, syscall trap, sleep/wakeup, scheduler queues, and buffering.
 - How embedded systems instincts translate into web backend systems.
 - Race conditions, mutexes, semaphores, critical sections, atomics, and deadlocks.
 - C, C++, Java, Python, Ruby, JavaScript, and Go runtime concurrency models.

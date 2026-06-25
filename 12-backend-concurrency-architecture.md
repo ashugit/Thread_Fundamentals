@@ -28,7 +28,7 @@ Read it in this order:
 2. **Python/Django** for business-heavy web apps where process workers, queues, and libraries carry the system.
 3. **Java** for long-running managed services with strong thread, GC, and tooling support.
 4. **C++** for systems backends where latency, memory layout, and CPU efficiency justify the engineering cost.
-5. **Embedded and UNIX translations** to connect the earlier REX/Bach material to containers, workers, sidecars, queues, and supervisors.
+5. **Embedded and UNIX translations** to connect the earlier REX and UNIX material to containers, workers, sidecars, queues, and supervisors.
 
 The point is not "which language is best." The point is to match the runtime's concurrency promises to the shape of the load.
 
@@ -585,7 +585,7 @@ sequenceDiagram
   S->>K: start replacement worker
 ```
 
-The Bach-style point is direct: process exit and wait status are not ancient trivia. They are still the basis of service lifecycle.
+The UNIX point is direct: process exit and wait status are not ancient trivia. They are still the basis of service lifecycle.
 
 ### Job Worker Process
 
@@ -696,7 +696,7 @@ The durable lesson:
 
 Those questions still work for web apps.
 
-> **Side note:** This is the clean bridge from Bach to backend architecture. You do not need to force old implementation details onto modern systems; preserve the questions.
+> **Side note:** This is the clean bridge from classic UNIX to backend architecture. You do not need to force old implementation details onto modern systems; preserve the questions.
 
 ---
 

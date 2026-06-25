@@ -12,7 +12,7 @@ The point of view comes from:
 
 - early hands-on work with Qualcomm REX-style real-time software on non-VM, single-core embedded systems
 - later work with Linux in embedded environments
-- UNIX operating-system grounding built through Maurice J. Bach's *The Design of the UNIX Operating System*
+- UNIX operating-system grounding through classic UNIX internals material
 - many subsequent years building and architecting full-stack web systems
 
 That background shapes the course. REX-style systems provide the simpler baseline: task scheduling, shared memory, interrupt pressure, and watchdog discipline. UNIX/Linux then shows why richer systems add process containers, virtual memory, user/kernel separation, file descriptors, `fork`, `exec`, signals, and broader resource management.

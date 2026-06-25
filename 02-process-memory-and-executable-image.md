@@ -85,9 +85,9 @@ flowchart TB
 
 ---
 
-## 6A. UNIX Process Model In The Bach Mental Frame
+## 6A. UNIX Process Model: User Code And Kernel State
 
-Maurice J. Bach's treatment of UNIX is useful because it does not present the OS as magic. It presents UNIX as a set of kernel data structures and algorithms that cooperate:
+The useful UNIX lesson is that the OS is not magic. It is a set of kernel data structures and algorithms that cooperate:
 
 - process table
 - user area / per-process state
@@ -120,13 +120,13 @@ When a process blocks:
 - scheduler chooses another runnable entity
 - later, an event wakes the blocked process
 
-This is the bridge from Bach-style UNIX to modern concurrency:
+This is the bridge from classic UNIX to modern concurrency:
 
 - The core idea is not old.
 - The names and implementation details evolved.
 - The model of kernel-owned process state, wait queues, files, memory, and scheduling still pays rent.
 
-> **Side note:** For engineers who read Bach years ago, bring back the data-structure mindset. Do not say "Linux does it exactly this way"; say "the conceptual split remains: user execution plus kernel-owned state."
+> **Side note:** Keep the data-structure mindset. Do not say "Linux does it exactly this way"; say "the conceptual split remains: user execution plus kernel-owned state."
 
 ---
 

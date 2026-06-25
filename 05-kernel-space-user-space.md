@@ -91,7 +91,7 @@ Cost factors:
 
 ---
 
-## 36A. Bach-Style System Call View: Trap, Validate, Sleep, Wake
+## 36A. System Call View: Trap, Validate, Sleep, Wake
 
 A very useful UNIX teaching pattern is:
 
@@ -148,7 +148,7 @@ This is a major concurrency idea:
 - It is waiting for a condition.
 - Wakeup makes it runnable again.
 
-> **Side note:** Bach's sleep/wakeup treatment is one of the most practical mental models for backend engineers. A modern web request blocked on socket, DB, futex, or epoll still fits this "sleep until condition changes" shape.
+> **Side note:** The classic sleep/wakeup model is still practical for backend engineers. A modern web request blocked on socket, DB, futex, or epoll still fits this "sleep until condition changes" shape.
 
 ---
 

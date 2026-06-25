@@ -336,7 +336,7 @@ Concurrency connection:
 
 ---
 
-## 45A. Bach-Style Buffer Cache Lesson: I/O Is Often Deferred And Shared
+## 45A. Buffer Cache Lesson: I/O Is Often Deferred And Shared
 
 Classic UNIX teaching spends real attention on the buffer cache because it changes how programs experience disk I/O.
 
@@ -383,7 +383,7 @@ browser/application
 
 The write returning does not always mean the other side processed the data.
 
-> **Side note:** Bach's buffer cache lesson generalizes: modern systems are full of buffers. A successful write often means "accepted by the next layer," not "fully consumed by the final destination."
+> **Side note:** The buffer-cache lesson generalizes: modern systems are full of buffers. A successful write often means "accepted by the next layer," not "fully consumed by the final destination."
 
 ---
 

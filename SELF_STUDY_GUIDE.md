@@ -48,7 +48,7 @@ You should be able to answer:
 - Why is concurrency not the same as parallelism?
 - What is a process?
 - What state does the kernel track for a process?
-- How does the Bach-style UNIX model split user execution from kernel-owned process state?
+- How does the UNIX process model split user execution from kernel-owned process state?
 - What are stack, heap, code, data, and executable image?
 - Why does `main()` not mean "first instruction executed"?
 
