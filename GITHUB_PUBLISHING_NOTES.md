@@ -10,7 +10,7 @@ Keep:
 - `index.md`
 - `SELF_STUDY_GUIDE.md`
 - `EXERCISES_AND_CHECKPOINTS.md`
-- `00-orientation.md` through `14-deep-expansion-pack.md`
+- `00-orientation.md` through `15-deep-expansion-pack.md`
 
 Optional:
 

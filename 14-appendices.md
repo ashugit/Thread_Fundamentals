@@ -1,12 +1,12 @@
 # Appendices
 
-Previous: [Production Glue And Closing Mental Model](12-production-glue-and-closing.md) | [Index](index.md) | Next: none
+Previous: [Production Glue And Closing Mental Model](13-production-glue-and-closing.md) | [Index](index.md) | Next: [Deep Expansion Pack](15-deep-expansion-pack.md)
 
 **Focus:** Keep optional snippets, decision tables, and delivery rhythm separate from the main flow.
 
 ## Bridge
 
-**Coming from:** [Production Glue And Closing Mental Model](12-production-glue-and-closing.md).
+**Coming from:** [Production Glue And Closing Mental Model](13-production-glue-and-closing.md).
 
 **Read this for:** Keep optional snippets, decision tables, and delivery rhythm separate from the main flow.
 
@@ -170,4 +170,4 @@ Concurrency implication:
 
 **Pause check before moving on:** pause and summarize the section in one sentence and name the resource or boundary that became clearer.
 
-Previous: [Production Glue And Closing Mental Model](12-production-glue-and-closing.md) | [Index](index.md) | Next: none
+Previous: [Production Glue And Closing Mental Model](13-production-glue-and-closing.md) | [Index](index.md) | Next: [Deep Expansion Pack](15-deep-expansion-pack.md)

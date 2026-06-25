@@ -497,7 +497,7 @@ That is enough to understand fd inheritance, shell redirection, shared offsets, 
 
 The deeper Bach-style distinction between descriptor table, system-wide open file table entry, and inode-like file object is useful, but it is UNIX-specific enough to treat as optional reference material.
 
-Read [Appendix D. Bach-Style File Model](13-appendices.md#appendix-d-bach-style-file-model-descriptor-open-file-description-inode) when you want the full model.
+Read [Appendix D. Bach-Style File Model](14-appendices.md#appendix-d-bach-style-file-model-descriptor-open-file-description-inode) when you want the full model.
 
 > **Side note:** This keeps the main flow about concurrency and process launch, while preserving the UNIX depth for readers who want it.
 

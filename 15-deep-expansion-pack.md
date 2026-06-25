@@ -1,12 +1,12 @@
 # Deep Expansion Pack
 
-Previous: [Appendices](13-appendices.md) | [Index](index.md) | Next: none
+Previous: [Appendices](14-appendices.md) | [Index](index.md) | Next: none
 
 **Focus:** Fill in topics that were easy to skim in the main deck: deeper OS internals, synchronization internals, runtime behavior, async I/O, observability, and architecture review heuristics.
 
 ## Bridge
 
-**Coming from:** [Appendices](13-appendices.md). The main deck has already given the learning path.
+**Coming from:** [Appendices](14-appendices.md). The main deck has already given the learning path.
 
 **Read this for:** what a senior engineer usually adds when readers or the team start asking "but how exactly does that work?"
 
@@ -1152,4 +1152,4 @@ Questions for design review:
 
 **Pause check before moving on:** identify which layer the team most often debugs poorly today: OS, runtime, database, event loop, or distributed workflow.
 
-Previous: [Appendices](13-appendices.md) | [Index](index.md) | Next: none
+Previous: [Appendices](14-appendices.md) | [Index](index.md) | Next: none

@@ -1,12 +1,12 @@
 # Production Glue And Closing Mental Model
 
-Previous: [Backend Concurrency Architecture](11-backend-concurrency-architecture.md) | [Index](index.md) | Next: [Appendices](13-appendices.md)
+Previous: [Backend Concurrency Architecture](12-backend-concurrency-architecture.md) | [Index](index.md) | Next: [Appendices](14-appendices.md)
 
 **Focus:** Add memory model, false sharing, backpressure, structured concurrency, debugging, and final advice.
 
 ## Bridge
 
-**Coming from:** [Backend Concurrency Architecture](11-backend-concurrency-architecture.md).
+**Coming from:** [Backend Concurrency Architecture](12-backend-concurrency-architecture.md).
 
 **Read this for:** Add memory model, false sharing, backpressure, structured concurrency, debugging, and final advice.
 
@@ -319,8 +319,8 @@ Rules worth carrying:
 
 **Transition to next section:** Close the main path by using the appendices as optional exercises, comparison tables, and pacing guidance for a multi-hour session.
 
-**Continue reading:** Continue with [Appendices](13-appendices.md) to follow the next layer of the model.
+**Continue reading:** Continue with [Appendices](14-appendices.md) to follow the next layer of the model.
 
 **Pause check before moving on:** pause and summarize the section in one sentence and name the resource or boundary that became clearer.
 
-Previous: [Backend Concurrency Architecture](11-backend-concurrency-architecture.md) | [Index](index.md) | Next: [Appendices](13-appendices.md)
+Previous: [Backend Concurrency Architecture](12-backend-concurrency-architecture.md) | [Index](index.md) | Next: [Appendices](14-appendices.md)

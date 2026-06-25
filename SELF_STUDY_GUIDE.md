@@ -119,7 +119,7 @@ Practice:
 Read:
 
 - [08 Races, Locks, Semaphores, And Atomics](08-races-locks-semaphores-and-atomics.md)
-- Selected expansions from [14 Deep Expansion Pack](14-deep-expansion-pack.md):
+- Selected expansions from [15 Deep Expansion Pack](15-deep-expansion-pack.md):
   - Futex
   - Condition variables
   - Deadlock/livelock/starvation
@@ -150,9 +150,9 @@ Read:
 
 - [09 Language Runtimes](09-language-runtimes-c-cpp-java-python-ruby-js.md)
 - [10 Coroutines And Golang](10-coroutines-and-golang.md)
-- [10A Embedded-To-Cloud Concurrency Dictionary](10A-embedded-to-cloud-dictionary.md)
-- [11 Backend Concurrency Architecture](11-backend-concurrency-architecture.md)
-- [12 Production Glue And Closing Mental Model](12-production-glue-and-closing.md)
+- [11 Embedded-To-Backend Concurrency Dictionary](11-embedded-to-backend-dictionary.md)
+- [12 Backend Concurrency Architecture](12-backend-concurrency-architecture.md)
+- [13 Production Glue And Closing Mental Model](13-production-glue-and-closing.md)
 
 You should be able to answer:
 

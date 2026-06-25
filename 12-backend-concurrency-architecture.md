@@ -1,12 +1,12 @@
 # Backend Concurrency Architecture
 
-Previous: [Embedded-To-Cloud Concurrency Dictionary](10A-embedded-to-cloud-dictionary.md) | [Index](index.md) | Next: [Production Glue And Closing Mental Model](12-production-glue-and-closing.md)
+Previous: [Embedded-To-Backend Concurrency Dictionary](11-embedded-to-backend-dictionary.md) | [Index](index.md) | Next: [Production Glue And Closing Mental Model](13-production-glue-and-closing.md)
 
 **Focus:** Discuss when Node, Python, Java, and C++ fit backend systems based on concurrency model.
 
 ## Bridge
 
-**Coming from:** [Embedded-To-Cloud Concurrency Dictionary](10A-embedded-to-cloud-dictionary.md). The previous section translated RTOS concepts into cloud/backend equivalents: probes, deadlines, event loops, shared caches, queues, and restart behavior.
+**Coming from:** [Embedded-To-Backend Concurrency Dictionary](11-embedded-to-backend-dictionary.md). The previous section translated RTOS concepts into backend equivalents: probes, deadlines, event loops, shared caches, queues, and restart behavior.
 
 **Read this for:** Discuss when Node, Python, Java, and C++ fit backend systems based on concurrency model.
 
@@ -682,8 +682,8 @@ Those questions still work for web apps.
 
 **Transition to next section:** Backend choices are not complete without the missing glue that causes real incidents: memory visibility, cache behavior, backpressure, cancellation, and debugging.
 
-**Continue reading:** Continue with [Production Glue And Closing Mental Model](12-production-glue-and-closing.md) to follow the next layer of the model.
+**Continue reading:** Continue with [Production Glue And Closing Mental Model](13-production-glue-and-closing.md) to follow the next layer of the model.
 
 **Pause check before moving on:** pause and summarize the section in one sentence and name the resource or boundary that became clearer.
 
-Previous: [Embedded-To-Cloud Concurrency Dictionary](10A-embedded-to-cloud-dictionary.md) | [Index](index.md) | Next: [Production Glue And Closing Mental Model](12-production-glue-and-closing.md)
+Previous: [Embedded-To-Backend Concurrency Dictionary](11-embedded-to-backend-dictionary.md) | [Index](index.md) | Next: [Production Glue And Closing Mental Model](13-production-glue-and-closing.md)

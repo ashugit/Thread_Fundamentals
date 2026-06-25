@@ -1,6 +1,6 @@
 # Coroutines And Golang
 
-Previous: [Language Runtimes: C, C++, Java, Python, Ruby, JavaScript](09-language-runtimes-c-cpp-java-python-ruby-js.md) | [Index](index.md) | Next: [Embedded-To-Cloud Concurrency Dictionary](10A-embedded-to-cloud-dictionary.md)
+Previous: [Language Runtimes: C, C++, Java, Python, Ruby, JavaScript](09-language-runtimes-c-cpp-java-python-ruby-js.md) | [Index](index.md) | Next: [Embedded-To-Backend Concurrency Dictionary](11-embedded-to-backend-dictionary.md)
 
 **Focus:** Explain coroutine context switches, coroutine tradeoffs, Go's goroutine model, and language summary.
 
@@ -10,7 +10,7 @@ Previous: [Language Runtimes: C, C++, Java, Python, Ruby, JavaScript](09-languag
 
 **Read this for:** Explain coroutine context switches, coroutine tradeoffs, Go's goroutine model, and language summary.
 
-**Then:** move into **Embedded-To-Cloud Concurrency Dictionary**.
+**Then:** move into **Embedded-To-Backend Concurrency Dictionary**.
 
 ---
 
@@ -687,10 +687,10 @@ Use these when checking coroutine terminology, async/await behavior, goroutine l
 
 **Core takeaway to close with:** Explain coroutine context switches, coroutine tradeoffs, Go's goroutine model, and language summary.
 
-**Transition to next section:** With OS processes, threads, coroutines, and goroutines compared, pause before backend architecture and translate the embedded/RTOS vocabulary into cloud and web vocabulary.
+**Transition to next section:** With OS processes, threads, coroutines, and goroutines compared, pause before backend architecture and translate the embedded/RTOS vocabulary into backend service vocabulary.
 
-**Continue reading:** Continue with [Embedded-To-Cloud Concurrency Dictionary](10A-embedded-to-cloud-dictionary.md) to follow the next layer of the model.
+**Continue reading:** Continue with [Embedded-To-Backend Concurrency Dictionary](11-embedded-to-backend-dictionary.md) to follow the next layer of the model.
 
 **Pause check before moving on:** pause and summarize the section in one sentence and name the resource or boundary that became clearer.
 
-Previous: [Language Runtimes: C, C++, Java, Python, Ruby, JavaScript](09-language-runtimes-c-cpp-java-python-ruby-js.md) | [Index](index.md) | Next: [Embedded-To-Cloud Concurrency Dictionary](10A-embedded-to-cloud-dictionary.md)
+Previous: [Language Runtimes: C, C++, Java, Python, Ruby, JavaScript](09-language-runtimes-c-cpp-java-python-ruby-js.md) | [Index](index.md) | Next: [Embedded-To-Backend Concurrency Dictionary](11-embedded-to-backend-dictionary.md)

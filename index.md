@@ -44,19 +44,19 @@ Use this page as the reading map. The sections are ordered so each layer gives v
 10. [Coroutines And Golang](10-coroutines-and-golang.md)
    - Slides 97-106
    - Explain coroutine context switches, coroutine tradeoffs, Go's goroutine model, and language summary.
-10A. [Embedded-To-Cloud Concurrency Dictionary](10A-embedded-to-cloud-dictionary.md)
+11. [Embedded-To-Backend Concurrency Dictionary](11-embedded-to-backend-dictionary.md)
    - Bridge
-   - Translate REX/RTOS concepts into backend/cloud concepts before architecture choices.
-11. [Backend Concurrency Architecture](11-backend-concurrency-architecture.md)
+   - Translate REX/RTOS concepts into backend concepts before architecture choices.
+12. [Backend Concurrency Architecture](12-backend-concurrency-architecture.md)
    - Slides 107-114
    - Discuss when Node, Python, Java, and C++ fit backend systems based on concurrency model.
-12. [Production Glue And Closing Mental Model](12-production-glue-and-closing.md)
+13. [Production Glue And Closing Mental Model](13-production-glue-and-closing.md)
    - Slides 115-122
    - Add memory model, false sharing, backpressure, structured concurrency, debugging, and final advice.
-13. [Appendices](13-appendices.md)
+14. [Appendices](14-appendices.md)
    - Appendices
    - Keep optional snippets, decision tables, and delivery rhythm separate from the main flow.
-14. [Deep Expansion Pack](14-deep-expansion-pack.md)
+15. [Deep Expansion Pack](15-deep-expansion-pack.md)
    - Extra modules
    - Fill in topics that were easy to skim: syscalls, page tables, futexes, condition variables, event loops, allocators, NUMA, watchdog/kickdog design, database races, distributed concurrency, and observability.
 
@@ -85,16 +85,16 @@ flowchart TD
   S08 --> S09
   S10["10. Coroutines And Golang"]
   S09 --> S10
-  S10A["10A. Embedded-To-Cloud Concurrency Dictionary"]
-  S10 --> S10A
-  S11["11. Backend Concurrency Architecture"]
-  S10A --> S11
-  S12["12. Production Glue And Closing Mental Model"]
+  S11["11. Embedded-To-Backend Concurrency Dictionary"]
+  S10 --> S11
+  S12["12. Backend Concurrency Architecture"]
   S11 --> S12
-  S13["13. Appendices"]
+  S13["13. Production Glue And Closing Mental Model"]
   S12 --> S13
-  S14["14. Deep Expansion Pack"]
+  S14["14. Appendices"]
   S13 --> S14
+  S15["15. Deep Expansion Pack"]
+  S14 --> S15
 ```
 
 ## How To Use This

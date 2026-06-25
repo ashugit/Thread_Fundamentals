@@ -290,7 +290,7 @@ Explain what happens when an async function awaits network I/O. Include:
 
 ---
 
-## 10A. Embedded-To-Cloud Concurrency Dictionary
+## 11. Embedded-To-Backend Concurrency Dictionary
 
 Checkpoint questions:
 
@@ -304,7 +304,7 @@ Pick one production incident pattern: stuck worker, blocked event loop, shared c
 
 ---
 
-## 11. Backend Concurrency Architecture
+## 12. Backend Concurrency Architecture
 
 Checkpoint questions:
 
@@ -327,7 +327,7 @@ Pick a service you know. Decide whether Node, Python, Java, Go, or C++ fits best
 
 ---
 
-## 12. Production Glue
+## 13. Production Glue
 
 Checkpoint questions:
 
@@ -353,7 +353,7 @@ Design a dashboard for a concurrent backend. Include:
 
 ---
 
-## 13. Appendices
+## 14. Appendices
 
 Checkpoint questions:
 
@@ -368,7 +368,7 @@ Use the architecture table to classify three systems you have worked on.
 
 ---
 
-## 14. Deep Expansion Pack
+## 15. Deep Expansion Pack
 
 Checkpoint questions:
 

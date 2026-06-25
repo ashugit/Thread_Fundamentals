@@ -29,7 +29,7 @@ If you have ever wondered why a service hangs with low CPU, why a mutex fixes co
 2. Follow the [Modular Reading Index](index.md).
 3. Use [Self Study Guide](SELF_STUDY_GUIDE.md) to pace the material.
 4. Use [Exercises And Checkpoints](EXERCISES_AND_CHECKPOINTS.md) to test understanding.
-5. Use [Deep Expansion Pack](14-deep-expansion-pack.md) when a topic needs more depth.
+5. Use [Deep Expansion Pack](15-deep-expansion-pack.md) when a topic needs more depth.
 6. Use [References](REFERENCES.md) to verify implementation-specific claims and go deeper.
 
 ## What You Will Learn
@@ -52,7 +52,7 @@ By the end, you should be able to explain:
 - Race conditions, mutexes, semaphores, critical sections, atomics, and deadlocks.
 - C, C++, Java, Python, Ruby, JavaScript, and Go runtime concurrency models.
 - Coroutines and event loops.
-- How embedded/RTOS instincts translate into cloud/backend concepts such as probes, deadlines, event loops, shared caches, and restart policy.
+- How embedded/RTOS instincts translate into backend concepts such as probes, deadlines, event loops, shared caches, and restart policy.
 - Backend concurrency architecture tradeoffs.
 - Production debugging signals: queue age, lock wait, event-loop lag, thread-pool saturation, GC pauses, and more.
 
@@ -71,11 +71,11 @@ By the end, you should be able to explain:
 | 08 | [Races, Locks, Semaphores, And Atomics](08-races-locks-semaphores-and-atomics.md) | Understand shared-state correctness |
 | 09 | [Language Runtimes](09-language-runtimes-c-cpp-java-python-ruby-js.md) | Compare runtime choices |
 | 10 | [Coroutines And Go](10-coroutines-and-golang.md) | Understand lightweight runtime scheduling |
-| 10A | [Embedded-To-Cloud Dictionary](10A-embedded-to-cloud-dictionary.md) | Translate RTOS instincts into backend/cloud concurrency terms |
-| 11 | [Backend Architecture](11-backend-concurrency-architecture.md) | Map concurrency models to backend systems |
-| 12 | [Production Glue](12-production-glue-and-closing.md) | Memory models, backpressure, debugging, final model |
-| 13 | [Appendices](13-appendices.md) | Snippets, tables, and pacing |
-| 14 | [Deep Expansion Pack](14-deep-expansion-pack.md) | Extra depth for hard follow-up questions |
+| 11 | [Embedded-To-Backend Dictionary](11-embedded-to-backend-dictionary.md) | Translate RTOS instincts into backend concurrency terms |
+| 12 | [Backend Architecture](12-backend-concurrency-architecture.md) | Map concurrency models to backend systems |
+| 13 | [Production Glue](13-production-glue-and-closing.md) | Memory models, backpressure, debugging, final model |
+| 14 | [Appendices](14-appendices.md) | Snippets, tables, and pacing |
+| 15 | [Deep Expansion Pack](15-deep-expansion-pack.md) | Extra depth for hard follow-up questions |
 
 The course also includes:
 
