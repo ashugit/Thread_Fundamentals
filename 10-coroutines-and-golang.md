@@ -315,14 +315,14 @@ During each await, the runtime can run other ready work on the same OS thread in
 ```mermaid
 sequenceDiagram
   participant H1 as Handler coroutine A
-  participant LOOP as Event loop/runtime
+  participant EV as Event loop/runtime
   participant DB as Database socket
   participant H2 as Handler coroutine B
   H1->>DB: send query
-  H1->>LOOP: await response, suspend
-  LOOP->>H2: run another ready handler
-  DB->>LOOP: response ready
-  LOOP->>H1: resume with result
+  H1->>EV: await response, suspend
+  EV->>H2: run another ready handler
+  DB->>EV: response ready
+  EV->>H1: resume with result
 ```
 
 > **Side note:** Coroutines are excellent for wait-heavy workloads. They are not a replacement for CPU parallelism unless the runtime schedules them across multiple OS threads and the code is parallel-safe.
@@ -375,7 +375,7 @@ coroutine failure: blocked loop, leaked tasks, missing backpressure, hidden sync
 
 ## 101. Summary Of Context Switch Between Process, Thread, Coroutine
 
-> **Flow:** From **Why Is Coroutine Worse Than Thread**, move into **Summary Of Context Switch Between Process, Thread, Coroutine**. This page should answer the natural follow-up and prepare for **What Kind Of Language Is Golang In Runtime**.
+> **Flow:** From **Why Is Coroutine Worse Than Thread**, move into **Summary Of Context Switch Between Process, Thread, Coroutine**. This page should answer the natural follow-up and prepare for **What Kind Of Language Is Go In Runtime**.
 
 | Unit | Scheduler | Isolation | Switch cost | Shared memory | Parallelism |
 |---|---|---:|---:|---:|---:|
@@ -428,11 +428,11 @@ flowchart TB
 
 ---
 
-## 102. What Kind Of Language Is Golang In Runtime
+## 102. What Kind Of Language Is Go In Runtime
 
-> **Flow:** From **Summary Of Context Switch Between Process, Thread, Coroutine**, move into **What Kind Of Language Is Golang In Runtime**. This page should answer the natural follow-up and prepare for **What Is The Threading Model In Golang**.
+> **Flow:** From **Summary Of Context Switch Between Process, Thread, Coroutine**, move into **What Kind Of Language Is Go In Runtime**. This page should answer the natural follow-up and prepare for **Go Threading Model**.
 
-Go is a compiled language with a managed runtime designed around concurrency.
+Go is a compiled language with a managed runtime designed around cheap concurrent work.
 
 Runtime characteristics:
 
@@ -453,12 +453,22 @@ Go's design center:
 - Production network services.
 - Runtime-managed scheduling over OS threads.
 
-Why Go belongs in this chapter:
+Grandma explanation:
+
+| If threads are... | Then goroutines are... |
+|---|---|
+| hiring a full worker for every small errand | giving the house manager many small task slips |
+| expensive to create in large numbers | cheap enough to use freely, but not infinitely |
+| scheduled directly by the operating system | first scheduled by Go's runtime, then run on OS threads |
+| powerful but heavy | lighter, but still capable of causing races and overload |
+
+Why Go is included here, without making it magical:
 
 - It is not just "C with easier threads."
 - It is not just "Python async without await."
 - It is not just "Java threads with different syntax."
-- It is a language/runtime/standard-library design where lightweight concurrency is a first-class assumption.
+- It is one example of a language/runtime/standard-library design where lightweight concurrency is a first-class assumption.
+- Similar ideas exist elsewhere: Java virtual threads, Kotlin coroutines, Erlang processes, Ruby fibers, and C++ coroutines all explore lighter execution units in different ways.
 
 Go deliberately makes this cheap:
 
@@ -477,13 +487,13 @@ Go connects prior sections in one place:
 - Shared memory still possible, so mutexes and atomics still matter.
 - Channels provide a structured communication style, but they do not remove all races.
 
-> **Side note:** Go did not merely add a thread library. It designed the language, runtime, standard library, and tooling around concurrent services.
+> **Side note:** Go did not merely add a thread library. It designed the language, runtime, standard library, and tooling around concurrent services. That is useful, but not unique in spirit.
 
 ---
 
-## 103. What Is The Threading Model In Golang
+## 103. Go Threading Model
 
-> **Flow:** From **What Kind Of Language Is Golang In Runtime**, move into **What Is The Threading Model In Golang**. This page should answer the natural follow-up and prepare for **How Golang Goroutines Are Different From Python Coroutines**.
+> **Flow:** From **What Kind Of Language Is Go In Runtime**, move into **Go Threading Model**. This page should answer the natural follow-up and prepare for **Go Goroutines Compared With Python Coroutines**.
 
 Go uses an M:N scheduler:
 
@@ -561,9 +571,9 @@ This is why Go code can look blocking but still scale well for many network serv
 
 ---
 
-## 104. How Golang Goroutines Are Different From Python Coroutines
+## 104. Go Goroutines Compared With Python Coroutines
 
-> **Flow:** From **What Is The Threading Model In Golang**, move into **How Golang Goroutines Are Different From Python Coroutines**. This page should answer the natural follow-up and prepare for **Summary Of All Languages In Terms Of Process, Threads, Goroutines So Far**.
+> **Flow:** From **Go Threading Model**, move into **Go Goroutines Compared With Python Coroutines**. This page should answer the natural follow-up and prepare for **Summary Of All Languages In Terms Of Process, Threads, Goroutines So Far**.
 
 Go goroutines:
 
@@ -592,6 +602,15 @@ Comparison:
 | Yield style | Runtime/blocking integration | Explicit `await` |
 | Stack | Growable goroutine stack | Coroutine frame/state |
 | Blocking APIs | Often okay if Go-aware | Dangerous if blocks event loop |
+
+Do not over-specialize Go in your head. It is one point in a broader family of runtime-scheduled concurrency:
+
+| Runtime idea | Example ecosystems | What to notice |
+|---|---|---|
+| Lightweight runtime tasks over OS threads | Go goroutines, Java virtual threads | Blocking-looking code can be parked without dedicating one OS thread per task. |
+| Explicit coroutine suspension | Python `asyncio`, JavaScript `async`/`await`, Kotlin coroutines | The programmer sees suspension at `await` or suspend points. |
+| Actor/process-style isolation | Erlang processes, Akka-style actors | Communication is usually message passing, not shared mutable objects. |
+| Fiber-style cooperative execution | Ruby fibers, some C++ coroutine/fiber frameworks | Very cheap switching, but blocking calls and scheduling rules matter. |
 
 The most important distinction:
 
@@ -633,7 +652,7 @@ But this does not make Go race-free:
 
 ## 105. Summary Of All Languages In Terms Of Process, Threads, Goroutines So Far
 
-> **Flow:** From **How Golang Goroutines Are Different From Python Coroutines**, move into **Summary Of All Languages In Terms Of Process, Threads, Goroutines So Far**. This page should answer the natural follow-up and prepare for **Node.js: Event-Loop Services**.
+> **Flow:** From **Go Goroutines Compared With Python Coroutines**, move into **Summary Of All Languages In Terms Of Process, Threads, Goroutines So Far**. This page should answer the natural follow-up and prepare for **Node.js: Event-Loop Services**.
 
 | Language | Runtime style | Main concurrency tools | CPU parallelism caveat |
 |---|---|---|---|
@@ -649,7 +668,7 @@ What this chapter added to the previous language-runtime chapter:
 
 - Coroutines explain how a runtime can save and resume user-level execution state.
 - Event loops explain how many waits can share a small number of OS threads.
-- Go explains how a runtime can make lightweight execution units cheap while still allowing multicore parallelism.
+- Go gives one concrete example of lightweight runtime scheduling that can still use multicore parallelism.
 - The same old problems remain: shared memory, backpressure, cancellation, observability, scheduler fairness, and lifecycle ownership.
 
 Final mental model:
@@ -678,6 +697,9 @@ flowchart TB
 - [Effective Go: Goroutines](https://go.dev/doc/effective_go#goroutines)
 - [Go blog: Go Concurrency Patterns: Pipelines and cancellation](https://go.dev/blog/pipelines)
 - [Go memory model](https://go.dev/ref/mem)
+- [OpenJDK JEP 444: Virtual Threads](https://openjdk.org/jeps/444)
+- [Kotlin docs: Coroutines](https://kotlinlang.org/docs/coroutines-overview.html)
+- [Erlang docs: Concurrent Programming](https://www.erlang.org/doc/system/conc_prog.html)
 
 Use these when checking coroutine terminology, async/await behavior, goroutine lifecycle, cancellation, and Go synchronization semantics.
 
