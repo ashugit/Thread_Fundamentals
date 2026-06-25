@@ -20,6 +20,18 @@ This comparison is not nostalgia and it is not a contest between operating syste
 
 The purpose is to show that concurrency mechanisms are not arbitrary. They are answers to different operating constraints.
 
+Grandma explanation:
+
+| Picture | REX-style RTOS without VM | UNIX/Linux-style general OS |
+|---|---|---|
+| Household model | One carefully trained family working inside one kitchen. | Many unrelated tenants living in one apartment building. |
+| Why it works | Everyone is part of one product and is expected to follow strict rules. | Tenants may not trust each other, so walls, locks, names, and permissions matter. |
+| What is cheap | Passing a bowl directly across the kitchen. | Letting each tenant believe they have their own room and calling building staff for shared services. |
+| What is risky | One careless hand can spill into the whole kitchen. | The building has more overhead, but one tenant breaking a lamp should not burn down every room. |
+| Why compare them | The simple kitchen makes scheduling, interrupts, shared memory, and watchdogs easy to see. | The apartment building explains why UNIX/Linux adds VM, processes, syscalls, file descriptors, and kernel/user boundaries. |
+
+That is why a real RTOS-style system such as Qualcomm REX, used in constrained phone/modem environments and historically encountered in Samsung phone work, is a useful comparison point. It strips the model down to the bones. Once the learner sees what happens without virtual memory and heavyweight process isolation, UNIX/Linux no longer looks like ceremony. It looks like a deliberate answer to a harder coexistence problem.
+
 REX-style non-VM thinking gives the learner a clean starting point. You can see the essentials directly: task, stack, priority, interrupt, shared memory, and watchdog. There is less indirection.
 
 UNIX then becomes the next layer of the same story. It keeps the same core questions, but answers them with more system management:
