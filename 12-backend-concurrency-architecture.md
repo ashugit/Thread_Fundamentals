@@ -34,7 +34,7 @@ The point is not "which language is best." The point is to match the runtime's c
 
 ---
 
-## 107. Node.js: Event-Loop Services
+## 106. Node.js: Event-Loop Services
 
 > **Flow:** From **Coroutines And Golang**, move into **Node.js: Event-Loop Services**. Start with Node because it makes the wait-heavy backend case easy to see: one event loop can coordinate many outstanding I/O operations if the loop stays free.
 
@@ -67,7 +67,7 @@ Bad fits:
 
 ---
 
-## 108. Node.js: Operating Rules
+## 107. Node.js: Operating Rules
 
 > **Flow:** From **Node.js: Event-Loop Services**, move into **Node.js: Operating Rules**. The architecture only works if the team treats the event loop as a scarce resource, not as a place for CPU work.
 
@@ -99,7 +99,7 @@ Architecture rules:
 
 ---
 
-## 109. Python/Django: Worker-Based Web Apps
+## 108. Python/Django: Worker-Based Web Apps
 
 > **Flow:** From **Node.js: Operating Rules**, move into **Python/Django: Worker-Based Web Apps**. Python often scales by combining clear business code with process workers, thread pools, async paths, queues, and native libraries.
 
@@ -134,7 +134,7 @@ The deployment model matters more than language slogans:
 
 ---
 
-## 110. Python: Operating Rules
+## 109. Python: Operating Rules
 
 > **Flow:** From **Python/Django: Worker-Based Web Apps**, move into **Python: Operating Rules**. The important distinction is I/O overlap versus CPU parallelism; those need different tools in classic CPython.
 
@@ -165,7 +165,7 @@ Rules:
 
 ---
 
-## 111. Java: Managed Parallel Services
+## 110. Java: Managed Parallel Services
 
 > **Flow:** From **Python: Operating Rules**, move into **Java: Managed Parallel Services**. Java is the next natural stop because it gives managed memory, real parallel threads, mature executors, and production-grade observability.
 
@@ -199,7 +199,7 @@ Java frameworks:
 
 ---
 
-## 112. Java: Operating Rules
+## 111. Java: Operating Rules
 
 > **Flow:** From **Java: Managed Parallel Services**, move into **Java: Operating Rules**. The JVM gives strong primitives, but pools, queues, allocation, DB limits, and virtual-thread behavior still need explicit design.
 
@@ -231,7 +231,7 @@ Virtual thread impact:
 
 ---
 
-## 113. C++: Systems Backends
+## 112. C++: Systems Backends
 
 > **Flow:** From **Java: Operating Rules**, move into **C++: Systems Backends**. C++ belongs at the edge of this chapter: choose it when control over latency, memory, CPU, and kernel integration is worth the discipline it demands.
 
@@ -268,7 +268,7 @@ Risks:
 
 ---
 
-## 114. C++: Operating Rules
+## 113. C++: Operating Rules
 
 > **Flow:** From **C++: Systems Backends**, move into **C++: Operating Rules**. The wins come from design choices such as ownership, sharding, locality, bounded allocation, and measurement; threads alone do not create performance.
 
@@ -319,7 +319,7 @@ flowchart TD
 
 ---
 
-## 115. Embedded Instincts In Backend Systems
+## 114. Embedded Instincts In Backend Systems
 
 > **Flow:** From **C++: Operating Rules**, move into **Embedded Instincts In Backend Systems**. After choosing runtime models, this section translates older embedded instincts into backend terms without pretending the systems are identical.
 
@@ -370,7 +370,7 @@ What remains the same:
 
 ---
 
-## 116. UNIX Process Models Under Web Apps
+## 115. UNIX Process Models Under Web Apps
 
 > **Flow:** From **Embedded Instincts In Backend Systems**, move into **UNIX Process Models Under Web Apps**. This closes the chapter by showing that containers, workers, sidecars, supervisors, and job workers still rest on process boundaries.
 

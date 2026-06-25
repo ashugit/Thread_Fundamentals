@@ -14,7 +14,7 @@ Previous: [Backend Concurrency Architecture](12-backend-concurrency-architecture
 
 ---
 
-## 117. Missing Glue: Memory Model And Happens-Before
+## 116. Missing Glue: Memory Model And Happens-Before
 
 > **Flow:** From **UNIX Process Models Under Web Apps**, move into **Missing Glue: Memory Model And Happens-Before**. Backend runtime choice is not enough; the final layer is the production glue that decides whether concurrent work is visible, bounded, cancellable, and debuggable.
 
@@ -45,7 +45,7 @@ Examples of synchronization that commonly create happens-before relationships:
 
 ---
 
-## 118. Missing Glue: Cache Coherence, False Sharing, And Why Atomics Hurt
+## 117. Missing Glue: Cache Coherence, False Sharing, And Why Atomics Hurt
 
 > **Flow:** From **Missing Glue: Memory Model And Happens-Before**, move into **Missing Glue: Cache Coherence, False Sharing, And Why Atomics Hurt**. This page should answer the natural follow-up and prepare for **Missing Glue: Backpressure Is Part Of Concurrency**.
 
@@ -84,7 +84,7 @@ Mitigations:
 
 ---
 
-## 119. Missing Glue: Backpressure Is Part Of Concurrency
+## 118. Missing Glue: Backpressure Is Part Of Concurrency
 
 > **Flow:** From **Missing Glue: Cache Coherence, False Sharing, And Why Atomics Hurt**, move into **Missing Glue: Backpressure Is Part Of Concurrency**. This page should answer the natural follow-up and prepare for **Missing Glue: Structured Concurrency And Cancellation**.
 
@@ -133,7 +133,7 @@ recover without backlog explosion
 
 ---
 
-## 120. Missing Glue: Structured Concurrency And Cancellation
+## 119. Missing Glue: Structured Concurrency And Cancellation
 
 > **Flow:** From **Missing Glue: Backpressure Is Part Of Concurrency**, move into **Missing Glue: Structured Concurrency And Cancellation**. This page should answer the natural follow-up and prepare for **Missing Glue: Debugging Production Concurrency**.
 
@@ -179,7 +179,7 @@ Where it appears:
 
 ---
 
-## 121. Missing Glue: Debugging Production Concurrency
+## 120. Missing Glue: Debugging Production Concurrency
 
 > **Flow:** From **Missing Glue: Structured Concurrency And Cancellation**, move into **Missing Glue: Debugging Production Concurrency**. This page should answer the natural follow-up and prepare for **Summary Overall**.
 
@@ -225,7 +225,7 @@ Useful tools and habits:
 
 ---
 
-## 122. Summary Overall
+## 121. Summary Overall
 
 > **Flow:** From **Missing Glue: Debugging Production Concurrency**, move into **Summary Overall**. This page should answer the natural follow-up and prepare for **Final Mental Model: The Concurrency Stack**.
 
@@ -260,7 +260,7 @@ The senior-engineer lens:
 
 ---
 
-## 123. Final Mental Model: The Concurrency Stack
+## 122. Final Mental Model: The Concurrency Stack
 
 > **Flow:** From **Summary Overall**, move into **Final Mental Model: The Concurrency Stack**. This page should answer the natural follow-up and prepare for **Closing Slide: Advice To Younger Engineers**.
 
@@ -290,7 +290,7 @@ If something goes wrong, debug down the stack:
 
 ---
 
-## 124. Closing Slide: Advice To Younger Engineers
+## 123. Closing Slide: Advice To Younger Engineers
 
 > **Flow:** After **Final Mental Model: The Concurrency Stack**, close with **Closing Slide: Advice To Younger Engineers** so the reader leaves with practical rules, not only mechanisms.
 

@@ -776,13 +776,15 @@ What this means:
 
 ---
 
-## 89. Why Python Chose The GIL Tradeoff
+## 89. Python GIL: Why It Exists, What It Protects, What It Costs
 
-> **Flow:** From **Python's Extra Constraint: The Interpreter Lock**, move into **Why Python Chose The GIL Tradeoff**. Before criticizing the GIL, understand the C implementation, reference counting, and extension ecosystem it protected.
+> **Flow:** From **Python's Extra Constraint: The Interpreter Lock**, move into **Python GIL: Why It Exists, What It Protects, What It Costs**. Before criticizing the GIL, understand the C implementation, reference counting, extension ecosystem, and workload tradeoff it protected.
 
-CPython's GIL was a pragmatic design tradeoff.
+The Global Interpreter Lock is a mutex around execution of CPython interpreter bytecode and internal object machinery.
 
-Reasons:
+CPython's GIL was a pragmatic design tradeoff, not an accident.
+
+Why CPython chose it historically:
 
 - Simpler interpreter implementation.
 - Efficient reference counting in single-threaded common case.
@@ -790,8 +792,19 @@ Reasons:
 - Many Python workloads were I/O-bound or extension-backed.
 - Lower overhead than fine-grained locking everywhere.
 
-Tradeoff:
+What it protects:
 
+- Interpreter invariants while bytecode runs.
+- Reference-count updates on Python objects.
+- Many assumptions made by older C extensions.
+- Internal object machinery that was not designed around fine-grained locks everywhere.
+
+What it costs:
+
+- Only one thread runs Python bytecode at a time in classic CPython.
+- Threads still switch periodically.
+- Blocking I/O can release the GIL.
+- Native extensions can release the GIL.
 - CPU-bound Python bytecode does not scale across cores with threads in classic CPython.
 - C extensions must be careful about GIL behavior.
 - Multicore CPU parallelism often uses processes or native libraries.
@@ -803,24 +816,6 @@ Why this connects to C:
 - Without a global lock, those fields and many interpreter invariants need another synchronization strategy.
 - Fine-grained locking can make single-threaded execution slower and extension compatibility harder.
 - A free-threaded implementation has to revisit object layout, reference counting strategy, extension assumptions, and performance tradeoffs.
-
-> **Side note:** The GIL was not stupidity. It was a trade made for simplicity, safety, performance of common cases, and extension compatibility.
-
----
-
-## 90. Python GIL: What It Protects And What It Costs
-
-> **Flow:** From **Why Python Chose The GIL Tradeoff**, move into **Python GIL: What It Protects And What It Costs**. This section makes the lock concrete enough to choose between threads, processes, native code, and async.
-
-The Global Interpreter Lock is a mutex around execution of CPython interpreter bytecode and internal object machinery.
-
-Effects:
-
-- Only one thread runs Python bytecode at a time in classic CPython.
-- Threads still switch periodically.
-- Blocking I/O can release the GIL.
-- Native extensions can release the GIL.
-- Reference counting is simpler.
 
 Bad fit:
 
@@ -874,9 +869,9 @@ flowchart TB
 
 ---
 
-## 91. Ruby Runtime: Dynamic VM With Managed Objects
+## 90. Ruby Runtime: Dynamic VM With Managed Objects
 
-> **Flow:** From **Python GIL: What It Protects And What It Costs**, move into **Ruby Runtime: Dynamic VM With Managed Objects**. Ruby belongs next because CRuby has a similar interpreter-lock story, but different libraries and concurrency idioms.
+> **Flow:** From **Python GIL: Why It Exists, What It Protects, What It Costs**, move into **Ruby Runtime: Dynamic VM With Managed Objects**. Ruby belongs next because CRuby has a similar interpreter-lock story, but different libraries and concurrency idioms.
 
 Ruby is a dynamic, object-oriented language with a managed runtime.
 
@@ -929,7 +924,7 @@ flowchart TB
 
 ---
 
-## 92. Ruby Threading: Native Threads, GVL, Fibers, And Ractors
+## 91. Ruby Threading: Native Threads, GVL, Fibers, And Ractors
 
 > **Flow:** From **Ruby Runtime: Dynamic VM With Managed Objects**, move into **Ruby Threading: Native Threads, GVL, Fibers, And Ractors**. The question is not whether Ruby has threads; it is what the runtime allows them to do at the same time.
 
@@ -981,7 +976,7 @@ threads.each(&:join)
 
 ---
 
-## 93. Ruby Evented Concurrency: Fibers And Async I/O
+## 92. Ruby Evented Concurrency: Fibers And Async I/O
 
 > **Flow:** From **Ruby Threading: Native Threads, GVL, Fibers, And Ractors**, move into **Ruby Evented Concurrency: Fibers And Async I/O**. This is the bridge from interpreter locks toward event loops and cooperative waiting.
 
@@ -1023,7 +1018,7 @@ How this connects to earlier sections:
 
 ---
 
-## 94. JavaScript Runtime: Event Loop On Top Of Host Threads
+## 93. JavaScript Runtime: Event Loop On Top Of Host Threads
 
 > **Flow:** From **Ruby Evented Concurrency: Fibers And Async I/O**, move into **JavaScript Runtime: Event Loop On Top Of Host Threads**. JavaScript makes event-loop thinking the default rather than an advanced library choice.
 
@@ -1074,7 +1069,7 @@ flowchart TB
 
 ---
 
-## 95. JavaScript Threading: Event Loop, Worker Pool, And Workers
+## 94. JavaScript Threading: Event Loop, Worker Pool, And Workers
 
 > **Flow:** From **JavaScript Runtime: Event Loop On Top Of Host Threads**, move into **JavaScript Threading: Event Loop, Worker Pool, And Workers**. The word "single-threaded" is useful only after we separate JS execution, host I/O, worker pools, and worker isolates.
 
@@ -1140,7 +1135,7 @@ Node's "single-threaded" phrase is incomplete:
 
 ---
 
-## 96. Why JavaScript Chose Event-Loop Concurrency
+## 95. Why JavaScript Chose Event-Loop Concurrency
 
 > **Flow:** From **JavaScript Threading: Event Loop, Worker Pool, And Workers**, move into **Why JavaScript Chose Event-Loop Concurrency**. This closes the runtime comparison and prepares for coroutines as a higher-level control-flow abstraction.
 

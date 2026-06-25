@@ -78,7 +78,7 @@ Goroutines are runtime-scheduled execution units that can run in parallel on OS 
 
 ---
 
-## 97. Deep Dive Into Coroutines
+## 96. Deep Dive Into Coroutines
 
 > **Flow:** From **Why JavaScript Chose Event-Loop Concurrency**, move into **Deep Dive Into Coroutines**. This page should answer the natural follow-up and prepare for **How Is Context Switch Going To Happen In Coroutine**.
 
@@ -148,7 +148,7 @@ stateDiagram-v2
 
 ---
 
-## 98. How Is Context Switch Going To Happen In Coroutine
+## 97. How Is Context Switch Going To Happen In Coroutine
 
 > **Flow:** From **Deep Dive Into Coroutines**, move into **How Is Context Switch Going To Happen In Coroutine**. This page should answer the natural follow-up and prepare for **Languages Which Offer Coroutines**.
 
@@ -216,7 +216,7 @@ sequenceDiagram
 
 ---
 
-## 99. Languages Which Offer Coroutines
+## 98. Languages Which Offer Coroutines
 
 > **Flow:** From **How Is Context Switch Going To Happen In Coroutine**, move into **Languages Which Offer Coroutines**. This page should answer the natural follow-up and prepare for **Why Is Coroutine Better Than Threads**.
 
@@ -269,7 +269,7 @@ and what happens if they call a blocking function?
 
 ---
 
-## 100. Why Is Coroutine Better Than Threads
+## 99. Why Is Coroutine Better Than Threads
 
 > **Flow:** From **Languages Which Offer Coroutines**, move into **Why Is Coroutine Better Than Threads**. This page should answer the natural follow-up and prepare for **Why Is Coroutine Worse Than Thread**.
 
@@ -329,7 +329,7 @@ sequenceDiagram
 
 ---
 
-## 101. Why Is Coroutine Worse Than Thread
+## 100. Why Is Coroutine Worse Than Thread
 
 > **Flow:** From **Why Is Coroutine Better Than Threads**, move into **Why Is Coroutine Worse Than Thread**. This page should answer the natural follow-up and prepare for **Summary Of Context Switch Between Process, Thread, Coroutine**.
 
@@ -373,7 +373,7 @@ coroutine failure: blocked loop, leaked tasks, missing backpressure, hidden sync
 
 ---
 
-## 102. Summary Of Context Switch Between Process, Thread, Coroutine
+## 101. Summary Of Context Switch Between Process, Thread, Coroutine
 
 > **Flow:** From **Why Is Coroutine Worse Than Thread**, move into **Summary Of Context Switch Between Process, Thread, Coroutine**. This page should answer the natural follow-up and prepare for **What Kind Of Language Is Golang In Runtime**.
 
@@ -428,7 +428,7 @@ flowchart TB
 
 ---
 
-## 103. What Kind Of Language Is Golang In Runtime
+## 102. What Kind Of Language Is Golang In Runtime
 
 > **Flow:** From **Summary Of Context Switch Between Process, Thread, Coroutine**, move into **What Kind Of Language Is Golang In Runtime**. This page should answer the natural follow-up and prepare for **What Is The Threading Model In Golang**.
 
@@ -481,7 +481,7 @@ Go connects prior sections in one place:
 
 ---
 
-## 104. What Is The Threading Model In Golang
+## 103. What Is The Threading Model In Golang
 
 > **Flow:** From **What Kind Of Language Is Golang In Runtime**, move into **What Is The Threading Model In Golang**. This page should answer the natural follow-up and prepare for **How Golang Goroutines Are Different From Python Coroutines**.
 
@@ -561,7 +561,7 @@ This is why Go code can look blocking but still scale well for many network serv
 
 ---
 
-## 105. How Golang Goroutines Are Different From Python Coroutines
+## 104. How Golang Goroutines Are Different From Python Coroutines
 
 > **Flow:** From **What Is The Threading Model In Golang**, move into **How Golang Goroutines Are Different From Python Coroutines**. This page should answer the natural follow-up and prepare for **Summary Of All Languages In Terms Of Process, Threads, Goroutines So Far**.
 
@@ -631,7 +631,7 @@ But this does not make Go race-free:
 
 ---
 
-## 106. Summary Of All Languages In Terms Of Process, Threads, Goroutines So Far
+## 105. Summary Of All Languages In Terms Of Process, Threads, Goroutines So Far
 
 > **Flow:** From **How Golang Goroutines Are Different From Python Coroutines**, move into **Summary Of All Languages In Terms Of Process, Threads, Goroutines So Far**. This page should answer the natural follow-up and prepare for **Node.js: Event-Loop Services**.
 
