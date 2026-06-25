@@ -20,6 +20,10 @@ Previous: [Threads And Process Comparison](07-threads-and-process-comparison.md)
 
 A race condition occurs when program correctness depends on timing or interleaving of concurrent operations.
 
+Grandma version:
+
+Two people check the same last train seat, both see it free, and both book it. Nothing exploded; the mistake came from acting on an old view of shared state.
+
 Classic data race example:
 
 ```c
@@ -221,6 +225,10 @@ Examples:
 > **Flow:** From **What Are The Ways To Mitigate Race**, move into **Deep Dive Into Mutex**. This page should answer the natural follow-up and prepare for **Deep Dive Into Semaphores**.
 
 A mutex provides mutual exclusion: only one thread enters the protected critical region at a time.
+
+Grandma version:
+
+A mutex is the bathroom key at a small shop. Whoever has the key gets exclusive use; everyone else waits. The key is not the bathroom. The key protects the rule that only one person uses it at a time.
 
 Pattern:
 
@@ -446,6 +454,10 @@ Other fixes:
 
 A semaphore is a counter with atomic wait/decrement and signal/increment behavior.
 
+Grandma version:
+
+A semaphore is like a basket with five visitor passes. If a pass is available, you take one and enter. If the basket is empty, you wait. When someone leaves, they put a pass back.
+
 Types:
 
 - **Binary semaphore:** count 0/1, sometimes used like a mutex but not identical.
@@ -547,6 +559,10 @@ flowchart LR
 > **Flow:** From **Deep Dive Into Semaphores**, move into **Deep Dive Into Critical Section**. This page should answer the natural follow-up and prepare for **What Single Core Needs To Offer For Threads To Work Successfully**.
 
 A critical section is code that must not execute concurrently with conflicting code.
+
+Grandma version:
+
+A critical section is the few seconds when the shopkeeper opens the cash drawer and changes the balance book. That part must not be interrupted or shared casually; otherwise the money and the book stop agreeing.
 
 It is not the lock itself. It is the protected region.
 
@@ -823,6 +839,10 @@ Challenges:
 > **Flow:** From **What Multi Core Needs To Offer For Threads To Work Successfully**, move into **What Is Atomic Swap Instruction**. This page should answer the natural follow-up and prepare for **Summary So Far**.
 
 An atomic swap instruction exchanges a register value with memory as one indivisible operation.
+
+Grandma version:
+
+Atomic means the action happens as one unbreakable move. Like taking the last token from a counter and putting your name down in the same motion; nobody can slip in between those two halves.
 
 Purpose:
 

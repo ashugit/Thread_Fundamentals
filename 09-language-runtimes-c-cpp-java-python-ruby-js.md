@@ -61,9 +61,23 @@ The important point is not whether a language is "fast" or "slow". The important
 
 ---
 
-## 76. What Kind Of Language Is C In Runtime
+## How This Chapter Flows
 
-> **Flow:** From **Summary So Far**, move into **What Kind Of Language Is C In Runtime**. This page should answer the natural follow-up and prepare for **Threading Model In C**.
+This chapter is easiest to read as a gradual climb away from raw OS machinery:
+
+1. **C and C++** keep you close to native code, process memory, stacks, heaps, and OS threads.
+2. **Garbage collection** explains why managed runtimes take responsibility for object lifetime.
+3. **Java** shows a managed VM that still uses OS threads but gives stronger runtime contracts.
+4. **Python and Ruby** show dynamic runtimes where interpreter locks, native extensions, and process models matter.
+5. **JavaScript** shows event-loop concurrency, where the main danger is blocking progress rather than corrupting shared memory.
+
+The goal is not to rank languages. The goal is to know what each runtime hides, what it exposes, and where concurrency bugs move.
+
+---
+
+## 76. C Runtime: Native Code With Manual Ownership
+
+> **Flow:** From **Races, Locks, Semaphores, And Atomics**, move into **C Runtime: Native Code With Manual Ownership**. We start with C because it exposes the process, stack, heap, loader, and OS-thread model with the least runtime cushioning.
 
 C is a compiled, native, manual-memory language with a small runtime model.
 
@@ -119,9 +133,9 @@ Why this matters for concurrency:
 
 ---
 
-## 77. Threading Model In C
+## 77. C Threading: OS Threads Plus Explicit Synchronization
 
-> **Flow:** From **What Kind Of Language Is C In Runtime**, move into **Threading Model In C**. This page should answer the natural follow-up and prepare for **What Kind Of Language Is C++ In Runtime**.
+> **Flow:** From **C Runtime: Native Code With Manual Ownership**, move into **C Threading: OS Threads Plus Explicit Synchronization**. Once memory lifetime is manual, sharing that memory across threads becomes the central risk.
 
 C threading options:
 
@@ -193,9 +207,9 @@ The hardest C threading bugs are often not the lock calls themselves. They are o
 
 ---
 
-## 78. What Kind Of Language Is C++ In Runtime
+## 78. C++ Runtime: Native Code With Deterministic Lifetime
 
-> **Flow:** From **Threading Model In C**, move into **What Kind Of Language Is C++ In Runtime**. This page should answer the natural follow-up and prepare for **Threading Model In C++**.
+> **Flow:** From **C Threading: OS Threads Plus Explicit Synchronization**, move into **C++ Runtime: Native Code With Deterministic Lifetime**. C++ keeps native execution but adds ownership vocabulary that changes how concurrent code is written.
 
 C++ is a compiled, native, deterministic-lifetime language with a richer runtime than C but still close to OS/hardware.
 
@@ -243,9 +257,9 @@ flowchart TB
 
 ---
 
-## 79. Threading Model In C++
+## 79. C++ Threading: RAII, Ownership, And Visibility
 
-> **Flow:** From **What Kind Of Language Is C++ In Runtime**, move into **Threading Model In C++**. This page should answer the natural follow-up and prepare for **What Is GC**.
+> **Flow:** From **C++ Runtime: Native Code With Deterministic Lifetime**, move into **C++ Threading: RAII, Ownership, And Visibility**. The next step is to see how scope-bound lifetime helps locking, cleanup, and handoff between threads.
 
 C++ standard threading includes:
 
@@ -314,9 +328,9 @@ Better question: what state is being published, who owns it, and what ordering m
 
 ---
 
-## 80. What Is GC
+## 80. Garbage Collection: The Managed-Memory Bridge
 
-> **Flow:** From **Threading Model In C++**, move into **What Is GC**. This page should answer the natural follow-up and prepare for **Why Do We Need GC**.
+> **Flow:** From **C++ Threading: RAII, Ownership, And Visibility**, move into **Garbage Collection: The Managed-Memory Bridge**. After manual and deterministic lifetime, GC explains what changes when a runtime owns object reclamation.
 
 Garbage Collection, or GC, is automatic memory reclamation.
 
@@ -353,9 +367,9 @@ GC does not solve:
 
 ---
 
-## 81. Why Do We Need GC
+## 81. Garbage Collection Mechanics: Roots, Reachability, And Pauses
 
-> **Flow:** From **What Is GC**, move into **Why Do We Need GC**. This page should answer the natural follow-up and prepare for **What C++ Does With GC In The New Release**.
+> **Flow:** From **Garbage Collection: The Managed-Memory Bridge**, move into **Garbage Collection Mechanics: Roots, Reachability, And Pauses**. This is where memory management becomes visibly concurrent: the collector and application threads must coordinate.
 
 GC exists because manual memory management is hard at scale.
 
@@ -403,9 +417,9 @@ The collector must coordinate with application threads because application threa
 
 ---
 
-## 82. What C++ Does With GC In The New Release
+## 82. C++ And GC: Why RAII Stayed Central
 
-> **Flow:** From **Why Do We Need GC**, move into **What C++ Does With GC In The New Release**. This page should answer the natural follow-up and prepare for **What Kind Of Language Is Java In Runtime**.
+> **Flow:** From **Garbage Collection Mechanics: Roots, Reachability, And Pauses**, move into **C++ And GC: Why RAII Stayed Central**. This closes the native-language loop before we enter a runtime where GC is a first-class design pillar.
 
 C++ does not have a standard mandatory garbage collector.
 
@@ -437,9 +451,9 @@ C++ can still use GC-like systems:
 
 ---
 
-## 83. What Kind Of Language Is Java In Runtime
+## 83. Java Runtime: Managed VM Over OS Threads
 
-> **Flow:** From **What C++ Does With GC In The New Release**, move into **What Kind Of Language Is Java In Runtime**. This page should answer the natural follow-up and prepare for **Threading Model In Java**.
+> **Flow:** From **C++ And GC: Why RAII Stayed Central**, move into **Java Runtime: Managed VM Over OS Threads**. Java is the clean next stop because it makes GC, class loading, JIT, safepoints, and threading part of the normal programming contract.
 
 Java is a managed, bytecode-based language running on the JVM.
 
@@ -499,9 +513,9 @@ Connect to prior sections:
 
 ---
 
-## 84. Threading Model In Java
+## 84. Java Threading: Threads, Executors, And Virtual Threads
 
-> **Flow:** From **What Kind Of Language Is Java In Runtime**, move into **Threading Model In Java**. This page should answer the natural follow-up and prepare for **What Is GC In Java**.
+> **Flow:** From **Java Runtime: Managed VM Over OS Threads**, move into **Java Threading: Threads, Executors, And Virtual Threads**. Most engineers first meet concurrency through Java-like threads, but production Java is usually about choosing the right scheduling abstraction.
 
 Java threads historically map to OS threads in mainstream JVMs.
 
@@ -571,9 +585,9 @@ Seasoned Java concurrency is mostly about choosing the right boundary:
 
 ---
 
-## 85. What Is GC In Java
+## 85. Java GC: Managed Heap Under Concurrent Load
 
-> **Flow:** From **Threading Model In Java**, move into **What Is GC In Java**. This page should answer the natural follow-up and prepare for **What Kind Of Language Is Python In Runtime**.
+> **Flow:** From **Java Threading: Threads, Executors, And Virtual Threads**, move into **Java GC: Managed Heap Under Concurrent Load**. Once many threads allocate together, GC behavior becomes part of service architecture, not a footnote.
 
 Java GC automatically reclaims unreachable heap objects.
 
@@ -607,9 +621,9 @@ Concurrency interaction:
 
 ---
 
-## 86. What Kind Of Language Is Python In Runtime
+## 86. Python Runtime: Interpreter, Objects, And Native Extensions
 
-> **Flow:** From **What Is GC In Java**, move into **What Kind Of Language Is Python In Runtime**. This page should answer the natural follow-up and prepare for **Threading Model In Python**.
+> **Flow:** From **Java GC: Managed Heap Under Concurrent Load**, move into **Python Runtime: Interpreter, Objects, And Native Extensions**. Python shifts the story from a large managed VM to an interpreter where object representation and extension boundaries matter.
 
 Python, specifically CPython in common production use, is an interpreted bytecode language with a managed object runtime.
 
@@ -671,9 +685,9 @@ Connect to prior sections:
 
 ---
 
-## 87. Threading Model In Python
+## 87. Python Threading: Threads, Processes, And Async
 
-> **Flow:** From **What Kind Of Language Is Python In Runtime**, move into **Threading Model In Python**. This page should answer the natural follow-up and prepare for **What Python Threads Included New That Other Languages Discussed Did Not Have**.
+> **Flow:** From **Python Runtime: Interpreter, Objects, And Native Extensions**, move into **Python Threading: Threads, Processes, And Async**. Python gives several concurrency tools, but each maps to a different lower-level mechanism.
 
 Python supports OS threads through `threading`.
 
@@ -715,9 +729,9 @@ shared mutable objects    -> still need locks or ownership
 
 ---
 
-## 88. What Python Threads Included New That Other Languages Discussed Did Not Have
+## 88. Python's Extra Constraint: The Interpreter Lock
 
-> **Flow:** From **Threading Model In Python**, move into **What Python Threads Included New That Other Languages Discussed Did Not Have**. This page should answer the natural follow-up and prepare for **Why Python Chose A Different Way**.
+> **Flow:** From **Python Threading: Threads, Processes, And Async**, move into **Python's Extra Constraint: The Interpreter Lock**. This is the point where "OS thread" and "parallel Python execution" stop being the same sentence.
 
 Python's distinct historical feature is the GIL in CPython:
 
@@ -742,9 +756,9 @@ What this means:
 
 ---
 
-## 89. Why Python Chose A Different Way
+## 89. Why Python Chose The GIL Tradeoff
 
-> **Flow:** From **What Python Threads Included New That Other Languages Discussed Did Not Have**, move into **Why Python Chose A Different Way**. This page should answer the natural follow-up and prepare for **What Is GIL In Python**.
+> **Flow:** From **Python's Extra Constraint: The Interpreter Lock**, move into **Why Python Chose The GIL Tradeoff**. Before criticizing the GIL, understand the C implementation, reference counting, and extension ecosystem it protected.
 
 CPython's GIL was a pragmatic design tradeoff.
 
@@ -774,9 +788,9 @@ Why this connects to C:
 
 ---
 
-## 90. What Is GIL In Python
+## 90. Python GIL: What It Protects And What It Costs
 
-> **Flow:** From **Why Python Chose A Different Way**, move into **What Is GIL In Python**. This page should answer the natural follow-up and prepare for **What Kind Of Language Is Ruby In Runtime**.
+> **Flow:** From **Why Python Chose The GIL Tradeoff**, move into **Python GIL: What It Protects And What It Costs**. This section makes the lock concrete enough to choose between threads, processes, native code, and async.
 
 The Global Interpreter Lock is a mutex around execution of CPython interpreter bytecode and internal object machinery.
 
@@ -840,9 +854,9 @@ flowchart TB
 
 ---
 
-## 91. What Kind Of Language Is Ruby In Runtime
+## 91. Ruby Runtime: Dynamic VM With Managed Objects
 
-> **Flow:** From **What Is GIL In Python**, move into **What Kind Of Language Is Ruby In Runtime**. This page should answer the natural follow-up and prepare for **Threading Model Of Ruby**.
+> **Flow:** From **Python GIL: What It Protects And What It Costs**, move into **Ruby Runtime: Dynamic VM With Managed Objects**. Ruby belongs next because CRuby has a similar interpreter-lock story, but different libraries and concurrency idioms.
 
 Ruby is a dynamic, object-oriented language with a managed runtime.
 
@@ -895,9 +909,9 @@ flowchart TB
 
 ---
 
-## 92. Threading Model Of Ruby
+## 92. Ruby Threading: Native Threads, GVL, Fibers, And Ractors
 
-> **Flow:** From **What Kind Of Language Is Ruby In Runtime**, move into **Threading Model Of Ruby**. This page should answer the natural follow-up and prepare for **What Ruby Did With Event-Synchrony**.
+> **Flow:** From **Ruby Runtime: Dynamic VM With Managed Objects**, move into **Ruby Threading: Native Threads, GVL, Fibers, And Ractors**. The question is not whether Ruby has threads; it is what the runtime allows them to do at the same time.
 
 Ruby supports:
 
@@ -947,9 +961,9 @@ threads.each(&:join)
 
 ---
 
-## 93. What Ruby Did With Event-Synchrony
+## 93. Ruby Evented Concurrency: Fibers And Async I/O
 
-> **Flow:** From **Threading Model Of Ruby**, move into **What Ruby Did With Event-Synchrony**. This page should answer the natural follow-up and prepare for **What Kind Of Language Is Javascript In Runtime**.
+> **Flow:** From **Ruby Threading: Native Threads, GVL, Fibers, And Ractors**, move into **Ruby Evented Concurrency: Fibers And Async I/O**. This is the bridge from interpreter locks toward event loops and cooperative waiting.
 
 Ruby has a strong ecosystem around evented and fiber-based concurrency.
 
@@ -989,9 +1003,9 @@ How this connects to earlier sections:
 
 ---
 
-## 94. What Kind Of Language Is Javascript In Runtime
+## 94. JavaScript Runtime: Event Loop On Top Of Host Threads
 
-> **Flow:** From **What Ruby Did With Event-Synchrony**, move into **What Kind Of Language Is Javascript In Runtime**. This page should answer the natural follow-up and prepare for **Threading Model In Javascript**.
+> **Flow:** From **Ruby Evented Concurrency: Fibers And Async I/O**, move into **JavaScript Runtime: Event Loop On Top Of Host Threads**. JavaScript makes event-loop thinking the default rather than an advanced library choice.
 
 JavaScript is a dynamic language standardized as ECMAScript.
 
@@ -1040,9 +1054,9 @@ flowchart TB
 
 ---
 
-## 95. Threading Model In Javascript
+## 95. JavaScript Threading: Event Loop, Worker Pool, And Workers
 
-> **Flow:** From **What Kind Of Language Is Javascript In Runtime**, move into **Threading Model In Javascript**. This page should answer the natural follow-up and prepare for **Why Javascript Picked This Kind Of Threading Model**.
+> **Flow:** From **JavaScript Runtime: Event Loop On Top Of Host Threads**, move into **JavaScript Threading: Event Loop, Worker Pool, And Workers**. The word "single-threaded" is useful only after we separate JS execution, host I/O, worker pools, and worker isolates.
 
 JavaScript's mainstream model:
 
@@ -1106,9 +1120,9 @@ Node's "single-threaded" phrase is incomplete:
 
 ---
 
-## 96. Why Javascript Picked This Kind Of Threading Model
+## 96. Why JavaScript Chose Event-Loop Concurrency
 
-> **Flow:** From **Threading Model In Javascript**, move into **Why Javascript Picked This Kind Of Threading Model**. This page should answer the natural follow-up and prepare for **Deep Dive Into Coroutines**.
+> **Flow:** From **JavaScript Threading: Event Loop, Worker Pool, And Workers**, move into **Why JavaScript Chose Event-Loop Concurrency**. This closes the runtime comparison and prepares for coroutines as a higher-level control-flow abstraction.
 
 JavaScript began in browsers.
 

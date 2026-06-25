@@ -249,6 +249,10 @@ flowchart LR
 
 ELF means Executable and Linkable Format.
 
+Grandma version:
+
+Think of ELF as the labeled lunchbox the operating system knows how to unpack. One compartment has instructions, one has data, one says where to start, and another says which helper libraries are needed. The OS is not guessing; ELF gives it the packing list.
+
 Why this matters for a concurrency learner:
 
 - A process is not born from source code. It is born from an executable image loaded into memory.
@@ -362,6 +366,10 @@ When a UNIX-like system executes a binary, roughly:
 8. CPU registers are initialized.
 9. Instruction pointer is set to the entry point.
 10. Control returns to user mode at the new program image.
+
+Grandma version:
+
+The loader is like a librarian setting up a reading desk. It does not carry the whole library to the desk. It puts the catalog, the needed books, the first page to read, and the rules for fetching more. A process gets a virtual address-space map; physical memory is filled page by page as the program actually touches what it needs.
 
 `execve` does not create a new process by itself. It replaces the current process image.
 

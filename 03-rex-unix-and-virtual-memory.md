@@ -165,6 +165,10 @@ flowchart TB
 
 Virtual memory means each process sees a virtual address space that the CPU and OS map to physical memory.
 
+Grandma version:
+
+Imagine every tenant gets an apartment numbered "101". Inside each building, "101" is real for that tenant, but it is not the same physical room in every building. Virtual memory lets each process use familiar-looking addresses while the OS maps them to the actual physical memory safely.
+
 Without virtual memory, addresses used by code are close to physical memory addresses.
 
 With virtual memory:
