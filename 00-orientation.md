@@ -4,7 +4,37 @@ Previous: none | [Index](index.md) | Next: [Concurrency Intuition](01-concurrenc
 
 **Focus:** Explain why this material exists, what it will help engineers understand, and what it intentionally does not try to cover.
 
-## Point Of View And Authorship
+## Opening Note: Why, Not How
+
+This material is trying to trigger the question **why**.
+
+In an AI-assisted and agentic programming world, engineers increasingly operate at a higher layer. We ask tools to generate code, glue systems together, and produce working-looking implementations quickly. Sometimes that code is not read deeply enough. That makes the old systems questions more important, not less:
+
+- Why does this code block?
+- Why does this scale until it suddenly does not?
+- Why does this race only appear under load?
+- Why does this runtime use threads, an event loop, coroutines, goroutines, worker processes, or a mix of them?
+- Why does generated code behave differently when the real scheduler, memory model, kernel, database, queue, or network gets involved?
+
+This is not claiming to be the best reference for **how** to implement every topic. For that, there are excellent books, official documentation, source code, papers, conference talks, and very good video lectures. This material is meant to be a quick, dense read on the **whys** that should remain in your head when you design systems, review generated code, debug production, or mentor another engineer.
+
+### Grandma Explanation
+
+Imagine someone gives you a beautiful soup made by a machine in a smart kitchen. It may look ready, but a careful cook still asks:
+
+| Grandma asks | Engineer version |
+|---|---|
+| Did the stove stay on too long? | Did a thread, event loop, or worker block too long? |
+| Did two people add salt at the same time? | Did two execution paths race on shared state? |
+| Is the pot too small for this many guests? | Is the queue, pool, heap, socket buffer, or DB connection limit too small? |
+| Did someone leave the kitchen door open? | Did a process, fd, goroutine, thread, or resource leak? |
+| If this pot spills, does the whole kitchen stop? | What is the failure blast radius: function, thread, process, pod, service, or system? |
+
+That is the spirit of this book. Grandma does not need to know the brand of the stove to ask good questions about heat, timing, sharing, and cleanup. A developer with 4-5+ years in tech should be able to ask similar questions about concurrency. The goal is not to memorize every syscall or runtime detail. The goal is to recognize that these layers exist, know why they were built, and know where to look when abstraction stops being enough.
+
+---
+
+## Point Of View
 
 This is practitioner-written material, not an official specification.
 
@@ -59,7 +89,7 @@ flowchart TB
   D --> E["CPU cores, interrupts, caches"]
 ```
 
-The goal is not to memorize trivia. The goal is to build a mental model strong enough that a younger engineer can reason from first principles when the abstraction leaks.
+The goal is to build a mental model strong enough that an engineer can reason from first principles when the abstraction leaks.
 
 > **Side note:** State this upfront: "You are not here to learn thread APIs. You are here to learn why those APIs behave the way they do under pressure."
 
@@ -183,9 +213,7 @@ Learning the REX-style model helps because it exposes the simpler baseline:
 
 Once that baseline is clear, UNIX becomes easier to understand. UNIX adds machinery because it is solving a harder management problem: many programs, many users, independent lifetimes, file descriptors, permissions, page tables, demand paging, `fork`, `exec`, signals, and resource accounting. The learner should feel that UNIX is not complicated for its own sake; it is carrying responsibilities the simpler embedded model often does not need to carry.
 
-The comparison is not meant to say one model is inherently superior.
-
-It is meant to answer:
+The comparison is not a contest. It is a way to answer:
 
 - What problem was this design solving?
 - What did it optimize for?
@@ -213,7 +241,7 @@ In a UNIX/Linux system, it can be reasonable to prefer:
 - rich IPC
 - protection between independently authored programs
 
-This course draws from practical understanding across REX-style embedded work, UNIX fundamentals, and Linux/web systems. The goal is not to preserve nostalgia for any one environment. The goal is to understand why each environment made different tradeoffs, so the engineer can recognize those tradeoffs in modern backend systems.
+This course draws from practical understanding across REX-style embedded work, UNIX fundamentals, and Linux/web systems. The point is to understand why each environment made different tradeoffs, so the engineer can recognize similar tradeoffs in modern backend systems.
 
 > **Side note:** Say this politely but clearly: "We are not comparing REX and UNIX as a contest. We are using them as two clean design poles: real-time shared-system discipline versus VM-backed multi-program isolation."
 

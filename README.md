@@ -2,6 +2,14 @@
 
 A self-study course for engineers who want to understand concurrency from the operating-system level up to language runtimes and backend architecture.
 
+## Opening Note
+
+This material is trying to trigger the question **why**.
+
+In an AI-assisted and agentic programming world, many of us operate at a higher layer than before. Code is generated quickly, and sometimes it is not read with the same care as handwritten code. That makes systems understanding more important, not less. To design better systems and review generated code intelligently, engineers still need to recognize what the code is asking the OS, runtime, scheduler, memory model, and backend architecture to do.
+
+This is not the best reference for **how** to implement every topic. Great books, official documentation, source code, papers, talks, and excellent YouTube lectures already exist for that. This is meant to be a quick, dense read on the **whys** that tend to stay with you: why processes exist, why threads are dangerous, why virtual memory matters, why runtimes differ, why event loops stall, why queues save and hurt systems, and why production failures often sit below the API surface.
+
 ## Point Of View And Authorship
 
 This is practitioner-written material, not an official specification. The point of view comes from early work with Qualcomm REX-style real-time software on non-VM, single-core embedded systems; later Linux work in embedded environments; UNIX grounding through Maurice J. Bach's *The Design of the UNIX Operating System*; and many years after that building and architecting full-stack web systems.
@@ -10,7 +18,7 @@ That background is the reason for the shape of the course. It starts with the si
 
 There may be gaps, oversimplifications, or implementation-specific details that need correction. If you find one, please file an issue. If you want to co-edit or contribute larger changes, reach out to the author first so the flow and intent stay coherent.
 
-This is not a short tutorial on `async`, threads, or locks. It is a layered mental model:
+The course follows this stack:
 
 ```text
 CPU and interrupts
@@ -21,7 +29,7 @@ CPU and interrupts
   -> backend architecture and production debugging
 ```
 
-If you have ever wondered why a service hangs with low CPU, why a mutex fixes corruption but hurts latency, why Python threads behave differently from Java threads, why Node.js stalls under CPU work, or why an RTOS watchdog resets a target, this material is for you.
+The fuller framing is in [What This Material Is About](00-orientation.md).
 
 ## Start Here
 
