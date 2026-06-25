@@ -20,6 +20,10 @@ Previous: [REX, UNIX, And Virtual Memory](03-rex-unix-and-virtual-memory.md) | [
 
 `fork()` and `exec()` are different operations.
 
+👵 Grandma version:
+
+Think of `fork()` as making a second lunchbox that initially looks like the first one. Think of `exec()` as emptying one lunchbox and packing an entirely different meal inside it. The lunchbox label may stay, but the food changes.
+
 Why the learner needs this part:
 
 - It is the center of the UNIX process model.
