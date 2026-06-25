@@ -199,7 +199,7 @@ This is why later sections are careful about wording. The question is not just "
 
 This material compares REX-style RTOS thinking with UNIX/Linux thinking on purpose.
 
-REX is included because it was an RTOS the author worked with directly. It is a useful baseline: task-oriented, real-time, generally non-VM or limited-protection, and close enough to hardware that scheduling, interrupts, shared memory, and watchdog discipline are easy to see.
+REX is included because it was an RTOS I worked with directly. It is a useful baseline: task-oriented, real-time, generally non-VM or limited-protection, and close enough to hardware that scheduling, interrupts, shared memory, and watchdog discipline are easy to see.
 
 UNIX and Linux are the contrast: VM-backed, process-oriented systems with stronger isolation, richer file/process abstractions, and a different resource-management contract.
 
