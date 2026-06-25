@@ -453,7 +453,7 @@ Go's design center:
 - Production network services.
 - Runtime-managed scheduling over OS threads.
 
-Grandma explanation:
+👵 Grandma explanation:
 
 | If threads are... | Then goroutines are... |
 |---|---|

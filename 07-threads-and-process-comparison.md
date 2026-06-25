@@ -113,7 +113,7 @@ Process = protection and resource ownership
 Thread  = execution inside that protection boundary
 ```
 
-### Grandma Explanation
+### 👵 Grandma Explanation
 
 Imagine a restaurant.
 

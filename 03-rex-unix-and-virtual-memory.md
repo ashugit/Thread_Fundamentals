@@ -20,7 +20,7 @@ This comparison is not nostalgia and it is not a contest between operating syste
 
 The purpose is to show that concurrency mechanisms are not arbitrary. They are answers to different operating constraints.
 
-Grandma explanation:
+👵 Grandma explanation:
 
 | Picture | REX-style RTOS without VM | UNIX/Linux-style general OS |
 |---|---|---|
@@ -177,7 +177,7 @@ flowchart TB
 
 Virtual memory means each process sees a virtual address space that the CPU and OS map to physical memory.
 
-Grandma version:
+👵 Grandma version:
 
 Imagine every tenant gets an apartment numbered "101". Inside each building, "101" is real for that tenant, but it is not the same physical room in every building. Virtual memory lets each process use familiar-looking addresses while the OS maps them to the actual physical memory safely.
 

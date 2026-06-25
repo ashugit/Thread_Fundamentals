@@ -67,7 +67,7 @@ This is not a holistic comparison of programming languages. It does not try to c
 
 The purpose is narrower: use a few familiar languages to make concurrency design choices visible. C, C++, Java, Python, Ruby, and JavaScript are useful here because they expose different answers to the same questions: who owns memory, who schedules work, what can run in parallel, where state is shared, and what failure mode appears under load.
 
-| Design choice | Grandma explanation | Concurrency consequence |
+| Design choice | 👵 Grandma explanation | Concurrency consequence |
 |---|---|---|
 | Manual memory | You must remember who borrowed the utensil and who must put it back. | Fast and direct, but shared pointers need strict ownership and locking discipline. |
 | RAII / scope cleanup | When you leave the room, the light switches off automatically. | Locks, files, and memory can be released predictably if lifetimes are modeled well. |

@@ -18,7 +18,7 @@ Previous: [Fork, Exec, Copy-On-Write, And File Descriptors](04-fork-exec-copy-on
 
 > **Flow:** From **Summary So Far**, move into **Why User Space Cannot Own The Whole Machine**. This page should answer the natural follow-up and prepare for **Kernel Space Vs User Space In Deeper Details**.
 
-Grandma version:
+👵 Grandma version:
 
 Think of user space as guests in a hotel room and kernel space as the building staff with master keys. Guests can use their room, call reception, and request service, but they should not rewire electricity, open every door, or change the elevator controls. The boundary exists so one careless guest cannot damage the whole building.
 

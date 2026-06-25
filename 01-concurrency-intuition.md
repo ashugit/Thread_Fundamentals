@@ -16,7 +16,7 @@ Previous: [What This Material Is About](00-orientation.md) | [Index](index.md) |
 
 ## 1. Why Concurrency Is Not Just Parallelism
 
-> **Flow:** Start by separating **concurrency** from **parallelism**. Once the vocabulary is stable, move into **How A Grandma Understands Concurrency** so the idea becomes intuitive before it becomes technical.
+> **Flow:** Start by separating **concurrency** from **parallelism**. Once the vocabulary is stable, move into **How 👵 Grandma Understands Concurrency** so the idea becomes intuitive before it becomes technical.
 
 Concurrency is the ability of a system to make progress on more than one task over an overlapping time interval.
 
@@ -46,9 +46,9 @@ flowchart LR
 
 ---
 
-## 2. How A Grandma Understands Concurrency
+## 2. How 👵 Grandma Understands Concurrency
 
-> **Flow:** From **Why Concurrency Is Not Just Parallelism**, move into **How A Grandma Understands Concurrency**. This page should answer the natural follow-up and prepare for **How An Engineer With 5 Years Of Working Understands Concurrency**.
+> **Flow:** From **Why Concurrency Is Not Just Parallelism**, move into **How 👵 Grandma Understands Concurrency**. This page should answer the natural follow-up and prepare for **How An Engineer With 5 Years Of Working Understands Concurrency**.
 
 Imagine making tea, toast, and taking a phone call.
 
@@ -64,7 +64,7 @@ That is concurrency.
 
 Parallelism would be different:
 
-- Grandma makes tea.
+- 👵 Grandma makes tea.
 - Grandpa makes toast.
 - Someone else answers the phone.
 - All happen at the same exact time.
@@ -75,7 +75,7 @@ Parallelism would be different:
 
 ## 3. How An Engineer With 5 Years Of Working Understands Concurrency
 
-> **Flow:** From **How A Grandma Understands Concurrency**, move into **How An Engineer With 5 Years Of Working Understands Concurrency**. This page should answer the natural follow-up and prepare for **Common Ways Systems Create Concurrency**.
+> **Flow:** From **How 👵 Grandma Understands Concurrency**, move into **How An Engineer With 5 Years Of Working Understands Concurrency**. This page should answer the natural follow-up and prepare for **Common Ways Systems Create Concurrency**.
 
 An engineer with experience usually sees concurrency through production symptoms:
 

@@ -18,11 +18,11 @@ In an AI-assisted and agentic programming world, engineers increasingly operate 
 
 This is not claiming to be the best reference for **how** to implement every topic. For that, there are excellent books, official documentation, source code, papers, conference talks, and very good video lectures. This material is meant to be a quick, dense read on the **whys** that should remain in your head when you design systems, review generated code, debug production, or mentor another engineer.
 
-### Grandma Explanation
+### 👵 Grandma Explanation
 
 Imagine someone gives you a beautiful soup made by a machine in a smart kitchen. It may look ready, but a careful cook still asks:
 
-| Grandma asks | Engineer version |
+| 👵 Grandma asks | Engineer version |
 |---|---|
 | Did the stove stay on too long? | Did a thread, event loop, or worker block too long? |
 | Did two people add salt at the same time? | Did two execution paths race on shared state? |
@@ -30,7 +30,7 @@ Imagine someone gives you a beautiful soup made by a machine in a smart kitchen.
 | Did someone leave the kitchen door open? | Did a process, fd, goroutine, thread, or resource leak? |
 | If this pot spills, does the whole kitchen stop? | What is the failure blast radius: function, thread, process, pod, service, or system? |
 
-That is the spirit of this book. Grandma does not need to know the brand of the stove to ask good questions about heat, timing, sharing, and cleanup. A developer with 4-5+ years in tech should be able to ask similar questions about concurrency. The goal is not to memorize every syscall or runtime detail. The goal is to recognize that these layers exist, know why they were built, and know where to look when abstraction stops being enough.
+That is the spirit of this book. 👵 Grandma does not need to know the brand of the stove to ask good questions about heat, timing, sharing, and cleanup. A developer with 4-5+ years in tech should be able to ask similar questions about concurrency. The goal is not to memorize every syscall or runtime detail. The goal is to recognize that these layers exist, know why they were built, and know where to look when abstraction stops being enough.
 
 ---
 

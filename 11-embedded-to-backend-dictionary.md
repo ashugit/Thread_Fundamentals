@@ -49,7 +49,7 @@ The vocabulary changed. The old pressure is still there.
 
 ---
 
-## 11.1 Grandma Explanation: Same Household, Bigger Building
+## 11.1 👵 Grandma Explanation: Same Household, Bigger Building
 
 Imagine a small house.
 
