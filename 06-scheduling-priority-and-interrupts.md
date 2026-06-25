@@ -2,21 +2,21 @@
 
 Previous: [Kernel Space And User Space](05-kernel-space-user-space.md) | [Index](index.md) | Next: [Threads And Process Comparison](07-threads-and-process-comparison.md)
 
-**Focus:** Cover scheduling policy, priority, system-call scheduling points, interrupts, and context switches.
+**Focus:** Explain why runnable work gets CPU time, how priority changes that, and how interrupts force attention.
 
 ## Bridge
 
 **Coming from:** [Kernel Space And User Space](05-kernel-space-user-space.md).
 
-**Read this for:** Cover scheduling policy, priority, system-call scheduling points, interrupts, and context switches.
+**Read this for:** Explain why runnable work gets CPU time, how priority changes that, and how interrupts force attention.
 
 **Then:** move into **Threads And Process Comparison**.
 
 ---
 
-## 41. OS Scheduling: REX Vs UNIX
+## 41. Why Scheduling Policy Exists: REX Vs UNIX
 
-> **Flow:** From **Summary So Far**, move into **OS Scheduling: REX Vs UNIX**. This page should answer the natural follow-up and prepare for **Types Of Scheduling In UNIX**.
+> **Flow:** From **Summary So Far**, move into **Why Scheduling Policy Exists: REX Vs UNIX**. This page should answer the natural follow-up and prepare for **UNIX Scheduling Policies**.
 
 Scheduling answers:
 
@@ -218,9 +218,9 @@ What a seasoned engineer asks:
 
 ---
 
-## 42. Types Of Scheduling In UNIX
+## 42. UNIX Scheduling Policies
 
-> **Flow:** From **OS Scheduling: REX Vs UNIX**, move into **Types Of Scheduling In UNIX**. This page should answer the natural follow-up and prepare for **What Is Process Priority**.
+> **Flow:** From **Why Scheduling Policy Exists: REX Vs UNIX**, move into **UNIX Scheduling Policies**. This page should answer the natural follow-up and prepare for **Process Priority: Why Urgency Needs Metadata**.
 
 UNIX-like systems may support:
 
@@ -244,9 +244,9 @@ Linux example names:
 
 ---
 
-## 43. What Is Process Priority
+## 43. Process Priority: Why Urgency Needs Metadata
 
-> **Flow:** From **Types Of Scheduling In UNIX**, move into **What Is Process Priority**. This page should answer the natural follow-up and prepare for **How Priority Plays With Scheduling**.
+> **Flow:** From **UNIX Scheduling Policies**, move into **Process Priority: Why Urgency Needs Metadata**. This page should answer the natural follow-up and prepare for **How Priority Plays With Scheduling**.
 
 Process priority is scheduler metadata used to influence CPU selection.
 
@@ -276,7 +276,7 @@ But priority is not the same as performance:
 
 ## 44. How Priority Plays With Scheduling
 
-> **Flow:** From **What Is Process Priority**, move into **How Priority Plays With Scheduling**. This page should answer the natural follow-up and prepare for **Summary So Far**.
+> **Flow:** From **Process Priority: Why Urgency Needs Metadata**, move into **How Priority Plays With Scheduling**. This page should answer the natural follow-up and prepare for **Summary So Far**.
 
 Scheduling combines:
 

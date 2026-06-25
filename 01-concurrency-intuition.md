@@ -2,21 +2,21 @@
 
 Previous: [What This Material Is About](00-orientation.md) | [Index](index.md) | Next: [Process, Memory, And Executable Image](02-process-memory-and-executable-image.md)
 
-**Focus:** Build the vocabulary before introducing OS objects.
+**Focus:** Build the vocabulary for asking why work waits, overlaps, and shares state.
 
 ## Bridge
 
 **Coming from:** [What This Material Is About](00-orientation.md). The previous section explained why this material exists, what questions it answers, and what it deliberately does not cover.
 
-**Read this for:** Build the vocabulary before introducing OS objects.
+**Read this for:** Build the vocabulary for asking why work waits, overlaps, and shares state.
 
 **Then:** move into **Process, Memory, And Executable Image**.
 
 ---
 
-## 1. What Is Concurrency
+## 1. Why Concurrency Is Not Just Parallelism
 
-> **Flow:** Start by defining **What Is Concurrency**. Once the vocabulary is stable, move into **How A Grandma Understands Concurrency** so the idea becomes intuitive before it becomes technical.
+> **Flow:** Start by separating **concurrency** from **parallelism**. Once the vocabulary is stable, move into **How A Grandma Understands Concurrency** so the idea becomes intuitive before it becomes technical.
 
 Concurrency is the ability of a system to make progress on more than one task over an overlapping time interval.
 
@@ -48,7 +48,7 @@ flowchart LR
 
 ## 2. How A Grandma Understands Concurrency
 
-> **Flow:** From **What Is Concurrency**, move into **How A Grandma Understands Concurrency**. This page should answer the natural follow-up and prepare for **How An Engineer With 5 Years Of Working Understands Concurrency**.
+> **Flow:** From **Why Concurrency Is Not Just Parallelism**, move into **How A Grandma Understands Concurrency**. This page should answer the natural follow-up and prepare for **How An Engineer With 5 Years Of Working Understands Concurrency**.
 
 Imagine making tea, toast, and taking a phone call.
 
@@ -75,7 +75,7 @@ Parallelism would be different:
 
 ## 3. How An Engineer With 5 Years Of Working Understands Concurrency
 
-> **Flow:** From **How A Grandma Understands Concurrency**, move into **How An Engineer With 5 Years Of Working Understands Concurrency**. This page should answer the natural follow-up and prepare for **What All Are Common Ways Of Concurrency**.
+> **Flow:** From **How A Grandma Understands Concurrency**, move into **How An Engineer With 5 Years Of Working Understands Concurrency**. This page should answer the natural follow-up and prepare for **Common Ways Systems Create Concurrency**.
 
 An engineer with experience usually sees concurrency through production symptoms:
 
@@ -106,9 +106,9 @@ Key engineering questions:
 
 ---
 
-## 4. What All Are Common Ways Of Concurrency
+## 4. Common Ways Systems Create Concurrency
 
-> **Flow:** From **How An Engineer With 5 Years Of Working Understands Concurrency**, move into **What All Are Common Ways Of Concurrency**. This page should answer the natural follow-up and prepare for **What Is A Process**.
+> **Flow:** From **How An Engineer With 5 Years Of Working Understands Concurrency**, move into **Common Ways Systems Create Concurrency**. This page should answer the natural follow-up and prepare for **Why The OS Needs A Process Object**.
 
 Common concurrency mechanisms:
 

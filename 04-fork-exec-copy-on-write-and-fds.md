@@ -593,7 +593,7 @@ What does not survive:
 
 ## 34. Summary So Far
 
-> **Flow:** From **How Process Loads Revisited After File Descriptors**, move into **Summary So Far**. This page should answer the natural follow-up and prepare for **Kernel Space Vs User Space**.
+> **Flow:** From **How Process Loads Revisited After File Descriptors**, move into **Summary So Far**. This page should answer the natural follow-up and prepare for **Why User Space Cannot Own The Whole Machine**.
 
 We added VM and UNIX resource context:
 

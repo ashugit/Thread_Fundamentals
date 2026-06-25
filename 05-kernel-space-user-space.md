@@ -14,9 +14,9 @@ Previous: [Fork, Exec, Copy-On-Write, And File Descriptors](04-fork-exec-copy-on
 
 ---
 
-## 35. Kernel Space Vs User Space
+## 35. Why User Space Cannot Own The Whole Machine
 
-> **Flow:** From **Summary So Far**, move into **Kernel Space Vs User Space**. This page should answer the natural follow-up and prepare for **Kernel Space Vs User Space In Deeper Details**.
+> **Flow:** From **Summary So Far**, move into **Why User Space Cannot Own The Whole Machine**. This page should answer the natural follow-up and prepare for **Kernel Space Vs User Space In Deeper Details**.
 
 Grandma version:
 
@@ -57,7 +57,7 @@ flowchart TB
 
 ## 36. Kernel Space Vs User Space In Deeper Details
 
-> **Flow:** From **Kernel Space Vs User Space**, move into **Kernel Space Vs User Space In Deeper Details**. This page should answer the natural follow-up and prepare for **Memory Details In Terms Of Kernel And User Space**.
+> **Flow:** From **Why User Space Cannot Own The Whole Machine**, move into **Kernel Space Vs User Space In Deeper Details**. This page should answer the natural follow-up and prepare for **Memory Boundary Between Kernel And User Space**.
 
 Modern CPUs support privilege levels.
 
@@ -196,9 +196,9 @@ Web parallel:
 
 ---
 
-## 37. Memory Details In Terms Of Kernel And User Space
+## 37. Memory Boundary Between Kernel And User Space
 
-> **Flow:** From **Kernel Space Vs User Space In Deeper Details**, move into **Memory Details In Terms Of Kernel And User Space**. This page should answer the natural follow-up and prepare for **Why We Need Kernel Space, Compare REX Vs UNIX**.
+> **Flow:** From **Kernel Space Vs User Space In Deeper Details**, move into **Memory Boundary Between Kernel And User Space**. This page should answer the natural follow-up and prepare for **Why We Need Kernel Space, Compare REX Vs UNIX**.
 
 In a UNIX-like VM system:
 
@@ -228,7 +228,7 @@ Kernel must ask:
 
 ## 38. Why We Need Kernel Space, Compare REX Vs UNIX
 
-> **Flow:** From **Memory Details In Terms Of Kernel And User Space**, move into **Why We Need Kernel Space, Compare REX Vs UNIX**. This page should answer the natural follow-up and prepare for **Multiple Processes Simultaneously: What It Throws Into Action**.
+> **Flow:** From **Memory Boundary Between Kernel And User Space**, move into **Why We Need Kernel Space, Compare REX Vs UNIX**. This page should answer the natural follow-up and prepare for **Multiple Processes Simultaneously: What It Throws Into Action**.
 
 REX-style RTOS:
 
@@ -298,7 +298,7 @@ Problems introduced:
 
 ## 40. Summary So Far
 
-> **Flow:** From **Multiple Processes Simultaneously: What It Throws Into Action**, move into **Summary So Far**. This page should answer the natural follow-up and prepare for **OS Scheduling: REX Vs UNIX**.
+> **Flow:** From **Multiple Processes Simultaneously: What It Throws Into Action**, move into **Summary So Far**. This page should answer the natural follow-up and prepare for **Why Scheduling Policy Exists: REX Vs UNIX**.
 
 We added protection:
 

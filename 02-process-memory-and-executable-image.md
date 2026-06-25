@@ -2,21 +2,21 @@
 
 Previous: [Concurrency Intuition](01-concurrency-intuition.md) | [Index](index.md) | Next: [REX, UNIX, And Virtual Memory](03-rex-unix-and-virtual-memory.md)
 
-**Focus:** Explain process anatomy: PCB, stack, heap, executable bytes, ELF, and loading.
+**Focus:** Explain why a running program needs OS-owned state, memory layout, and loader machinery.
 
 ## Bridge
 
 **Coming from:** [Concurrency Intuition](01-concurrency-intuition.md).
 
-**Read this for:** Explain process anatomy: PCB, stack, heap, executable bytes, ELF, and loading.
+**Read this for:** Explain why a running program needs OS-owned state, memory layout, and loader machinery.
 
 **Then:** move into **REX, UNIX, And Virtual Memory**.
 
 ---
 
-## 5. What Is A Process
+## 5. Why The OS Needs A Process Object
 
-> **Flow:** From **What All Are Common Ways Of Concurrency**, move into **What Is A Process**. This page should answer the natural follow-up and prepare for **What Is Process Control Block, Taking UNIX As Case**.
+> **Flow:** From **Common Ways Systems Create Concurrency**, move into **Why The OS Needs A Process Object**. This page should answer the natural follow-up and prepare for **Process Control Block: The Kernel's Record**.
 
 A process is an executing program plus the operating-system state required to manage it.
 
@@ -47,9 +47,9 @@ You can run the same program ten times and get ten processes.
 
 ---
 
-## 6. What Is Process Control Block, Taking UNIX As Case
+## 6. Process Control Block: The Kernel's Record
 
-> **Flow:** From **What Is A Process**, move into **What Is Process Control Block, Taking UNIX As Case**. This page should answer the natural follow-up and prepare for **What Is The Stack**.
+> **Flow:** From **Why The OS Needs A Process Object**, move into **Process Control Block: The Kernel's Record**. This page should answer the natural follow-up and prepare for **Stack: Per-Call And Per-Thread State**.
 
 The Process Control Block, or PCB, is the kernel's record for a process.
 
@@ -130,9 +130,9 @@ This is the bridge from classic UNIX to modern concurrency:
 
 ---
 
-## 7. What Is The Stack
+## 7. Stack: Per-Call And Per-Thread State
 
-> **Flow:** From **What Is Process Control Block, Taking UNIX As Case**, move into **What Is The Stack**. This page should answer the natural follow-up and prepare for **What Is Heap**.
+> **Flow:** From **Process Control Block: The Kernel's Record**, move into **Stack: Per-Call And Per-Thread State**. This page should answer the natural follow-up and prepare for **Heap: Dynamic And Shared Process Memory**.
 
 The stack is memory used for function calls and automatic local state.
 
@@ -171,9 +171,9 @@ Important properties:
 
 ---
 
-## 8. What Is Heap
+## 8. Heap: Dynamic And Shared Process Memory
 
-> **Flow:** From **What Is The Stack**, move into **What Is Heap**. This page should answer the natural follow-up and prepare for **What Is Executable Code In Execution**.
+> **Flow:** From **Stack: Per-Call And Per-Thread State**, move into **Heap: Dynamic And Shared Process Memory**. This page should answer the natural follow-up and prepare for **Executable Code While Running**.
 
 The heap is memory used for dynamic allocation.
 
@@ -212,9 +212,9 @@ Heap bugs:
 
 ---
 
-## 9. What Is Executable Code In Execution
+## 9. Executable Code While Running
 
-> **Flow:** From **What Is Heap**, move into **What Is Executable Code In Execution**. This page should answer the natural follow-up and prepare for **What Is The Executable Format, Say ELF**.
+> **Flow:** From **Heap: Dynamic And Shared Process Memory**, move into **Executable Code While Running**. This page should answer the natural follow-up and prepare for **Executable Format: Why ELF Exists**.
 
 Executable code in execution means CPU instruction bytes loaded into memory and being fetched, decoded, and executed by a processor.
 
@@ -243,9 +243,9 @@ flowchart LR
 
 ---
 
-## 10. What Is The Executable Format, Say ELF
+## 10. Executable Format: Why ELF Exists
 
-> **Flow:** From **What Is Executable Code In Execution**, move into **What Is The Executable Format, Say ELF**. This page should answer the natural follow-up and prepare for **ELF In Deeper Details**.
+> **Flow:** From **Executable Code While Running**, move into **Executable Format: Why ELF Exists**. This page should answer the natural follow-up and prepare for **ELF In Deeper Details**.
 
 ELF means Executable and Linkable Format.
 
@@ -310,7 +310,7 @@ ELF is the bridge between "a file on disk" and "a process the scheduler can run"
 
 ## 11. ELF In Deeper Details
 
-> **Flow:** From **What Is The Executable Format, Say ELF**, move into **ELF In Deeper Details**. This page should answer the natural follow-up and prepare for **What The Binary Loading At Run Time**.
+> **Flow:** From **Executable Format: Why ELF Exists**, move into **ELF In Deeper Details**. This page should answer the natural follow-up and prepare for **What The Binary Loading At Run Time**.
 
 ELF has three major structural ideas:
 
