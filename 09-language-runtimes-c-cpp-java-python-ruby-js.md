@@ -61,6 +61,26 @@ The important point is not whether a language is "fast" or "slow". The important
 
 ---
 
+## Scope Of This Comparison
+
+This is not a holistic comparison of programming languages. It does not try to cover every language, every runtime, every concurrency pattern, or every production framework.
+
+The purpose is narrower: use a few familiar languages to make concurrency design choices visible. C, C++, Java, Python, Ruby, and JavaScript are useful here because they expose different answers to the same questions: who owns memory, who schedules work, what can run in parallel, where state is shared, and what failure mode appears under load.
+
+| Design choice | Grandma explanation | Concurrency consequence |
+|---|---|---|
+| Manual memory | You must remember who borrowed the utensil and who must put it back. | Fast and direct, but shared pointers need strict ownership and locking discipline. |
+| RAII / scope cleanup | When you leave the room, the light switches off automatically. | Locks, files, and memory can be released predictably if lifetimes are modeled well. |
+| Garbage collection | Someone periodically clears things nobody can reach anymore. | Fewer use-after-free bugs, but GC coordination and pauses become runtime concerns. |
+| OS threads | Several cooks work in the same kitchen at the same time. | Real parallelism is possible, but shared counters, queues, and objects need protection. |
+| Interpreter lock | Only one cook can use the main recipe book at a time. | Threads may overlap I/O, but CPU-bound interpreter work may not scale across cores. |
+| Event loop | One clerk handles many waiting tickets by moving to the next while one waits. | Many I/O waits are cheap, but one slow callback can block everyone behind it. |
+| Worker process | Open another kitchen instead of crowding one kitchen. | Better isolation and CPU use, but more memory, connections, and deployment coordination. |
+
+> **Side note:** Treat this section as a concurrency lens, not a language popularity contest. A language's design is usually a set of tradeoffs around safety, control, productivity, portability, and operational cost.
+
+---
+
 ## How This Chapter Flows
 
 This chapter is easiest to read as a gradual climb away from raw OS machinery:
