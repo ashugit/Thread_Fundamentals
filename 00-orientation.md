@@ -40,12 +40,12 @@ This is practitioner-written material, not an official specification.
 
 The point of view comes from:
 
-- early hands-on work with Qualcomm REX-style real-time software on non-VM, single-core embedded systems
+- hands-on work with Qualcomm REX, an RTOS used in phone/modem software, on non-VM, single-core embedded systems
 - later work with Linux in embedded environments
 - UNIX operating-system grounding through classic UNIX internals material
 - many subsequent years building and architecting full-stack web systems
 
-That background shapes the course. REX-style systems provide the simpler baseline: task scheduling, shared memory, interrupt pressure, and watchdog discipline. UNIX/Linux then shows why richer systems add process containers, virtual memory, user/kernel separation, file descriptors, `fork`, `exec`, signals, and broader resource management.
+That background shapes the course. REX gave a hands-on baseline for task scheduling, shared memory, interrupt pressure, and watchdog discipline. UNIX/Linux then shows why richer systems add process containers, virtual memory, user/kernel separation, file descriptors, `fork`, `exec`, signals, and broader resource management.
 
 There may be gaps, oversimplifications, or implementation-specific details that need correction. If you find one, please file an issue. If you want to co-edit or contribute larger changes, reach out to the author first so the flow and intent stay coherent.
 
@@ -197,13 +197,13 @@ This is why later sections are careful about wording. The question is not just "
 
 ## The Comparative Lens: REX, UNIX, And Linux
 
-This material uses REX-style real-time operating-system ideas and UNIX/Linux ideas side by side on purpose.
+This material compares REX-style RTOS thinking with UNIX/Linux thinking on purpose.
 
-REX is used here as a practical example of a real-time, task-oriented, generally non-VM or limited-protection embedded operating-system model. UNIX and Linux are used as examples of VM-backed, process-oriented systems with stronger isolation, richer file/process abstractions, and a different scheduling/resource-management contract.
+REX is included because it was an RTOS the author worked with directly. It is a useful baseline: task-oriented, real-time, generally non-VM or limited-protection, and close enough to hardware that scheduling, interrupts, shared memory, and watchdog discipline are easy to see.
 
-The REX material is not intended to dominate the early reading path. It is used as a contrast lens: a simpler system where task scheduling, shared memory, interrupt pressure, and watchdog discipline are easier to see directly. Once that baseline is visible, UNIX/Linux complexity feels less arbitrary.
+UNIX and Linux are the contrast: VM-backed, process-oriented systems with stronger isolation, richer file/process abstractions, and a different resource-management contract.
 
-Learning the REX-style model helps because it exposes the simpler baseline:
+That contrast helps because REX makes the simpler baseline visible:
 
 - A schedulable task has registers, a stack, priority, and wait state.
 - Tasks can often see the same memory image.
@@ -211,7 +211,7 @@ Learning the REX-style model helps because it exposes the simpler baseline:
 - Hardware events and interrupt latency are visible design pressures.
 - Protection is often a discipline of ownership, review, and testing rather than a full VM-enforced boundary.
 
-Once that baseline is clear, UNIX becomes easier to understand. UNIX adds machinery because it is solving a harder management problem: many programs, many users, independent lifetimes, file descriptors, permissions, page tables, demand paging, `fork`, `exec`, signals, and resource accounting. The learner should feel that UNIX is not complicated for its own sake; it is carrying responsibilities the simpler embedded model often does not need to carry.
+Once that baseline is clear, UNIX becomes easier to understand. UNIX adds machinery because it is solving a harder coexistence problem: many programs, independent lifetimes, file descriptors, permissions, page tables, demand paging, `fork`, `exec`, signals, and resource accounting. The learner should feel that UNIX is not complicated for its own sake; it is carrying responsibilities the simpler embedded model often does not need to carry.
 
 The comparison is not a contest. It is a way to answer:
 
@@ -241,7 +241,7 @@ In a UNIX/Linux system, it can be reasonable to prefer:
 - rich IPC
 - protection between independently authored programs
 
-This course draws from practical understanding across REX-style embedded work, UNIX fundamentals, and Linux/web systems. The point is to understand why each environment made different tradeoffs, so the engineer can recognize similar tradeoffs in modern backend systems.
+The point is to understand why each environment made different tradeoffs, so the engineer can recognize similar tradeoffs in modern backend systems.
 
 > **Side note:** Say this politely but clearly: "We are not comparing REX and UNIX as a contest. We are using them as two clean design poles: real-time shared-system discipline versus VM-backed multi-program isolation."
 
