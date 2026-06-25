@@ -80,7 +80,7 @@ Goroutines are runtime-scheduled execution units that can run in parallel on OS 
 
 ## 97. Deep Dive Into Coroutines
 
-> **Flow:** From **Why Javascript Picked This Kind Of Threading Model**, move into **Deep Dive Into Coroutines**. This page should answer the natural follow-up and prepare for **How Is Context Switch Going To Happen In Coroutine**.
+> **Flow:** From **Why JavaScript Chose Event-Loop Concurrency**, move into **Deep Dive Into Coroutines**. This page should answer the natural follow-up and prepare for **How Is Context Switch Going To Happen In Coroutine**.
 
 A coroutine is an execution unit that can suspend and resume without relying on kernel preemption.
 
@@ -633,7 +633,7 @@ But this does not make Go race-free:
 
 ## 106. Summary Of All Languages In Terms Of Process, Threads, Goroutines So Far
 
-> **Flow:** From **How Golang Goroutines Are Different From Python Coroutines**, move into **Summary Of All Languages In Terms Of Process, Threads, Goroutines So Far**. This page should answer the natural follow-up and prepare for **Backend Systems As Case: Better Written In Javascript With NodeJS For Threading Model**.
+> **Flow:** From **How Golang Goroutines Are Different From Python Coroutines**, move into **Summary Of All Languages In Terms Of Process, Threads, Goroutines So Far**. This page should answer the natural follow-up and prepare for **Node.js: Event-Loop Services**.
 
 | Language | Runtime style | Main concurrency tools | CPU parallelism caveat |
 |---|---|---|---|
